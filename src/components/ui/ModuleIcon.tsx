@@ -1,0 +1,82 @@
+import {
+  Lightbulb,
+  Network,
+  GitBranch,
+  Languages,
+  RefreshCw,
+  MonitorSmartphone,
+  Braces,
+  Split,
+  Package,
+  Boxes,
+  FileText,
+  Database,
+  ArrowUpDown,
+  Sparkles,
+  Wrench,
+  Repeat,
+  Search,
+  Binary,
+  ListOrdered,
+  Milestone,
+  BookOpen,
+  Footprints,
+  Terminal,
+  Cpu,
+  FlaskConical,
+  ListChecks,
+  Target,
+  Crosshair,
+  Flame,
+  CalendarCheck,
+  Trophy,
+  FileCheck,
+  Award,
+  type LucideIcon,
+} from "lucide-react";
+
+/**
+ * Content stores an icon by name so the lesson data stays plain serialisable
+ * objects. This maps those names onto the actual components.
+ */
+const ICONS: Record<string, LucideIcon> = {
+  Lightbulb,
+  Network,
+  GitBranch,
+  Languages,
+  RefreshCw,
+  MonitorSmartphone,
+  Braces,
+  Split,
+  Package,
+  Boxes,
+  FileText,
+  Database,
+  ArrowUpDown,
+  Sparkles,
+  Wrench,
+  Repeat,
+  Search,
+  Binary,
+  ListOrdered,
+  Milestone,
+  // badge icons
+  Footprints,
+  Terminal,
+  Cpu,
+  FlaskConical,
+  ListChecks,
+  Target,
+  Crosshair,
+  Flame,
+  CalendarCheck,
+  Trophy,
+  FileCheck,
+  Award,
+  BookOpen,
+};
+
+export function ModuleIcon({ name, className }: { name: string; className?: string }) {
+  const Icon = ICONS[name] ?? BookOpen;
+  return <Icon className={className} />;
+}
