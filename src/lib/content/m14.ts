@@ -31,7 +31,7 @@ export const m14: Module = {
 
   lessons: [
     {
-      id: "9+.1",
+      id: "9plus.1",
       title: "Recursion",
       summary: "A function that calls itself, and the base case that stops it.",
       minutes: 12,
@@ -99,7 +99,7 @@ print(factorial_loop(5))`,
     },
 
     {
-      id: "9+.2",
+      id: "9plus.2",
       title: "List comprehension",
       summary: "Build a list in one readable line.",
       minutes: 10,
@@ -151,7 +151,7 @@ print("Capitalised  :", [n.title() for n in names])`,
     },
 
     {
-      id: "9+.3",
+      id: "9plus.3",
       title: "Error handling with try / except",
       summary: "Catch a runtime error instead of letting the program crash.",
       minutes: 12,
@@ -219,7 +219,7 @@ print("You entered", n)`,
     },
 
     {
-      id: "9+.4",
+      id: "9plus.4",
       title: "Number bases & useful built-ins",
       summary: "Converting between decimal, binary, octal and hexadecimal.",
       minutes: 10,

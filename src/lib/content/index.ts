@@ -46,6 +46,27 @@ export const ALL_LESSONS: (Lesson & { moduleId: string; moduleSlug: string; modu
 
 export const ALL_EXERCISES: Exercise[] = MODULES.flatMap((m) => m.exercises);
 
+/*
+ * Module slugs and lesson ids are used verbatim as URL path segments, so a
+ * character the router will not round-trip (a `+` becomes a space) produces a
+ * lesson that builds happily and then 404s. Fail the build instead: this is
+ * cheaper to notice here than in the browser.
+ */
+const URL_SAFE = /^[A-Za-z0-9._-]+$/;
+for (const m of MODULES) {
+  if (!URL_SAFE.test(m.slug)) {
+    throw new Error(`Module slug "${m.slug}" is not URL safe: it must match ${URL_SAFE}`);
+  }
+  for (const l of m.lessons) {
+    if (!URL_SAFE.test(l.id)) {
+      throw new Error(
+        `Lesson id "${l.id}" (module ${m.id}) is not URL safe: it must match ${URL_SAFE}. ` +
+          `Lesson ids become URL path segments.`,
+      );
+    }
+  }
+}
+
 /** Every question in the app: module quizzes plus the inline lesson checks. */
 export const ALL_QUESTIONS: MCQ[] = MODULES.flatMap((m) => [
   ...m.quiz,
