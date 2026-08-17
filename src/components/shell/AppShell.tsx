@@ -22,6 +22,7 @@ import { cn, levelLabel } from "@/lib/utils";
 import { useProgress, levelFromXp } from "@/lib/store/progress";
 import { CommandPalette } from "./CommandPalette";
 import { RuntimeBadge } from "./RuntimeBadge";
+import { MadeBy } from "./MadeBy";
 
 const PRIMARY_NAV = [
   { href: "/", label: "Home", icon: Home },
@@ -162,6 +163,7 @@ function DesktopSidebar({ pathname, onSearch }: { pathname: string; onSearch: ()
           <RuntimeBadge />
           <ThemeToggle />
         </div>
+        <MadeBy className="mt-3" />
       </div>
     </aside>
   );

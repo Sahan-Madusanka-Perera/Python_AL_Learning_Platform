@@ -15,6 +15,7 @@ import {
   BookOpen,
   FlaskConical,
 } from "lucide-react";
+import { MadeBy } from "@/components/shell/MadeBy";
 import { SYLLABUS_MODULES, TOTAL_LESSONS, TOTAL_EXERCISES, TOTAL_PERIODS } from "@/lib/content";
 import { useOverallProgress, useNextLesson, useModuleProgress } from "@/lib/store/derive";
 import { useProgress, levelFromXp } from "@/lib/store/progress";
@@ -229,6 +230,8 @@ export default function HomePage() {
           </div>
         </section>
       )}
+
+      <MadeBy className="mt-12 border-t border-line pt-6 lg:hidden" />
     </div>
   );
 }
