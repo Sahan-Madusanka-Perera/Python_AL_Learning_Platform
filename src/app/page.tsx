@@ -6,7 +6,6 @@ import {
   ArrowRight,
   Flame,
   Play,
-  Sparkles,
   Terminal,
   Wrench,
   Layers,
@@ -19,8 +18,9 @@ import {
 import { SYLLABUS_MODULES, TOTAL_LESSONS, TOTAL_EXERCISES, TOTAL_PERIODS } from "@/lib/content";
 import { useOverallProgress, useNextLesson, useModuleProgress } from "@/lib/store/derive";
 import { useProgress, levelFromXp } from "@/lib/store/progress";
-import { ProgressRing, ProgressBar, Chip } from "@/components/ui/primitives";
+import { ProgressRing, ProgressBar } from "@/components/ui/primitives";
 import { ModuleIcon } from "@/components/ui/ModuleIcon";
+import { HeroConsole } from "@/components/home/HeroConsole";
 import { levelLabel, cn } from "@/lib/utils";
 
 export default function HomePage() {
@@ -36,60 +36,49 @@ export default function HomePage() {
   return (
     <div className="mx-auto max-w-5xl px-4 pb-12 sm:px-6">
       {/* ── hero ───────────────────────────────────────────────────────── */}
-      <section className="relative -mx-4 mb-8 overflow-hidden px-4 pb-8 pt-10 sm:-mx-6 sm:px-6 sm:pt-14">
+      <section className="relative -mx-4 mb-10 overflow-hidden px-4 pb-10 pt-8 sm:-mx-6 sm:px-6 sm:pt-12">
         <div className="aurora" aria-hidden />
 
-        <div className="relative">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-          >
-            <Chip tone="brand" icon={<Sparkles className="size-3" />}>
-              G.C.E. A/L ICT · Competency 9
-            </Chip>
-
-            <h1 className="mt-3 max-w-2xl font-[family-name:var(--font-display)] text-[30px] font-bold leading-[1.15] sm:text-[40px]">
+        <div className="relative grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,25rem)] lg:gap-12">
+          <div>
+            <h1 className="text-balance font-[family-name:var(--font-display)] text-[30px] font-bold leading-[1.1] tracking-[-0.02em] sm:text-[38px] lg:text-[40px]">
               Everything in Competency 9, and a{" "}
               <span className="text-emphasis">real Python</span> to run it in.
             </h1>
 
-            <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted">
-              All 13 competency levels — algorithms, flow charts, control structures, functions,
-              data structures, files, databases, searching and sorting. Every example runs on this
-              page. No installing anything, on any phone.
+            <p className="mt-4 max-w-[56ch] text-[15px] leading-relaxed text-muted">
+              All 13 competency levels of the G.C.E. A/L ICT syllabus: algorithms, flow charts,
+              control structures, functions, data structures, files, databases, searching and
+              sorting. Every example runs on this page. No installing anything, on any phone.
             </p>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.08 }}
-            className="mt-6 flex flex-wrap items-center gap-2.5"
-          >
-            <Link
-              href={next ? `/learn/${next.moduleSlug}/${next.id}` : "/learn"}
-              className="inline-flex h-11 items-center gap-2 rounded-xl bg-[var(--brand)] px-5 text-[14px] font-semibold text-[var(--brand-fg)] shadow-md transition-transform active:scale-[0.98]"
-            >
-              <Play className="size-4 fill-current" />
-              {started ? "Continue learning" : "Start Competency 9"}
-              <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              href="/playground"
-              className="inline-flex h-11 items-center gap-2 rounded-xl border border-line-strong px-4 text-[14px] font-medium transition-colors hover:bg-hover"
-            >
-              <Terminal className="size-4" />
-              Open the playground
-            </Link>
-          </motion.div>
+            <div className="mt-6 flex flex-wrap items-center gap-2.5">
+              <Link
+                href={next ? `/learn/${next.moduleSlug}/${next.id}` : "/learn"}
+                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[var(--brand)] px-5 text-[14px] font-semibold text-[var(--brand-fg)] shadow-md transition-all hover:brightness-110 active:scale-[0.98] sm:w-auto"
+              >
+                <Play className="size-4 fill-current" />
+                {started ? "Continue learning" : "Start Competency 9"}
+                <ArrowRight className="size-4" />
+              </Link>
+              <Link
+                href="/playground"
+                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-line-strong bg-surface px-4 text-[14px] font-medium transition-colors hover:bg-hover sm:w-auto"
+              >
+                <Terminal className="size-4" />
+                Open the playground
+              </Link>
+            </div>
 
-          <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[12.5px] text-subtle">
-            <span>{SYLLABUS_MODULES.length} competency levels</span>
-            <span>{TOTAL_LESSONS} lessons</span>
-            <span>{TOTAL_EXERCISES} auto-graded labs</span>
-            <span>{TOTAL_PERIODS} syllabus periods covered</span>
+            <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-1.5 text-[13px] text-muted">
+              <Fact value={SYLLABUS_MODULES.length} label="competency levels" />
+              <Fact value={TOTAL_LESSONS} label="lessons" />
+              <Fact value={TOTAL_EXERCISES} label="auto-graded labs" />
+              <Fact value={TOTAL_PERIODS} label="syllabus periods" />
+            </ul>
           </div>
+
+          <HeroConsole />
         </div>
       </section>
 
@@ -241,6 +230,18 @@ export default function HomePage() {
         </section>
       )}
     </div>
+  );
+}
+
+/** One piece of hero evidence: the number carries the weight, the label explains it. */
+function Fact({ value, label }: { value: number; label: string }) {
+  return (
+    <li className="flex items-baseline gap-1.5">
+      <span className="font-[family-name:var(--font-mono)] text-[13.5px] font-semibold tabular-nums text-ink">
+        {value}
+      </span>
+      {label}
+    </li>
   );
 }
 

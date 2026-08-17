@@ -185,7 +185,7 @@ export default function PlaygroundPage() {
           {showInputs && (
             <div className="shrink-0 border-t border-line px-3 py-2">
               <p className="mb-1 text-[11px] font-medium text-subtle">
-                Lines fed to `input()` before it starts asking you interactively — one per line
+                Lines fed to `input()` before it starts asking you interactively: one per line
               </p>
               <textarea
                 value={stdinText}
@@ -232,7 +232,7 @@ export default function PlaygroundPage() {
               awaitingInput={py.awaitingInput}
               onSubmitInput={py.sendInput}
               minHeight="10rem"
-              emptyHint="Press Run — output appears here"
+              emptyHint="Press Run: output appears here"
             />
 
             {py.error && <ErrorPanel error={py.error} className="mt-3" />}

@@ -62,8 +62,8 @@ If you want to add to a file, the mode is \`"a"\`, not \`"w"\`. This is the sing
           kind: "text",
           md: `You can also state whether the file is text or binary:
 
-- \`"t"\` — **text** mode (the default)
-- \`"b"\` — **binary** mode, for images and other non-text files
+- \`"t"\`: **text** mode (the default)
+- \`"b"\`: **binary** mode, for images and other non-text files
 
 So \`open("n1.txt")\` is exactly the same as \`open("n1.txt", "rt")\`.`,
         },
@@ -95,7 +95,7 @@ with open("n1.txt", "r") as f:
             ],
             answer: 1,
             explain:
-              'Write mode truncates the file — everything in it is deleted the instant it is opened. Use "a" (append) to keep existing data.',
+              'Write mode truncates the file: everything in it is deleted the instant it is opened. Use "a" (append) to keep existing data.',
           },
         },
       ],
@@ -110,7 +110,7 @@ with open("n1.txt", "r") as f:
       blocks: [
         {
           kind: "text",
-          md: `The panel below is a real, working file system running inside your browser. Files you create in one example are still there in the next — open the **Files** tab to see them.`,
+          md: `The panel below is a real, working file system running inside your browser. Files you create in one example are still there in the next: open the **Files** tab to see them.`,
         },
         { kind: "widget", id: "file-lab" },
         { kind: "heading", text: "Creating and writing" },
@@ -132,7 +132,7 @@ print(open("n1.txt").read())`,
           kind: "callout",
           tone: "tip",
           title: "write() does not add a new line",
-          md: `\`print()\` moves to the next line automatically. \`write()\` does **not** — you must add \`\\n\` yourself, or everything ends up on one line.`,
+          md: `\`print()\` moves to the next line automatically. \`write()\` does **not**: you must add \`\\n\` yourself, or everything ends up on one line.`,
         },
         { kind: "heading", text: "Appending" },
         {
@@ -153,23 +153,23 @@ print(open("n1.txt").read())`,
           lang: "python",
           runnable: true,
           files: [{ path: "n1.txt", content: "Ravi 85\nMala 72\nKumara 64\n" }],
-          code: `# 1. read() — the whole file as one string
+          code: `# 1. read(): the whole file as one string
 f = open("n1.txt", "r")
 print("read():", repr(f.read()))
 f.close()
 
-# 2. read(n) — only the first n characters
+# 2. read(n): only the first n characters
 f = open("n1.txt", "r")
 print("read(4):", repr(f.read(4)))
 f.close()
 
-# 3. readline() — one line at a time
+# 3. readline(): one line at a time
 f = open("n1.txt", "r")
 print("line 1:", repr(f.readline()))
 print("line 2:", repr(f.readline()))
 f.close()
 
-# readlines() — every line, as a list
+# readlines(): every line, as a list
 f = open("n1.txt", "r")
 print("readlines():", f.readlines())
 f.close()`,
@@ -199,7 +199,7 @@ print("Average:", round(total / count, 2))`,
         { kind: "heading", text: "Deleting files" },
         {
           kind: "text",
-          md: `Deleting is not part of the file object — it belongs to the **operating system**, so you import the \`os\` module.`,
+          md: `Deleting is not part of the file object: it belongs to the **operating system**, so you import the \`os\` module.`,
         },
         {
           kind: "code",
@@ -221,7 +221,7 @@ else:
           kind: "callout",
           tone: "exam",
           title: "The five operations to name",
-          md: `**open, close, read, write, append** — these are the "basic file operations" in the learning outcome. Be ready to give the Python for each one.`,
+          md: `**open, close, read, write, append**: these are the "basic file operations" in the learning outcome. Be ready to give the Python for each one.`,
         },
         {
           kind: "check",
@@ -237,11 +237,159 @@ else:
         },
         { kind: "exercise", exerciseId: "ex-9.11-1" },
         { kind: "exercise", exerciseId: "ex-9.11-2" },
+        { kind: "exercise", exerciseId: "ex-9.11-3" },
+        { kind: "exercise", exerciseId: "ex-9.11-4" },
       ],
     },
   ],
 
   exercises: [
+    {
+      id: "ex-9.11-3",
+      title: "Rainfall report",
+      level: "9.11",
+      difficulty: 2,
+      xp: 45,
+      tags: ["files", "loops", "parsing"],
+      brief: `The file \`rainfall.txt\` holds one week of readings from a weather station. Each line is a day and a rainfall figure in millimetres, separated by a space:
+
+\`\`\`
+Monday 12.5
+Tuesday 0
+Wednesday 43.2
+...
+\`\`\`
+
+Read the file and print exactly three lines:
+
+\`\`\`
+Total: 121.4
+Wettest: Wednesday 43.2
+Dry days: 2
+\`\`\`
+
+A **dry day** is one with exactly \`0\` rainfall. Round the total to **1 decimal place**.
+
+Do not retype the data into your program. Read it from the file, because next week the file will have different numbers in it.`,
+      files: [
+        {
+          path: "rainfall.txt",
+          content:
+            "Monday 12.5\nTuesday 0\nWednesday 43.2\nThursday 8.1\nFriday 0\nSaturday 31.6\nSunday 26.0\n",
+        },
+      ],
+      starter: `f = open("rainfall.txt", "r")
+
+# Your code here
+`,
+      hints: [
+        "Loop the file directly: `for line in f:` gives one line at a time.",
+        "`line.split()` gives `['Wednesday', '43.2']`. The rainfall needs `float()`.",
+        "Skip blank lines with `if line.strip() == \"\": continue` so a trailing newline cannot crash you.",
+        "`round(total, 1)` fixes the total to one decimal place before printing.",
+      ],
+      solution: `f = open("rainfall.txt", "r")
+
+total = 0
+wettest_day = ""
+wettest = -1
+dry = 0
+
+for line in f:
+    if line.strip() == "":
+        continue
+    parts = line.split()
+    day = parts[0]
+    mm = float(parts[1])
+    total = total + mm
+    if mm > wettest:
+        wettest = mm
+        wettest_day = day
+    if mm == 0:
+        dry = dry + 1
+
+f.close()
+
+print("Total:", round(total, 1))
+print("Wettest:", wettest_day, wettest)
+print("Dry days:", dry)`,
+      tests: [
+        {
+          kind: "io",
+          name: "The weekly report",
+          expect: "Total: 121.4\nWettest: Wednesday 43.2\nDry days: 2",
+          match: "loose",
+        },
+        { kind: "source", name: "Actually opens the file", mustUse: ["open("] },
+        { kind: "source", name: "Does not hard-code the answer", mustNotUse: ["121.4"] },
+      ],
+    },
+    {
+      id: "ex-9.11-4",
+      title: "Append to the attendance register",
+      level: "9.11",
+      difficulty: 2,
+      xp: 40,
+      tags: ["files", "append mode", "input"],
+      brief: `\`register.txt\` already contains today's attendance. Add a new name **without destroying what is there**, then show the whole register back.
+
+Read one name, append it as a new line, then print every line in the file numbered from 1:
+
+\`\`\`
+1. Ravi
+2. Mala
+3. Geetha
+4. Sanduni
+\`\`\`
+
+The mode letter you choose is the whole exercise. Pick the wrong one and the three existing names are gone the instant the file opens, with no error message to warn you.`,
+      files: [{ path: "register.txt", content: "Ravi\nMala\nGeetha\n" }],
+      starter: `name = input("New name: ")
+
+# Open in the right mode, append, then close
+
+# Now read the whole file back and print it numbered
+`,
+      hints: [
+        'Append mode is `open("register.txt", "a")`. Write mode `"w"` would empty the file first.',
+        'You must write the newline yourself: `f.write(name + "\\n")`.',
+        "Close the file after writing, then open it again for reading.",
+        "Number the lines with a counter, or use `enumerate(lines, 1)`.",
+      ],
+      solution: `name = input("New name: ")
+
+f = open("register.txt", "a")
+f.write(name + "\\n")
+f.close()
+
+f = open("register.txt", "r")
+lines = f.readlines()
+f.close()
+
+count = 1
+for line in lines:
+    if line.strip() != "":
+        print(str(count) + ".", line.strip())
+        count = count + 1`,
+      tests: [
+        {
+          kind: "io",
+          name: "Sanduni is added at the end",
+          stdin: ["Sanduni"],
+          expect: "1. Ravi\n2. Mala\n3. Geetha\n4. Sanduni",
+          match: "loose",
+        },
+        {
+          kind: "io",
+          name: "A different name still keeps the first three",
+          stdin: ["Nimal"],
+          expect: "1. Ravi\n2. Mala\n3. Geetha\n4. Nimal",
+          match: "loose",
+          hidden: true,
+        },
+        { kind: "source", name: "Uses append mode, not write mode", mustUse: ['"a"'] },
+      ],
+    },
     {
       id: "ex-9.11-1",
       title: "Write then read back",
@@ -267,7 +415,7 @@ Remember to close the file after writing.`,
 `,
       hints: [
         'Open with `open("students.txt", "w")` to create it.',
-        "`write()` does not add line breaks — end each name with `\\n`.",
+        "`write()` does not add line breaks: end each name with `\\n`.",
         "Close the file after writing, before you read it.",
         'Read it all at once with `print(open("students.txt").read())`.',
       ],
@@ -313,12 +461,12 @@ The average must be rounded to 1 decimal place.`,
       files: [
         { path: "marks.txt", content: "Ravi 85\nMala 72\nKumara 64\nSanduni 91\nNimal 58\n" },
       ],
-      starter: `# marks.txt already exists — open it and process it
+      starter: `# marks.txt already exists: open it and process it
 `,
       hints: [
         "Loop over the file directly: `for line in f:` gives you one line at a time.",
         "`line.strip()` removes the trailing newline; skip any line that is then empty.",
-        "`line.split(\" \")` gives a list of two strings — the name and the mark as TEXT.",
+        "`line.split(\" \")` gives a list of two strings: the name and the mark as TEXT.",
         "Convert with `int(mark)` before comparing, or '9' will look bigger than '85'.",
       ],
       solution: `best_name = ""
@@ -343,8 +491,17 @@ f.close()
 print("Highest:", best_name, best_mark)
 print("Average:", round(total / count, 1))`,
       tests: [
-        { kind: "io", name: "Finds the highest", expect: "Highest: Sanduni 91", match: "contains" },
-        { kind: "io", name: "Calculates the average", expect: "Average: 74.0", match: "contains" },
+        {
+          kind: "io",
+          name: "Reports the highest and the average",
+          expect: "Highest: Sanduni 91\nAverage: 74.0",
+          match: "loose",
+        },
+        {
+          kind: "source",
+          name: "Finds the highest with a loop, not max()",
+          mustNotUse: ["max(", "sorted("],
+        },
         { kind: "source", name: "Reads the file rather than hard-coding", mustUse: ["open("] },
       ],
     },

@@ -4,7 +4,7 @@ export const m07: Module = {
   id: "9.7",
   slug: "python-basics",
   title: "Python Fundamentals",
-  tagline: "Variables, data types, operators and I/O — the vocabulary of every program you will write.",
+  tagline: "Variables, data types, operators and I/O: the vocabulary of every program you will write.",
   icon: "Braces",
   periods: 10,
   outcomes: [
@@ -31,7 +31,7 @@ export const m07: Module = {
     {
       id: "9.7.1",
       title: "Program structure & comments",
-      summary: "Every program follows the same skeleton — and why comments are written for humans.",
+      summary: "Every program follows the same skeleton, and why comments are written for humans.",
       minutes: 10,
       outcomes: [
         "Identifies the structure of a program",
@@ -64,7 +64,7 @@ End`,
 import math
 
 # ── Constants and variables ───────────────────────
-PI = 3.14159          # a constant — by convention, CAPITALS
+PI = 3.14159          # a constant: by convention, CAPITALS
 
 # ── Input ─────────────────────────────────────────
 radius = float(input("Enter the radius: "))
@@ -85,7 +85,7 @@ print("Circumference:", circumference)`,
           kind: "text",
           md: `A **comment** is a note in the source code that the translator ignores completely. In Python, anything after a \`#\` on a line is a comment.
 
-Comments exist for one reason: so that a **human** — your teacher, a classmate, or you in six months — can understand what the code does.`,
+Comments exist for one reason: so that a **human** (your teacher, a classmate, or you in six months) can understand what the code does.`,
         },
         {
           kind: "code",
@@ -103,7 +103,7 @@ if age >= 18:
           kind: "callout",
           tone: "tip",
           title: "Comment the WHY, not the WHAT",
-          md: `\`x = x + 1   # add 1 to x\` is useless — anyone can see that.
+          md: `\`x = x + 1   # add 1 to x\` is useless: anyone can see that.
 
 \`x = x + 1   # move to the next student in the list\` is valuable, because it explains *why*.`,
         },
@@ -142,7 +142,7 @@ if age >= 18:
       blocks: [
         {
           kind: "text",
-          md: `A **variable** is a symbolic name for a place in the computer's memory where a value is stored. The value can be changed while the program runs — that is what makes it *variable*.
+          md: `A **variable** is a symbolic name for a place in the computer's memory where a value is stored. The value can be changed while the program runs: that is what makes it *variable*.
 
 An **identifier** is the name you give to any object: a variable, a function, or a class.`,
         },
@@ -207,8 +207,8 @@ Python has no keyword to enforce this, so programmers follow a **convention**: c
           title: "The syllabus example",
           md: `In the straight-line equation **y = mx + c**:
 - \`m\` (the gradient) and \`c\` (the intercept) are **constants**
-- \`x\` is the **independent variable** — you choose it
-- \`y\` is the **dependent variable** — its value depends on x, m and c`,
+- \`x\` is the **independent variable**: you choose it
+- \`y\` is the **dependent variable**: its value depends on x, m and c`,
         },
         {
           kind: "code",
@@ -243,7 +243,7 @@ print(full)
 
 # But + between text and a number is an error:
 age = 17
-# print("Age: " + age)         # TypeError — uncomment to see it
+# print("Age: " + age)         # TypeError: uncomment to see it
 print("Age: " + str(age))      # convert the number to text first
 print("Age:", age)             # or just let print handle it`,
         },
@@ -256,7 +256,7 @@ print("Age:", age)             # or just let print handle it`,
             options: ["2nd_mark", "total marks", "_average", "class"],
             answer: 2,
             explain:
-              "`_average` is valid — identifiers may begin with an underscore. `2nd_mark` starts with a digit, `total marks` contains a space, and `class` is a reserved keyword.",
+              "`_average` is valid: identifiers may begin with an underscore. `2nd_mark` starts with a digit, `total marks` contains a space, and `class` is a reserved keyword.",
           },
         },
       ],
@@ -277,11 +277,11 @@ print("Age:", age)             # or just let print handle it`,
           kind: "table",
           headers: ["Category", "Types", "Example"],
           rows: [
-            ["Numbers — integral", "Integer (int), Boolean (bool)", "x = 1 · flag = True"],
-            ["Numbers — real", "Floating point (float)", "y = 2.8"],
-            ["Numbers — complex", "Complex (complex)", "z = 1j"],
-            ["Sequences — immutable", "String (str), Tuple, Bytes", 'name = "Ravi" · t = (1, 2)'],
-            ["Sequences — mutable", "List, Byte array", "nums = [1, 2, 3]"],
+            ["Numbers: integral", "Integer (int), Boolean (bool)", "x = 1 · flag = True"],
+            ["Numbers: real", "Floating point (float)", "y = 2.8"],
+            ["Numbers: complex", "Complex (complex)", "z = 1j"],
+            ["Sequences: immutable", "String (str), Tuple, Bytes", 'name = "Ravi" · t = (1, 2)'],
+            ["Sequences: mutable", "List, Byte array", "nums = [1, 2, 3]"],
             ["Set types", "Set, Frozen set", "s = {1, 2, 3}"],
             ["Mappings", "Dictionary (dict)", 'd = {"a": 1}'],
           ],
@@ -306,7 +306,7 @@ for value in [x, y, z, name, passed, marks, point, person]:
         },
         {
           kind: "heading",
-          text: "Casting — converting between types",
+          text: "Casting: converting between types",
         },
         {
           kind: "text",
@@ -325,24 +325,24 @@ for value in [x, y, z, name, passed, marks, point, person]:
           kind: "code",
           lang: "python",
           runnable: true,
-          code: `# int() — from an int, a float or a text literal
+          code: `# int(): from an int, a float or a text literal
 print(int(7), int(7.9), int("25"))     # 7 7 25   (note: 7.9 is cut, not rounded)
 
-# float() — decimals
+# float(): decimals
 print(float(3), float("3.5"))          # 3.0 3.5
 
-# str() — text from almost anything
+# str(): text from almost anything
 print(str(99) + " bottles")            # 99 bottles
 
 # Careful: this one fails
 # print(int("3.5"))                    # ValueError
-print(int(float("3.5")))               # 3  — convert twice`,
+print(int(float("3.5")))               # 3, converted twice`,
         },
         {
           kind: "callout",
           tone: "key",
           title: "The single most important rule in this module",
-          md: `**\`input()\` always returns a string** — even when the user typed a number.
+          md: `**\`input()\` always returns a string**: even when the user typed a number.
 
 If you need to do arithmetic with it, you *must* cast it:
 - \`age = int(input("Age: "))\` for whole numbers
@@ -375,7 +375,7 @@ print("With casting:   ", int(a) + int(b))  # adds the numbers`,
             options: ["10", "9", "9.8", "An error"],
             answer: 1,
             explain:
-              "`int()` truncates towards zero — it cuts off the decimal part rather than rounding. To round properly use `round(9.8)`, which gives 10.",
+              "`int()` truncates towards zero: it cuts off the decimal part rather than rounding. To round properly use `round(9.8)`, which gives 10.",
           },
         },
         { kind: "exercise", exerciseId: "ex-9.7-1" },
@@ -385,7 +385,7 @@ print("With casting:   ", int(a) + int(b))  # adds the numbers`,
     {
       id: "9.7.4",
       title: "Operators",
-      summary: "Arithmetic, assignment, relational, logical and bitwise — all five categories.",
+      summary: "Arithmetic, assignment, relational, logical and bitwise: all five categories.",
       minutes: 18,
       outcomes: ["Identifies and uses operators in a program"],
       blocks: [
@@ -416,10 +416,10 @@ b = 2
 print("a + b  =", a + b)
 print("a - b  =", a - b)
 print("a * b  =", a * b)
-print("a / b  =", a / b)     # 3.5  — true division
-print("a % b  =", a % b)     # 1    — the remainder
-print("a ** b =", a ** b)    # 49   — 7 squared
-print("a // b =", a // b)    # 3    — whole part only`,
+print("a / b  =", a / b)     # 3.5  true division
+print("a % b  =", a % b)     # 1    the remainder
+print("a ** b =", a ** b)    # 49   7 squared
+print("a // b =", a // b)    # 3    whole part only`,
         },
         {
           kind: "callout",
@@ -573,7 +573,7 @@ print("a >> 1 =", a >> 1)`,
           kind: "table",
           headers: ["Precedence", "Operators", "Description"],
           rows: [
-            ["Highest", "()", "Parentheses — always evaluated first"],
+            ["Highest", "()", "Parentheses: always evaluated first"],
             ["", "**", "Exponentiation"],
             ["", "~  +x  -x", "Complement, unary plus and minus"],
             ["", "*  /  %  //", "Multiply, divide, modulo, floor division"],
@@ -597,14 +597,14 @@ print("a >> 1 =", a >> 1)`,
           lang: "python",
           runnable: true,
           caption: "Same numbers, different brackets, different answers",
-          code: `print(2 + 3 * 4)        # 14 — * happens first
-print((2 + 3) * 4)      # 20 — brackets force + first
+          code: `print(2 + 3 * 4)        # 14: * happens first
+print((2 + 3) * 4)      # 20: brackets force + first
 
-print(10 - 4 - 2)       # 4  — left to right
-print(2 ** 3 ** 2)      # 512 — ** goes RIGHT to left: 2**(3**2)
+print(10 - 4 - 2)       # 4, evaluated left to right
+print(2 ** 3 ** 2)      # 512: ** goes RIGHT to left: 2**(3**2)
 
-print(10 / 2 * 5)       # 25.0 — same precedence, left to right
-print(True or False and False)   # True — 'and' binds tighter than 'or'`,
+print(10 / 2 * 5)       # 25.0: same precedence, left to right
+print(True or False and False)   # True, 'and' binds tighter than 'or'`,
         },
         {
           kind: "callout",
@@ -633,7 +633,7 @@ print(True or False and False)   # True — 'and' binds tighter than 'or'`,
           lang: "python",
           runnable: true,
           stdin: ["Sanduni", "17"],
-          caption: "Run it — the program pauses and waits for you",
+          caption: "Run it: the program pauses and waits for you",
           code: `name = input("What is your name? ")
 age = int(input("How old are you? "))
 
@@ -651,13 +651,13 @@ print("Next year you will be", age + 1)`,
           code: `name = "Ravi"
 marks = 87
 
-# Several values, separated by commas — print adds a space between them
+# Several values, separated by commas: print adds a space between them
 print("Student:", name, "Marks:", marks)
 
 # Joining strings with +  (everything must be a string)
 print("Student: " + name + " Marks: " + str(marks))
 
-# f-string — the modern, readable way
+# f-string: the modern, readable way
 print(f"Student: {name} scored {marks} marks")
 
 # Controlling the separator and the line ending
@@ -668,18 +668,100 @@ print("...continues on the same line")`,
         {
           kind: "callout",
           tone: "tip",
-          title: "Three ways to print — pick one and be consistent",
-          md: `- \`print("Age:", age)\` — simplest, adds a space automatically
-- \`print("Age: " + str(age))\` — needs casting, full control of spacing
-- \`print(f"Age: {age}")\` — clearest for complex messages`,
+          title: "Three ways to print: pick one and be consistent",
+          md: `- \`print("Age:", age)\`: simplest, adds a space automatically
+- \`print("Age: " + str(age))\`: needs casting, full control of spacing
+- \`print(f"Age: {age}")\`: clearest for complex messages`,
         },
         { kind: "exercise", exerciseId: "ex-9.7-2" },
         { kind: "exercise", exerciseId: "ex-9.7-3" },
+        { kind: "exercise", exerciseId: "ex-9.7-4" },
       ],
     },
   ],
 
   exercises: [
+    {
+      id: "ex-9.7-4",
+      title: "Decode an NIC number",
+      level: "9.7",
+      difficulty: 3,
+      xp: 50,
+      tags: ["strings", "slicing", "selection", "integer division"],
+      brief: `An old-format National Identity Card number such as \`893456789V\` carries real information in its digits.
+
+- Characters **1 to 2** are the year of birth: \`89\` means **1989**.
+- Characters **3 to 5** are the day of the year: \`345\`.
+- If that day number is **over 500**, the holder is **female** and you subtract 500 to get the real day. Otherwise the holder is **male**.
+
+Read an NIC number and print three lines:
+
+\`\`\`
+Year: 1989
+Gender: Male
+Day: 345
+\`\`\`
+
+For \`895671234V\` the day digits are \`567\`, which is over 500, so the answer is female and day **67**.
+
+Slicing is the whole trick here: \`nic[0:2]\` takes the first two characters, and \`int()\` turns them back into a number you can do arithmetic with.`,
+      starter: `nic = input("NIC number: ")
+
+# Your code here
+`,
+      hints: [
+        "`nic[0:2]` is the first two characters as **text**, so wrap it in `int()`.",
+        "The day digits are `nic[2:5]`.",
+        "1900 + 89 gives 1989.",
+        "Decide gender with an `if day > 500:` and remember to take 500 off the day inside that branch.",
+      ],
+      solution: `nic = input("NIC number: ")
+
+year = 1900 + int(nic[0:2])
+day = int(nic[2:5])
+
+if day > 500:
+    gender = "Female"
+    day = day - 500
+else:
+    gender = "Male"
+
+print("Year:", year)
+print("Gender:", gender)
+print("Day:", day)`,
+      tests: [
+        {
+          kind: "io",
+          name: "A male NIC",
+          stdin: ["893456789V"],
+          expect: "Year: 1989\nGender: Male\nDay: 345",
+          match: "loose",
+        },
+        {
+          kind: "io",
+          name: "A female NIC",
+          stdin: ["895671234V"],
+          expect: "Year: 1989\nGender: Female\nDay: 67",
+          match: "loose",
+        },
+        {
+          kind: "io",
+          name: "A year with a leading zero",
+          stdin: ["010151234V"],
+          expect: "Year: 1901\nGender: Male\nDay: 15",
+          match: "loose",
+          hidden: true,
+        },
+        {
+          kind: "io",
+          name: "Day 501 is the first female day",
+          stdin: ["955011234V"],
+          expect: "Year: 1995\nGender: Female\nDay: 1",
+          match: "loose",
+          hidden: true,
+        },
+      ],
+    },
     {
       id: "ex-9.7-1",
       title: "Fahrenheit to Centigrade",
@@ -719,22 +801,22 @@ print("Centigrade:", c)`,
           kind: "io",
           name: "98.6 F is 37 C",
           stdin: ["98.6"],
-          expect: "37.0",
-          match: "contains",
+          expect: "Centigrade: 37.0",
+          match: "loose",
         },
         {
           kind: "io",
           name: "32 F is 0 C (freezing point)",
           stdin: ["32"],
-          expect: "0.0",
-          match: "contains",
+          expect: "Centigrade: 0.0",
+          match: "loose",
         },
         {
           kind: "io",
           name: "212 F is 100 C (boiling point)",
           stdin: ["212"],
-          expect: "100.0",
-          match: "contains",
+          expect: "Centigrade: 100.0",
+          match: "loose",
           hidden: true,
         },
       ],
@@ -760,7 +842,7 @@ width = float(input("Width: "))
 `,
       hints: [
         "Area of a rectangle = length × width.",
-        "Perimeter = 2 × (length + width). The brackets matter — without them you would get 2 × length + width.",
+        "Perimeter = 2 × (length + width). The brackets matter: without them you would get 2 × length + width.",
         "Print each on its own line with two separate print statements.",
       ],
       solution: `length = float(input("Length: "))
@@ -805,13 +887,13 @@ Tens: 7
 Units: 2
 \`\`\`
 
-You must use only arithmetic — \`//\` and \`%\`. Do not convert the number to a string.`,
+You must use only arithmetic: \`//\` and \`%\`. Do not convert the number to a string.`,
       starter: `n = int(input("Enter a three-digit number: "))
 
 # Your code here
 `,
       hints: [
-        "`n % 10` gives the last digit — the remainder after dividing by 10.",
+        "`n % 10` gives the last digit: the remainder after dividing by 10.",
         "`n // 100` gives the hundreds digit, because floor division throws away the rest.",
         "For the tens digit: first do `n // 10` to remove the units, then `% 10` on that result.",
         "So the tens digit is `(n // 10) % 10`.",

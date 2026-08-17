@@ -1,10 +1,10 @@
-# Competency 9 — A/L Python Learning Platform
+# Competency 9: A/L Python Learning Platform
 
 A complete, self-contained learning platform for **G.C.E. A/L ICT Competency 9**:
 *"Develops algorithms to solve problems and uses python programming language to encode algorithms."*
 
 It covers all 13 competency levels (9.1 – 9.13), and every Python example in it
-runs for real — in the browser, on a phone, with no installation and no server.
+runs for real: in the browser, on a phone, with no installation and no server.
 
 ---
 
@@ -39,7 +39,7 @@ That ruled out a server-side code runner and a login wall. So:
 **The step-through tracer.** *"Uses hand traces to verify the solutions"* is an
 explicit learning outcome and a recurring exam question. The tracer runs the real
 program one line at a time using `sys.settrace`, records every variable at every
-step, and renders it as both a variable panel and a **trace table** — the exact
+step, and renders it as both a variable panel and a **trace table**: the exact
 artefact students have to produce on paper.
 
 **Interactive `input()`.** The program genuinely pauses and waits. This uses
@@ -117,7 +117,7 @@ app/
 ### Editing the course
 
 All content is typed data in `src/lib/content/`. One module per file. Adding a
-lesson means adding an object to a `lessons` array — the module page, the search
+lesson means adding an object to a `lessons` array: the module page, the search
 index, the exam question pool, the progress calculations and the syllabus
 coverage panel all pick it up automatically.
 
@@ -136,7 +136,7 @@ CodeMirror 6 · Motion · Zustand + IndexedDB
   button. Without it the app still works, but inputs must be supplied before
   running and a runaway loop restarts the worker instead of raising
   `KeyboardInterrupt`.
-- **MySQL examples are not executable** — they are shown as reference code beside
+- **MySQL examples are not executable**: they are shown as reference code beside
   a runnable SQLite equivalent, as described above.
 - **Structured questions are self-marked.** They are graded against a visible
   rubric rather than automatically; the model answer unlocks once an attempt has

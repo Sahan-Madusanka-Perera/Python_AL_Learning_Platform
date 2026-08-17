@@ -48,7 +48,7 @@ export function LessonView({ slug, lessonId }: { slug: string; lessonId: string 
     });
     toast({
       title: "Lesson complete",
-      body: `+20 XP — ${lesson.title}`,
+      body: `+20 XP: ${lesson.title}`,
       tone: "success",
       icon: <CheckCircle2 className="size-4 text-success-500" />,
     });
@@ -128,7 +128,7 @@ export function LessonView({ slug, lessonId }: { slug: string; lessonId: string 
             {done ? (
               <>
                 <Check className="size-4.5" />
-                {justDone ? "Nice work — lesson complete" : "Lesson completed"}
+                {justDone ? "Nice work: lesson complete" : "Lesson completed"}
               </>
             ) : (
               <>

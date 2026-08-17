@@ -20,7 +20,7 @@ export const m01: Module = {
       id: "9.1.1",
       title: "What problem solving actually means",
       summary:
-        "The four-stage cycle every solution goes through — and why skipping the first stage is the most expensive mistake a programmer makes.",
+        "The four-stage cycle every solution goes through, and why skipping the first stage is the most expensive mistake a programmer makes.",
       minutes: 12,
       outcomes: ["Describes the steps of problem solving process"],
       blocks: [
@@ -52,7 +52,7 @@ If the problem says *"calculate the discount for a customer"*, is validating the
             },
             {
               title: "Planning the solution",
-              md: `Work out the steps **before** touching a keyboard. Break the problem into smaller parts, decide the order, and write the plan as an algorithm — a flow chart or pseudocode.
+              md: `Work out the steps **before** touching a keyboard. Break the problem into smaller parts, decide the order, and write the plan as an algorithm: a flow chart or pseudocode.
 
 This is where most of the real thinking happens. Competency levels 9.2 and 9.3 are entirely about this stage.`,
             },
@@ -60,7 +60,7 @@ This is where most of the real thinking happens. Competency levels 9.2 and 9.3 a
               title: "Implementation",
               md: `Now translate the plan into a programming language, run it, and test it with real values.
 
-If the results are wrong, you go back around the cycle — usually to *understanding*, because a wrong answer almost always means a misunderstood problem.`,
+If the results are wrong, you go back around the cycle: usually to *understanding*, because a wrong answer almost always means a misunderstood problem.`,
             },
           ],
         },
@@ -68,7 +68,7 @@ If the results are wrong, you go back around the cycle — usually to *understan
           kind: "callout",
           tone: "exam",
           title: "How this is examined",
-          md: `You will be given a short real-world situation and asked to **write down the steps to solve it**. Marks come from naming the stages in order and applying them to *that* situation — not from generic definitions. Always mention the boundary explicitly; it is the step candidates most often forget.`,
+          md: `You will be given a short real-world situation and asked to **write down the steps to solve it**. Marks come from naming the stages in order and applying them to *that* situation, not from generic definitions. Always mention the boundary explicitly; it is the step candidates most often forget.`,
         },
         {
           kind: "heading",
@@ -138,16 +138,16 @@ If the results are wrong, you go back around the cycle — usually to *understan
           title: "The problem",
           md: `A shop gives a **15% discount** when a customer buys goods worth **Rs. 2,000 or more**. Write a program that reads the bill amount from the keyboard and displays the amount the customer has to pay.`,
         },
-        { kind: "heading", text: "Stage 1 — Understand" },
+        { kind: "heading", text: "Stage 1: Understand" },
         {
           kind: "text",
           md: `Solve one by hand first. If the bill is **Rs. 3,000**: the discount is 15% of 3,000 = **450**, so the customer pays **2,550**.
 
 If the bill is **Rs. 1,500**: it is below 2,000, so there is no discount and the customer pays **1,500**.
 
-Now you understand it — you produced correct answers without a computer.`,
+Now you understand it: you produced correct answers without a computer.`,
         },
-        { kind: "heading", text: "Stage 2 — Define and bound" },
+        { kind: "heading", text: "Stage 2: Define and bound" },
         {
           kind: "compare",
           left: {
@@ -169,11 +169,11 @@ Now you understand it — you produced correct answers without a computer.`,
             ],
           },
         },
-        { kind: "heading", text: "Stage 3 — Plan" },
+        { kind: "heading", text: "Stage 3: Plan" },
         {
           kind: "code",
           lang: "pseudo",
-          caption: "The plan, written as pseudocode — no Python yet",
+          caption: "The plan, written as pseudocode: no Python yet",
           code: `Begin
     Read amount
     If amount >= 2000 then
@@ -185,10 +185,10 @@ Now you understand it — you produced correct answers without a computer.`,
     Display final
 End`,
         },
-        { kind: "heading", text: "Stage 4 — Implement" },
+        { kind: "heading", text: "Stage 4: Implement" },
         {
           kind: "text",
-          md: `Only now do we write Python. Notice how each pseudocode line becomes roughly one Python line — that is the reward for planning properly.`,
+          md: `Only now do we write Python. Notice how each pseudocode line becomes roughly one Python line: that is the reward for planning properly.`,
         },
         {
           kind: "code",
@@ -212,7 +212,7 @@ print("Amount to pay: Rs.", final)`,
           kind: "callout",
           tone: "tip",
           title: "Test at the boundary",
-          md: `Always test the exact value where behaviour changes. Here that is **2000**. Run the program with 1999, 2000 and 2001. A program that is right for 3000 and 1500 can still be wrong at 2000 — that is the classic off-by-one error, and examiners test for it.`,
+          md: `Always test the exact value where behaviour changes. Here that is **2000**. Run the program with 1999, 2000 and 2001. A program that is right for 3000 and 1500 can still be wrong at 2000: that is the classic off-by-one error, and examiners test for it.`,
         },
         {
           kind: "check",
@@ -220,7 +220,7 @@ print("Amount to pay: Rs.", final)`,
             id: "q-9.1-inline-2",
             level: "9.1",
             q: "The program above is run with an amount of exactly 2000. What does it display?",
-            options: ["2000.0", "1700.0", "1750.0", "Nothing — it is an error"],
+            options: ["2000.0", "1700.0", "1750.0", "Nothing: it is an error"],
             answer: 1,
             explain:
               "2000 satisfies `amount >= 2000`, so the discount applies: 15% of 2000 is 300, and 2000 − 300 = 1700.0. This is exactly why you must test the boundary value itself.",
@@ -233,11 +233,103 @@ print("Amount to pay: Rs.", final)`,
           md: `Writing \`if amount > 2000\` instead of \`if amount >= 2000\`. The problem says *"2,000 rupees or more"*, so 2000 itself must get the discount. One character changes the answer.`,
         },
         { kind: "exercise", exerciseId: "ex-9.1-1" },
+        { kind: "exercise", exerciseId: "ex-9.1-2" },
+        { kind: "exercise", exerciseId: "ex-9.1-3" },
       ],
     },
   ],
 
   exercises: [
+    {
+      id: "ex-9.1-2",
+      title: "Electricity bill: reading the problem carefully",
+      level: "9.1",
+      difficulty: 2,
+      xp: 40,
+      tags: ["problem solving", "boundaries", "selection"],
+      brief: `Domestic electricity is charged in **blocks**. Every unit you use is charged at the rate for the block it falls in, not all units at the top rate. That single sentence is the whole problem, and misreading it is the classic mistake.
+
+- The **first 30** units cost **Rs. 8** each
+- The **next 30** units (31 to 60) cost **Rs. 10** each
+- **Every unit above 60** costs **Rs. 25** each
+
+Read the number of units and print the bill as \`Bill: 640\`.
+
+Worked example for **80 units**: the first 30 cost 30 × 8 = 240, the next 30 cost 30 × 10 = 300, the remaining 20 cost 20 × 25 = 500. Total **1040**.
+
+Take the boundaries seriously: 30 units and 60 units must both come out right.`,
+      starter: `units = int(input("Units used: "))
+
+# Your code here
+`,
+      hints: [
+        "Do not use one rate for everything. Work out each block separately and add them up.",
+        "If units is 30 or less, the bill is simply `units * 8`.",
+        "For 31 to 60: the first 30 always cost 240, then `(units - 30) * 10`.",
+        "Above 60: 240 + 300 is always charged, then `(units - 60) * 25`.",
+      ],
+      solution: `units = int(input("Units used: "))
+
+if units <= 30:
+    bill = units * 8
+elif units <= 60:
+    bill = 30 * 8 + (units - 30) * 10
+else:
+    bill = 30 * 8 + 30 * 10 + (units - 60) * 25
+
+print("Bill:", bill)`,
+      tests: [
+        { kind: "io", name: "80 units spans all three blocks", stdin: ["80"], expect: "Bill: 1040", match: "loose" },
+        { kind: "io", name: "Exactly 30 units", stdin: ["30"], expect: "Bill: 240", match: "loose" },
+        { kind: "io", name: "Exactly 60 units", stdin: ["60"], expect: "Bill: 540", match: "loose", hidden: true },
+        { kind: "io", name: "45 units, second block", stdin: ["45"], expect: "Bill: 390", match: "loose", hidden: true },
+        { kind: "io", name: "Zero units", stdin: ["0"], expect: "Bill: 0", match: "loose", hidden: true },
+      ],
+    },
+    {
+      id: "ex-9.1-3",
+      title: "Can these three sides make a triangle?",
+      level: "9.1",
+      difficulty: 2,
+      xp: 35,
+      tags: ["problem solving", "conditions", "logical operators"],
+      brief: `Understanding the problem comes before writing any code. Here the rule is mathematical, and you have to find it before you can code it.
+
+Three lengths can form a triangle **only if every pair of sides added together is longer than the remaining side**. All three checks must pass.
+
+Read three whole numbers and print \`Yes\` or \`No\`.
+
+- \`3 4 5\` gives \`Yes\`
+- \`1 2 9\` gives \`No\`, because 1 + 2 is not more than 9
+- \`2 2 4\` gives \`No\`: equal is not enough, it has to be strictly longer`,
+      starter: `a = int(input("Side a: "))
+b = int(input("Side b: "))
+c = int(input("Side c: "))
+
+# Your code here
+`,
+      hints: [
+        "There are three conditions, not one.",
+        "`a + b > c` and `a + c > b` and `b + c > a` must all be true.",
+        "Join them with `and` inside a single `if`.",
+        "Use `>` and not `>=`: sides of 2, 2 and 4 lie flat in a line, so they are not a triangle.",
+      ],
+      solution: `a = int(input("Side a: "))
+b = int(input("Side b: "))
+c = int(input("Side c: "))
+
+if a + b > c and a + c > b and b + c > a:
+    print("Yes")
+else:
+    print("No")`,
+      tests: [
+        { kind: "io", name: "3, 4, 5 is a triangle", stdin: ["3", "4", "5"], expect: "Yes", match: "loose" },
+        { kind: "io", name: "1, 2, 9 is not", stdin: ["1", "2", "9"], expect: "No", match: "loose" },
+        { kind: "io", name: "2, 2, 4 lies flat", stdin: ["2", "2", "4"], expect: "No", match: "loose", hidden: true },
+        { kind: "io", name: "Longest side given first", stdin: ["9", "2", "1"], expect: "No", match: "loose", hidden: true },
+        { kind: "io", name: "Equilateral", stdin: ["5", "5", "5"], expect: "Yes", match: "loose", hidden: true },
+      ],
+    },
     {
       id: "ex-9.1-1",
       title: "Discount with a message",
@@ -276,14 +368,14 @@ print("Amount to pay:", final)`,
           name: "3000 gets the discount",
           stdin: ["3000"],
           expect: "Amount to pay: 2550.0",
-          match: "contains",
+          match: "loose",
         },
         {
           kind: "io",
           name: "Exactly 2000 gets the discount",
           stdin: ["2000"],
           expect: "Amount to pay: 1700.0",
-          match: "contains",
+          match: "loose",
         },
         {
           kind: "io",
@@ -317,7 +409,7 @@ print("Amount to pay:", final)`,
       ],
       answer: 1,
       explain:
-        "The syllabus order is: understanding the problem, defining the problem and boundaries, planning the solution, and implementation. The process is cyclic — implementation often sends you back to understanding.",
+        "The syllabus order is: understanding the problem, defining the problem and boundaries, planning the solution, and implementation. The process is cyclic: implementation often sends you back to understanding.",
       difficulty: 1,
     },
     {
@@ -340,9 +432,9 @@ print("Amount to pay:", final)`,
       level: "9.1",
       q: "A student jumps straight to writing Python without planning. Which stage have they skipped, and what is the most likely result?",
       options: [
-        "Implementation — the program will not compile",
-        "Planning — the code is likely to solve the wrong problem or need heavy rewriting",
-        "Understanding — the computer will reject the code",
+        "Implementation: the program will not compile",
+        "Planning: the code is likely to solve the wrong problem or need heavy rewriting",
+        "Understanding: the computer will reject the code",
         "No stage; planning is optional for small programs",
       ],
       answer: 1,
@@ -393,7 +485,7 @@ print("Amount to pay:", final)`,
       ],
       answer: 1,
       explain:
-        "'More than' excludes the value itself, so `>` is correct. Exactly Rs. 400,000 would get no discount. Read the wording carefully — 'or more' would need `>=`.",
+        "'More than' excludes the value itself, so `>` is correct. Exactly Rs. 400,000 would get no discount. Read the wording carefully, 'or more' would need `>=`.",
       difficulty: 2,
     },
   ],

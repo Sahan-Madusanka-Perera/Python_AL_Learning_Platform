@@ -42,7 +42,7 @@ const CYCLE = [
   {
     icon: Search,
     title: "Understand the problem",
-    body: "Read it until you can explain it in your own words. What are you given? What must you produce? Solve one example by hand — if you cannot, you do not understand it yet.",
+    body: "Read it until you can explain it in your own words. What are you given? What must you produce? Solve one example by hand: if you cannot, you do not understand it yet.",
     ask: "Can I solve one case on paper?",
   },
   {
@@ -54,13 +54,13 @@ const CYCLE = [
   {
     icon: ListOrdered,
     title: "Plan the solution",
-    body: "Break it into parts and write the steps as an algorithm — a flow chart or pseudocode. This is where the real thinking happens.",
+    body: "Break it into parts and write the steps as an algorithm: a flow chart or pseudocode. This is where the real thinking happens.",
     ask: "What are the steps, in order?",
   },
   {
     icon: Hammer,
     title: "Implement",
-    body: "Translate the plan into code, run it, and test it — including the boundary values. Wrong results send you back around the cycle.",
+    body: "Translate the plan into code, run it, and test it: including the boundary values. Wrong results send you back around the cycle.",
     ask: "Does it work for the tricky cases too?",
   },
 ];
@@ -72,7 +72,7 @@ export function ProblemSolvingCycle() {
   return (
     <Shell
       title="The problem-solving cycle"
-      subtitle="Tap each stage — notice that stage 4 leads back to stage 1"
+      subtitle="Tap each stage: notice that stage 4 leads back to stage 1"
     >
       <div className="flex flex-wrap items-center gap-1.5">
         {CYCLE.map((stage, i) => (
@@ -132,7 +132,7 @@ export function ProblemSolvingCycle() {
 /* ── generations timeline ────────────────────────────────────────────────── */
 
 const GENERATIONS = [
-  { gen: "1GL", name: "Machine language", sample: "10110000 01100001", note: "Binary only. Runs directly on the hardware — no translation needed. Impossible for humans to write reliably.", era: "1940s" },
+  { gen: "1GL", name: "Machine language", sample: "10110000 01100001", note: "Binary only. Runs directly on the hardware: no translation needed. Impossible for humans to write reliably.", era: "1940s" },
   { gen: "2GL", name: "Assembly language", sample: "MOV AL, 61h", note: "Mnemonics replace binary patterns. Needs an assembler. Still tied to one specific processor.", era: "1950s" },
   { gen: "3GL", name: "High-level languages", sample: 'print("Hello")', note: "English-like and machine independent. Needs a compiler or interpreter. C, Pascal, Java, Python.", era: "1957 onwards" },
   { gen: "4GL", name: "Very high-level", sample: "SELECT name FROM student;", note: "You state WHAT you want, not the steps. SQL and report generators.", era: "1970s" },
@@ -408,7 +408,7 @@ export function TranslatorLab() {
                 {step >= 1 && <div>Line 2</div>}
                 {step >= 2 && (
                   <div className="text-[#fda4af]">
-                    ZeroDivisionError on line 3 — execution stops here
+                    ZeroDivisionError on line 3: execution stops here
                   </div>
                 )}
                 {step >= 3 && <div className="text-[#6b7194]">line 4 never runs</div>}
@@ -421,7 +421,7 @@ export function TranslatorLab() {
                 {step >= 1 && <div className="text-[#7dd3fc]">Checking every line first</div>}
                 {step >= 2 && (
                   <div className="text-[#fda4af]">
-                    Problem found on line 3 — no object code produced
+                    Problem found on line 3: no object code produced
                   </div>
                 )}
                 {step >= 3 && (
@@ -470,7 +470,7 @@ const IDE_PARTS = [
     name: "Compiler / interpreter",
     what: "Translates your source into object code so it can run.",
     detail:
-      "Reports syntax errors — mistakes in the grammar of the language — before or during execution. In IDLE you run a program with Run → Run Module, or by pressing F5.",
+      "Reports syntax errors: mistakes in the grammar of the language: before or during execution. In IDLE you run a program with Run → Run Module, or by pressing F5.",
   },
   {
     id: "debugger",
@@ -478,7 +478,7 @@ const IDE_PARTS = [
     name: "Debugger",
     what: "Helps you find and remove errors.",
     detail:
-      "Lets you pause the program, execute one line at a time, and inspect the value of every variable while it is stopped. This is how logic errors — the ones with no error message — are located.",
+      "Lets you pause the program, execute one line at a time, and inspect the value of every variable while it is stopped. This is how logic errors: the ones with no error message: are located.",
   },
   {
     id: "files",

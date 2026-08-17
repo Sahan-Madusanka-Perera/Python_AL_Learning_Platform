@@ -35,7 +35,7 @@ const RULES: Rule[] = [
     type: "SyntaxError",
     match: /expected ':'/,
     title: () => "A colon is missing",
-    why: "Lines that open a block — `if`, `else`, `elif`, `for`, `while`, `def` — must end with a colon.",
+    why: "Lines that open a block: `if`, `else`, `elif`, `for`, `while`, `def`: must end with a colon.",
     fixes: [
       "Put `:` at the end of the highlighted line.",
       "Check the whole line: `if age >= 18:` not `if age >= 18`.",
@@ -47,7 +47,7 @@ const RULES: Rule[] = [
     title: () => "Python could not understand this line",
     why: "Something in the line does not follow Python's grammar, so it stopped before running anything.",
     fixes: [
-      "Look at the line **above** the highlighted one too — an unclosed `(` or `[` makes Python blame the next line.",
+      "Look at the line **above** the highlighted one too: an unclosed `(` or `[` makes Python blame the next line.",
       "Check for `=` where you meant `==` in a condition.",
       "Make sure every `(`, `[`, `{` and quote mark is closed.",
     ],
@@ -88,7 +88,7 @@ const RULES: Rule[] = [
     why: "Python uses indentation to decide which lines belong together, so the spacing has to be consistent.",
     fixes: [
       "Use 4 spaces for each level, everywhere.",
-      "Do not mix tabs and spaces — pick spaces and stay with them.",
+      "Do not mix tabs and spaces: pick spaces and stay with them.",
       "Lines in the same block must start at exactly the same column.",
     ],
   },
@@ -104,7 +104,7 @@ const RULES: Rule[] = [
     type: "NameError",
     match: /name '(.+?)' is not defined/,
     title: (m) => `Python has never heard of \`${m?.[1] ?? "that name"}\``,
-    why: "You used a variable or function before creating it — or the spelling here does not match the spelling where it was created.",
+    why: "You used a variable or function before creating it, or the spelling here does not match the spelling where it was created.",
     fixes: [
       "Check the spelling and capital letters. `Age`, `age` and `AGE` are three different variables.",
       "Make sure the line that creates it runs **before** this line.",
@@ -118,7 +118,7 @@ const RULES: Rule[] = [
     why: "You called a method that does not exist for this type of value.",
     fixes: [
       "Check the spelling of the method name.",
-      "Check the type — `append()` works on a list, not on a tuple or a string.",
+      "Check the type: `append()` works on a list, not on a tuple or a string.",
       "Tuples cannot be changed, so they have only `count()` and `index()`.",
     ],
   },
@@ -170,11 +170,11 @@ const RULES: Rule[] = [
     type: "ValueError",
     match: /invalid literal for int\(\) with base 10: '(.*?)'/,
     title: (m) => `\`${m?.[1] ?? ""}\` is not a whole number`,
-    why: "`int()` can only convert text that contains digits — no letters, spaces or decimal points.",
+    why: "`int()` can only convert text that contains digits: no letters, spaces or decimal points.",
     fixes: [
       "If the value can have decimals use `float()` instead.",
       "Check nothing extra was typed, like `18 years`.",
-      "`int(\"3.5\")` fails — use `int(float(\"3.5\"))` to get `3`.",
+      "`int(\"3.5\")` fails: use `int(float(\"3.5\"))` to get `3`.",
     ],
   },
 
@@ -183,7 +183,7 @@ const RULES: Rule[] = [
     type: "IndexError",
     match: /list index out of range/,
     title: () => "That position does not exist in the list",
-    why: "Positions start at 0, so a list of 5 items has valid positions 0, 1, 2, 3 and 4 — never 5.",
+    why: "Positions start at 0, so a list of 5 items has valid positions 0, 1, 2, 3 and 4, never 5.",
     fixes: [
       "The last item is at `len(mylist) - 1`.",
       "In loops use `range(len(mylist))`, which stops at the right place automatically.",
@@ -205,7 +205,7 @@ const RULES: Rule[] = [
     type: "TypeError",
     match: /'tuple' object does not support item assignment/,
     title: () => "A tuple cannot be changed",
-    why: "Tuples are immutable — that is the whole point of using one instead of a list.",
+    why: "Tuples are immutable: that is the whole point of using one instead of a list.",
     fixes: [
       "Use a list `[ ]` if the values need to change.",
       "Or build a new tuple instead of editing the old one.",

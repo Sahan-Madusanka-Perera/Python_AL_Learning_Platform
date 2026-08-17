@@ -14,13 +14,14 @@ const STREAM_CLASS: Record<Stream, string> = {
   stdout: "text-[#d7dbf0]",
   stderr: "text-[#fda4af]",
   "stdin-echo": "text-[#7dd3fc]",
+  prompt: "text-[#d7dbf0]",
 };
 
 /**
  * Program output.
  *
  * Echoed input is tinted differently from program output so a student can see
- * at a glance which lines they typed and which the program produced — the
+ * at a glance which lines they typed and which the program produced: the
  * transcript is otherwise genuinely ambiguous.
  */
 export function Terminal({
@@ -73,7 +74,7 @@ export function Terminal({
         style={{ minHeight }}
       >
         {isEmpty && !running && (
-          <p className="select-none text-[#6b7194]">{emptyHint}</p>
+          <p className="select-none text-[#838aad]">{emptyHint}</p>
         )}
         {chunks.map((c, i) => (
           <span key={i} className={STREAM_CLASS[c.stream]}>

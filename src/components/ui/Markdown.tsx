@@ -4,12 +4,14 @@ import { cn } from "@/lib/utils";
 /* ============================================================================
  * A deliberately small Markdown renderer.
  *
- * Lesson copy only ever needs bold, italics, inline code, links and lists.
- * Pulling in a full parser for that would cost more bytes than the entire
- * lesson library, and students on slow connections pay for every one of them.
+ * Lesson copy only ever needs bold, italics, inline code, links, lists and
+ * fenced code blocks. Pulling in a full parser for that would cost more bytes
+ * than the entire lesson library, and students on slow connections pay for
+ * every one of them.
  * ==========================================================================*/
 
 const INLINE = /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/g;
+const FENCE = /^\s*```/;
 
 export function Inline({ text }: { text: string }) {
   const parts = text.split(INLINE).filter(Boolean);
@@ -64,6 +66,27 @@ export function Markdown({ children, className, bare }: MarkdownProps) {
       continue;
     }
 
+    // fenced code block: kept verbatim, scrolls sideways rather than
+    // overflowing whatever it is nested inside (callout, step, exercise brief)
+    if (FENCE.test(line)) {
+      i++;
+      const code: string[] = [];
+      while (i < lines.length && !FENCE.test(lines[i])) {
+        code.push(lines[i]);
+        i++;
+      }
+      i++; // closing fence
+      blocks.push(
+        <pre
+          key={key++}
+          className="scrollbar-slim my-3 overflow-x-auto rounded-lg bg-[var(--bg-code)] px-3.5 py-2.5 font-[family-name:var(--font-mono)] text-[12.5px] font-normal leading-relaxed text-[#d7dbf0]"
+        >
+          {code.join("\n")}
+        </pre>,
+      );
+      continue;
+    }
+
     // unordered list
     if (/^\s*[-•]\s+/.test(line)) {
       const items: string[] = [];
@@ -102,11 +125,12 @@ export function Markdown({ children, className, bare }: MarkdownProps) {
       continue;
     }
 
-    // paragraph — consume until blank line or a list starts
+    // paragraph: consume until a blank line, a list or a code fence starts
     const para: string[] = [];
     while (
       i < lines.length &&
       lines[i].trim() &&
+      !FENCE.test(lines[i]) &&
       !/^\s*[-•]\s+/.test(lines[i]) &&
       !/^\s*\d+[.)]\s+/.test(lines[i])
     ) {

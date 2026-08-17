@@ -11,13 +11,13 @@ export const m13: Module = {
     "Uses sequential searching technique appropriately",
     "Implements bubble sort technique appropriately",
   ],
-  contents: ["Searching techniques — sequential search", "Sorting techniques — bubble sort"],
+  contents: ["Searching techniques: sequential search", "Sorting techniques: bubble sort"],
 
   lessons: [
     {
       id: "9.13.1",
       title: "Sequential search",
-      summary: "Check every item until you find it — or run out of items.",
+      summary: "Check every item until you find it, or run out of items.",
       minutes: 14,
       outcomes: ["Uses sequential searching technique appropriately"],
       blocks: [
@@ -57,8 +57,8 @@ End`,
           code: `def sequential_search(items, target):
     for i in range(len(items)):
         if items[i] == target:
-            return i          # found — give back the position
-    return -1                 # ran out of items — not found
+            return i          # found: give back the position
+    return -1                 # ran out of items, not found
 
 
 numbers = [34, 12, 89, 5, 67, 23]
@@ -76,7 +76,7 @@ else:
           kind: "callout",
           tone: "tip",
           title: "Python's shortcut",
-          md: `Python has a very easy way to ask whether an item is in a list — the **\`in\`** operator:
+          md: `Python has a very easy way to ask whether an item is in a list: the **\`in\`** operator:
 
 \`\`\`python
 if 89 in numbers:
@@ -89,8 +89,8 @@ This is convenient, but when a question says *"using the sequential search techn
           kind: "table",
           headers: ["Case", "Comparisons needed"],
           rows: [
-            ["Best case — the item is first", "1"],
-            ["Worst case — the item is last, or missing", "n (every item)"],
+            ["Best case: the item is first", "1"],
+            ["Worst case: the item is last, or missing", "n (every item)"],
             ["Average case", "about n / 2"],
           ],
           caption: "n is the number of items in the list.",
@@ -101,7 +101,7 @@ This is convenient, but when a question says *"using the sequential search techn
           title: "Why sorting helps searching",
           md: `The syllabus makes this point with a classroom activity: give students random numbers and ask someone to find a particular one. It is slow, because there is no order.
 
-Sorting the data first makes searching dramatically faster — which is exactly why the two topics are taught together.`,
+Sorting the data first makes searching dramatically faster, which is exactly why the two topics are taught together.`,
         },
         {
           kind: "check",
@@ -112,7 +112,7 @@ Sorting the data first makes searching dramatically faster — which is exactly 
             options: ["1", "50", "100", "10"],
             answer: 2,
             explain:
-              "The worst case is when the item is last or absent — every one of the 100 items has to be checked.",
+              "The worst case is when the item is last or absent: every one of the 100 items has to be checked.",
           },
         },
         { kind: "exercise", exerciseId: "ex-9.13-1" },
@@ -133,21 +133,21 @@ Sorting the data first makes searching dramatically faster — which is exactly 
         },
         {
           kind: "text",
-          md: `This looks obvious and is not. To exchange the contents of two variables you need a **third, temporary variable** — the syllabus calls it a **dummy variable**.`,
+          md: `This looks obvious and is not. To exchange the contents of two variables you need a **third, temporary variable**: the syllabus calls it a **dummy variable**.`,
         },
         {
           kind: "code",
           lang: "python",
           runnable: true,
           caption: "The wrong way and the right way",
-          code: `# WRONG — the original value of a is destroyed
+          code: `# WRONG: the original value of a is destroyed
 a = 5
 b = 12
 a = b
 b = a
-print("Wrong :", a, b)      # 12 12 — the 5 is gone forever
+print("Wrong :", a, b)      # 12 12: the 5 is gone forever
 
-# RIGHT — keep a copy in a dummy variable first
+# RIGHT: keep a copy in a dummy variable first
 a = 5
 b = 12
 temp = a      # 1. save a
@@ -164,14 +164,14 @@ print("Python:", a, b)`,
           kind: "callout",
           tone: "exam",
           title: "Draw the three steps",
-          md: `Questions often ask you to explain swapping *with the aid of a diagram*. Show three boxes — a, b and temp — and the three arrows in order. State clearly that without the dummy variable one of the values is lost.`,
+          md: `Questions often ask you to explain swapping *with the aid of a diagram*. Show three boxes: a, b and temp, and the three arrows in order. State clearly that without the dummy variable one of the values is lost.`,
         },
         { kind: "heading", text: "Bubble sort" },
         {
           kind: "text",
           md: `Bubble sort makes **multiple passes** through a list. On each pass it compares **adjacent** items and exchanges those that are out of order.
 
-Each pass pushes the next largest value into its final place at the end — the value "bubbles up", which is where the name comes from.`,
+Each pass pushes the next largest value into its final place at the end: the value "bubbles up", which is where the name comes from.`,
         },
         { kind: "widget", id: "sort-visualiser" },
         {
@@ -242,7 +242,7 @@ print("After :", numbers)`,
                 swapped = True
         print(f"After pass {p + 1}: {L}")
         if not swapped:
-            print("No swaps — the list is already sorted.")
+            print("No swaps: the list is already sorted.")
             break
 
 
@@ -283,16 +283,122 @@ That is why the loop is \`range(len(L) - 1)\` and not \`range(len(L))\`.`,
             ],
             answer: 2,
             explain:
-              "Each pass carries the largest remaining value to the end of the unsorted section — that is exactly what 'bubbling up' means.",
+              "Each pass carries the largest remaining value to the end of the unsorted section: that is exactly what 'bubbling up' means.",
           },
         },
         { kind: "exercise", exerciseId: "ex-9.13-2" },
         { kind: "exercise", exerciseId: "ex-9.13-3" },
+        { kind: "exercise", exerciseId: "ex-9.13-4" },
       ],
     },
   ],
 
   exercises: [
+    {
+      id: "ex-9.13-4",
+      title: "Count the comparisons: linear against binary",
+      level: "9.13",
+      difficulty: 3,
+      xp: 55,
+      tags: ["searching", "binary search", "efficiency"],
+      brief: `Everyone is told binary search is faster. This exercise makes you **measure** it instead of believing it.
+
+The sorted list in the starter has 10 values. Read a number to look for, then search for it **both ways**, counting how many values each method actually compares.
+
+Print exactly three lines:
+
+\`\`\`
+Linear: 9
+Binary: 3
+Position: 8
+\`\`\`
+
+- **Linear** checks positions 0, 1, 2 ... until it finds the value. Looking for \`72\` at position 8 means 9 comparisons.
+- **Binary** halves the range each time. It finds \`72\` in 3.
+- **Position** is where the value is, or \`-1\` when it is not in the list. When it is absent, still print how many comparisons each method needed to prove it.
+
+Count one comparison every time you look at a value, in both searches.`,
+      starter: `numbers = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]
+target = int(input("Search for: "))
+
+# Linear search: count every value you look at
+
+# Binary search: count every value you look at
+
+# Print the three lines
+`,
+      hints: [
+        "Two separate counters, one per search. Increase each one at the top of its loop.",
+        "Linear: `for i in range(len(numbers)):` and `break` the moment it matches.",
+        "Binary needs `low = 0` and `high = len(numbers) - 1`, looping `while low <= high:`.",
+        "`mid = (low + high) // 2`. If the value is too small, `low = mid + 1`, otherwise `high = mid - 1`.",
+      ],
+      solution: `numbers = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]
+target = int(input("Search for: "))
+
+linear = 0
+position = -1
+for i in range(len(numbers)):
+    linear = linear + 1
+    if numbers[i] == target:
+        position = i
+        break
+
+binary = 0
+low = 0
+high = len(numbers) - 1
+while low <= high:
+    mid = (low + high) // 2
+    binary = binary + 1
+    if numbers[mid] == target:
+        break
+    elif numbers[mid] < target:
+        low = mid + 1
+    else:
+        high = mid - 1
+
+print("Linear:", linear)
+print("Binary:", binary)
+print("Position:", position)`,
+      tests: [
+        {
+          kind: "io",
+          name: "72 sits near the end",
+          stdin: ["72"],
+          expect: "Linear: 9\nBinary: 3\nPosition: 8",
+          match: "loose",
+        },
+        {
+          kind: "io",
+          name: "The first value favours linear",
+          stdin: ["2"],
+          expect: "Linear: 1\nBinary: 3\nPosition: 0",
+          match: "loose",
+        },
+        {
+          kind: "io",
+          name: "A value that is not there",
+          stdin: ["100"],
+          expect: "Linear: 10\nBinary: 4\nPosition: -1",
+          match: "loose",
+          hidden: true,
+        },
+        {
+          kind: "io",
+          name: "The middle value is found immediately",
+          stdin: ["16"],
+          expect: "Linear: 5\nBinary: 1\nPosition: 4",
+          match: "loose",
+          hidden: true,
+        },
+        {
+          kind: "source",
+          name: "Uses integer division for the midpoint",
+          mustUse: ["//"],
+          mustNotUse: [".index(", ".find("],
+        },
+      ],
+    },
     {
       id: "ex-9.13-1",
       title: "Sequential search with a report",
@@ -307,7 +413,7 @@ Then read a number from the keyboard and search this list:
 
 Print either \`Found at position 2\` or \`Not found\`.
 
-You must write the loop yourself — do not use \`in\`, \`index()\` or \`find()\`.`,
+You must write the loop yourself: do not use \`in\`, \`index()\` or \`find()\`.`,
       starter: `numbers = [34, 12, 89, 5, 67, 23]
 
 
@@ -321,7 +427,7 @@ target = int(input("Number to find: "))
       hints: [
         "Loop over positions, not values: `for i in range(len(items)):`.",
         "Compare `items[i] == target`, and `return i` the moment it matches.",
-        "`return -1` goes AFTER the loop — it only runs if nothing was found.",
+        "`return -1` goes AFTER the loop: it only runs if nothing was found.",
         "Positions start at 0, so 89 is at position 2.",
       ],
       solution: `numbers = [34, 12, 89, 5, 67, 23]
@@ -342,11 +448,11 @@ if pos != -1:
 else:
     print("Not found")`,
       tests: [
-        { kind: "io", name: "Finds 89", stdin: ["89"], expect: "Found at position 2", match: "contains" },
-        { kind: "io", name: "Finds the first item", stdin: ["34"], expect: "Found at position 0", match: "contains" },
-        { kind: "io", name: "Finds the last item", stdin: ["23"], expect: "Found at position 5", match: "contains" },
-        { kind: "io", name: "Reports a missing item", stdin: ["50"], expect: "Not found", match: "contains" },
-        { kind: "expr", name: "Returns -1 when absent", expr: "search([1, 2, 3], 9)", expect: "-1", hidden: true },
+        { kind: "io", name: "Finds 89", stdin: ["89"], expect: "Found at position 2", match: "loose" },
+        { kind: "io", name: "Finds the first item", stdin: ["34"], expect: "Found at position 0", match: "loose" },
+        { kind: "io", name: "Finds the last item", stdin: ["23"], expect: "Found at position 5", match: "loose" },
+        { kind: "io", name: "Reports a missing item", stdin: ["50"], expect: "Not found", match: "loose" },
+        { kind: "expr", name: "Returns -1 when absent", stdin: ["89"], expr: "search([1, 2, 3], 9)", expect: "-1", hidden: true },
         {
           kind: "source",
           name: "Does not use built-in searching",
@@ -386,7 +492,7 @@ print(swap_first_last([5, 1, 4, 2, 8]))`,
 
 print(swap_first_last([5, 1, 4, 2, 8]))`,
       tests: [
-        { kind: "io", name: "Swaps correctly", expect: "[8, 1, 4, 2, 5]", match: "contains" },
+        { kind: "io", name: "Swaps correctly", expect: "[8, 1, 4, 2, 5]", match: "loose" },
         { kind: "expr", name: "Four-item list", expr: "swap_first_last([1, 2, 3, 4])", expect: "[4, 2, 3, 1]" },
         { kind: "expr", name: "Two-item list", expr: "swap_first_last([1, 2])", expect: "[2, 1]", hidden: true },
       ],
@@ -400,7 +506,7 @@ print(swap_first_last([5, 1, 4, 2, 8]))`,
       tags: ["sorting", "nested loops", "swapping"],
       brief: `Write a function \`bubble_sort(L)\` that sorts a list into **ascending** order using the bubble sort technique, and returns it.
 
-You must implement the algorithm yourself — \`sort()\` and \`sorted()\` are not allowed.
+You must implement the algorithm yourself: \`sort()\` and \`sorted()\` are not allowed.
 
 Then print \`bubble_sort([64, 34, 25, 12, 22, 11, 90])\`.`,
       starter: `def bubble_sort(L):
@@ -431,7 +537,7 @@ print(bubble_sort([64, 34, 25, 12, 22, 11, 90]))`,
           kind: "io",
           name: "Sorts the sample list",
           expect: "[11, 12, 22, 25, 34, 64, 90]",
-          match: "contains",
+          match: "loose",
         },
         { kind: "expr", name: "Sorts a short list", expr: "bubble_sort([3, 1, 2])", expect: "[1, 2, 3]" },
         {

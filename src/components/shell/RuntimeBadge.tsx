@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getRuntime, type RuntimeStatus } from "@/lib/python/runtime";
 import { cn } from "@/lib/utils";
 
-/** Small "is Python awake?" indicator — students should never wonder. */
+/** Small "is Python awake?" indicator: students should never wonder. */
 export function RuntimeBadge({ className }: { className?: string }) {
   const [status, setStatus] = useState<RuntimeStatus>({ state: "idle" });
 
@@ -38,7 +38,7 @@ export function RuntimeBadge({ className }: { className?: string }) {
       className={cn("flex items-center gap-1.5 text-[10.5px] font-medium text-subtle", className)}
       title={
         status.state === "ready" && !status.interactive
-          ? "Interactive input is unavailable on this host — supply inputs before running."
+          ? "Interactive input is unavailable on this host: supply inputs before running."
           : label
       }
     >

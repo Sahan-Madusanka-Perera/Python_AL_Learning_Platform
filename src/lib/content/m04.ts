@@ -39,11 +39,11 @@ Languages are grouped into **generations**. Each generation moved further away f
           kind: "table",
           headers: ["Generation", "Name", "What it looks like", "Examples"],
           rows: [
-            ["1GL", "Machine language", "Binary digits only — 10110000 01100001", "Machine code"],
+            ["1GL", "Machine language", "Binary digits only: 10110000 01100001", "Machine code"],
             [
               "2GL",
               "Assembly language",
-              "Short mnemonics for machine instructions — MOV AL, 61h",
+              "Short mnemonics for machine instructions: MOV AL, 61h",
               "Assembly",
             ],
             [
@@ -81,7 +81,7 @@ Languages are grouped into **generations**. Each generation moved further away f
           kind: "callout",
           tone: "note",
           title: "Where Python sits",
-          md: `Python is a **third generation**, high-level language, created by **Guido van Rossum** and released in **1991**. It is machine independent — the same \`.py\` file runs on Windows, Mac, Linux and a Raspberry Pi.`,
+          md: `Python is a **third generation**, high-level language, created by **Guido van Rossum** and released in **1991**. It is machine independent: the same \`.py\` file runs on Windows, Mac, Linux and a Raspberry Pi.`,
         },
         {
           kind: "check",
@@ -92,7 +92,7 @@ Languages are grouped into **generations**. Each generation moved further away f
             options: ["1GL", "2GL", "3GL", "4GL"],
             answer: 3,
             explain:
-              "SQL is a fourth-generation language. You write `SELECT name FROM student` — describing what you want, not the steps to fetch it.",
+              "SQL is a fourth-generation language. You write `SELECT name FROM student`: describing what you want, not the steps to fetch it.",
           },
         },
       ],
@@ -102,7 +102,7 @@ Languages are grouped into **generations**. Each generation moved further away f
       id: "9.4.2",
       title: "Programming paradigms",
       summary:
-        "Imperative, declarative and object-oriented — the three styles the syllabus asks you to compare.",
+        "Imperative, declarative and object-oriented: the three styles the syllabus asks you to compare.",
       minutes: 14,
       outcomes: ["Compares and contrasts imperative, declarative, object oriented languages"],
       blocks: [
@@ -110,7 +110,7 @@ Languages are grouped into **generations**. Each generation moved further away f
           kind: "callout",
           tone: "key",
           title: "Definition",
-          md: `A **programming paradigm** is the specific *style* of programming a language supports — the way you are expected to think about a problem when you use it.`,
+          md: `A **programming paradigm** is the specific *style* of programming a language supports: the way you are expected to think about a problem when you use it.`,
         },
         { kind: "widget", id: "paradigm-explorer" },
         {
@@ -123,9 +123,9 @@ Languages are grouped into **generations**. Each generation moved further away f
 
 The syllabus divides imperative languages into three kinds:
 
-- **Procedural** — organised into procedures/functions. Example: **C**
-- **Object-oriented** — organised into objects that hold data and behaviour. Examples: **Java, C++**
-- **Parallel processing** — designed to run parts simultaneously. Example: **Java**`,
+- **Procedural**: organised into procedures/functions. Example: **C**
+- **Object-oriented**: organised into objects that hold data and behaviour. Examples: **Java, C++**
+- **Parallel processing**: designed to run parts simultaneously. Example: **Java**`,
         },
         {
           kind: "code",
@@ -149,9 +149,9 @@ print("Total:", total)`,
 
 The syllabus divides declarative languages into three kinds:
 
-- **Logic** — facts and rules. Example: **Prolog**
-- **Functional / data flow** — everything is a function applied to values. Example: **Lisp**
-- **Database** — query languages. Example: **SQL**`,
+- **Logic**: facts and rules. Example: **Prolog**
+- **Functional / data flow**: everything is a function applied to values. Example: **Lisp**
+- **Database**: query languages. Example: **SQL**`,
         },
         {
           kind: "code",
@@ -163,7 +163,7 @@ The syllabus divides declarative languages into three kinds:
           kind: "compare",
           title: "The core difference",
           left: {
-            title: "Imperative — HOW",
+            title: "Imperative: HOW",
             items: [
               "A sequence of commands in a fixed order",
               "The programmer controls every step",
@@ -172,7 +172,7 @@ The syllabus divides declarative languages into three kinds:
             ],
           },
           right: {
-            title: "Declarative — WHAT",
+            title: "Declarative: WHAT",
             items: [
               "Statements need not run in a fixed order",
               "The system decides how to get the result",
@@ -187,7 +187,7 @@ The syllabus divides declarative languages into three kinds:
         },
         {
           kind: "text",
-          md: `Object-oriented programming organises a program around **objects** — bundles of data together with the operations that work on that data. A **class** is the blueprint; an **object** is one thing built from it.
+          md: `Object-oriented programming organises a program around **objects**: bundles of data together with the operations that work on that data. A **class** is the blueprint; an **object** is one thing built from it.
 
 It is a sub-category of imperative programming, but it is important enough that the syllabus lists it separately.`,
         },
@@ -238,21 +238,187 @@ print(s2.name, "got", s2.grade())`,
             level: "9.4",
             q: "Prolog belongs to which paradigm and sub-category?",
             options: [
-              "Imperative — procedural",
-              "Imperative — object oriented",
-              "Declarative — logic",
-              "Declarative — database",
+              "Imperative: procedural",
+              "Imperative: object oriented",
+              "Declarative: logic",
+              "Declarative: database",
             ],
             answer: 2,
             explain:
               "Prolog is the standard example of a logic language, which is a sub-category of the declarative paradigm. Lisp is functional and SQL is the database example.",
           },
         },
+        { kind: "exercise", exerciseId: "ex-9.4-3" },
+        { kind: "exercise", exerciseId: "ex-9.4-1" },
+        { kind: "exercise", exerciseId: "ex-9.4-2" },
       ],
     },
   ],
 
   exercises: [
+    {
+      id: "ex-9.4-3",
+      title: "Which generation?",
+      level: "9.4",
+      difficulty: 1,
+      xp: 25,
+      tags: ["generations", "dictionaries", "selection"],
+      brief: `A dictionary of languages and their generation numbers is in the starter.
+
+Read one language name and print its generation like this:
+
+\`\`\`
+SQL is a 4GL
+\`\`\`
+
+If the language is not in the dictionary, print \`Unknown language\` instead.
+
+Match the name exactly as it is spelled in the dictionary.`,
+      starter: `languages = {
+    "Machine code": 1,
+    "Assembly": 2,
+    "Python": 3,
+    "SQL": 4,
+    "Prolog": 5,
+}
+
+name = input("Language: ")
+
+# Your code here
+`,
+      hints: [
+        "`name in languages` is True when the key exists.",
+        "`languages[name]` gives the generation number.",
+        'Build the text with `print(name, "is a", str(languages[name]) + "GL")`.',
+        "Handle the missing case with an `else`.",
+      ],
+      solution: `languages = {
+    "Machine code": 1,
+    "Assembly": 2,
+    "Python": 3,
+    "SQL": 4,
+    "Prolog": 5,
+}
+
+name = input("Language: ")
+
+if name in languages:
+    print(name, "is a", str(languages[name]) + "GL")
+else:
+    print("Unknown language")`,
+      tests: [
+        { kind: "io", name: "SQL is fourth generation", stdin: ["SQL"], expect: "SQL is a 4GL", match: "loose" },
+        { kind: "io", name: "Python is third generation", stdin: ["Python"], expect: "Python is a 3GL", match: "loose" },
+        { kind: "io", name: "Machine code is first", stdin: ["Machine code"], expect: "Machine code is a 1GL", match: "loose", hidden: true },
+        { kind: "io", name: "Something not in the list", stdin: ["Java"], expect: "Unknown language", match: "loose", hidden: true },
+        { kind: "source", name: "Looks the answer up rather than hard-coding it", mustUse: ["languages["] },
+      ],
+    },
+    {
+      id: "ex-9.4-2",
+      title: "Write a tiny fourth-generation language",
+      level: "9.4",
+      difficulty: 3,
+      xp: 55,
+      tags: ["paradigms", "4GL", "lists", "loops"],
+      brief: `A **4GL** lets you say *what* you want. A **3GL** makes you say *how* to get it. In this exercise you will feel the difference from the inside, because you are going to build the thing that turns one into the other.
+
+The student records are already in the starter. Read one command in this exact shape:
+
+\`\`\`
+SELECT name WHERE marks > 50
+\`\`\`
+
+and print every matching student's chosen field, one per line. The field is either \`name\` or \`marks\`, and the operator is either \`>\` or \`<\`.
+
+For the command above the output is:
+
+\`\`\`
+Ravi
+Geetha
+Kumara
+\`\`\`
+
+If nobody matches, print \`No rows\`.
+
+The user wrote one declarative line. You are writing the procedural loop that makes it true: that is the whole 3GL/4GL distinction in one exercise.`,
+      starter: `students = [
+    {"name": "Ravi", "marks": 78},
+    {"name": "Mala", "marks": 45},
+    {"name": "Geetha", "marks": 91},
+    {"name": "Nimal", "marks": 32},
+    {"name": "Kumara", "marks": 64},
+]
+
+command = input("Query: ")
+
+# Your code here
+`,
+      hints: [
+        "`command.split()` gives `['SELECT', 'name', 'WHERE', 'marks', '>', '50']`.",
+        "The field is at index 1, the operator at index 4 and the number at index 5.",
+        "`int(parts[5])` turns the limit back into a number you can compare.",
+        "Keep a counter or a flag so you know whether to print `No rows` at the end.",
+      ],
+      solution: `students = [
+    {"name": "Ravi", "marks": 78},
+    {"name": "Mala", "marks": 45},
+    {"name": "Geetha", "marks": 91},
+    {"name": "Nimal", "marks": 32},
+    {"name": "Kumara", "marks": 64},
+]
+
+command = input("Query: ")
+parts = command.split()
+field = parts[1]
+op = parts[4]
+limit = int(parts[5])
+
+found = 0
+for s in students:
+    if op == ">" and s["marks"] > limit:
+        print(s[field])
+        found = found + 1
+    elif op == "<" and s["marks"] < limit:
+        print(s[field])
+        found = found + 1
+
+if found == 0:
+    print("No rows")`,
+      tests: [
+        {
+          kind: "io",
+          name: "Names above 50",
+          stdin: ["SELECT name WHERE marks > 50"],
+          expect: "Ravi\nGeetha\nKumara",
+          match: "loose",
+        },
+        {
+          kind: "io",
+          name: "Marks below 50",
+          stdin: ["SELECT marks WHERE marks < 50"],
+          expect: "45\n32",
+          match: "loose",
+        },
+        {
+          kind: "io",
+          name: "Nothing matches",
+          stdin: ["SELECT name WHERE marks > 99"],
+          expect: "No rows",
+          match: "loose",
+          hidden: true,
+        },
+        {
+          kind: "io",
+          name: "Selecting the marks field above a limit",
+          stdin: ["SELECT marks WHERE marks > 90"],
+          expect: "91",
+          match: "loose",
+          hidden: true,
+        },
+        { kind: "source", name: "Interprets the command rather than hard-coding", mustUse: ["split("] },
+      ],
+    },
     {
       id: "ex-9.4-1",
       title: "Same job, two styles",
@@ -265,7 +431,7 @@ print(s2.name, "got", s2.grade())`,
 The task: from the list \`marks = [45, 82, 67, 91, 38]\`, count how many marks are 50 or more.
 
 1. Write a function \`count_pass_imperative(marks)\` that uses an explicit \`for\` loop and a counter, and **returns** the count.
-2. Write a function \`count_pass_declarative(marks)\` that produces the same answer **without a for statement** — use a comprehension with \`len()\` or \`sum()\`.
+2. Write a function \`count_pass_declarative(marks)\` that produces the same answer **without a for statement**: use a comprehension with \`len()\` or \`sum()\`.
 
 Then print both results, one per line.`,
       starter: `marks = [45, 82, 67, 91, 38]
@@ -283,7 +449,7 @@ print(count_pass_imperative(marks))
 print(count_pass_declarative(marks))`,
       hints: [
         "For the imperative version: start `count = 0`, loop over the list, and add 1 whenever `m >= 50`.",
-        "Do not forget to `return count` at the end — outside the loop.",
+        "Do not forget to `return count` at the end: outside the loop.",
         "For the declarative version, `[m for m in marks if m >= 50]` builds a list of just the passes.",
         "`len([...])` gives its length. `sum(1 for m in marks if m >= 50)` also works.",
       ],
@@ -340,7 +506,7 @@ print(count_pass_declarative(marks))`,
       ],
       answer: 1,
       explain:
-        "A paradigm is the style of programming — the way you are expected to structure your thinking and your code in that language.",
+        "A paradigm is the style of programming: the way you are expected to structure your thinking and your code in that language.",
       difficulty: 1,
     },
     {

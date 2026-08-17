@@ -6,7 +6,8 @@
  * through callbacks so the terminal can paint as the program runs.
  * ==========================================================================*/
 
-export type Stream = "stdout" | "stderr" | "stdin-echo";
+/** `prompt` and `stdin-echo` are terminal chrome: shown, but never graded. */
+export type Stream = "stdout" | "stderr" | "stdin-echo" | "prompt";
 
 export interface PyError {
   type: string;
@@ -129,7 +130,7 @@ class PythonRuntime {
     this.listeners.forEach((fn) => fn(s));
   }
 
-  /** Boot Python. Safe to call many times — later calls join the first. */
+  /** Boot Python. Safe to call many times: later calls join the first. */
   start(): Promise<void> {
     if (this.readyPromise) return this.readyPromise;
 
@@ -200,7 +201,9 @@ class PythonRuntime {
       const text = String(msg.text);
       const stream = msg.stream as Stream;
       entry.chunks.push(text);
-      if (stream !== "stdin-echo") entry.printed.push(text);
+      // Prompts and echoed input belong to the transcript, not to the
+      // program's own output, so the grader never sees them.
+      if (stream !== "stdin-echo" && stream !== "prompt") entry.printed.push(text);
       entry.onOutput?.(text, stream);
       return;
     }
@@ -333,7 +336,7 @@ class PythonRuntime {
   }
 }
 
-/** Lazily-created singleton — only exists in the browser. */
+/** Lazily-created singleton: only exists in the browser. */
 let instance: PythonRuntime | null = null;
 
 export function getRuntime(): PythonRuntime {

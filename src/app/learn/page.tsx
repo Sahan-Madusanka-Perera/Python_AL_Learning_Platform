@@ -41,7 +41,7 @@ export default function LearnPage() {
         <section className="mt-7">
           <p className="mb-2.5 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest text-subtle">
             <Sparkles className="size-3" />
-            Bonus — beyond the examinable syllabus
+            Bonus: beyond the examinable syllabus
           </p>
           <ModuleRow moduleId={bonus.id} index={SYLLABUS_MODULES.length} bonus />
         </section>

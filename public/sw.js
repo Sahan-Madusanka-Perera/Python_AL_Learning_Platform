@@ -1,15 +1,15 @@
 /* ============================================================================
- * Service worker — the part that makes this usable on unreliable data.
+ * Service worker: the part that makes this usable on unreliable data.
  *
  * Strategy per resource:
- *   • Python runtime (/pyodide/*) — cache first, forever. It is 13 MB and it
+ *   • Python runtime (/pyodide/*): cache first, forever. It is 13 MB and it
  *     never changes for a given build, so a student pays for it once.
- *   • Build assets (/_next/static/*) — cache first, content-hashed filenames.
- *   • Pages — network first, falling back to cache so lessons already visited
+ *   • Build assets (/_next/static/*): cache first, content-hashed filenames.
+ *   • Pages: network first, falling back to cache so lessons already visited
  *     still open with no signal at all.
  * ==========================================================================*/
 
-const VERSION = "c9-v1";
+const VERSION = "c9-v2";
 const SHELL_CACHE = `${VERSION}-shell`;
 const ASSET_CACHE = `${VERSION}-assets`;
 const PYODIDE_CACHE = `${VERSION}-pyodide`;

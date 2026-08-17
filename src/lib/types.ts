@@ -1,7 +1,7 @@
 /* ============================================================================
  * Content model.
  *
- * Everything a student sees — lessons, checks, labs, exams — is data described
+ * Everything a student sees: lessons, checks, labs, exams: is data described
  * here. One source of truth means the syllabus coverage map, the dashboard, the
  * revision deck and the exam generator all stay in sync automatically.
  * ==========================================================================*/
@@ -51,6 +51,12 @@ export type TestCase =
       name: string;
       /** Extra Python appended before evaluating (e.g. build a list). */
       setup?: string;
+      /**
+       * Lines fed to `input()` while the program runs. Needed whenever the
+       * exercise also reads input at the top level, otherwise the program
+       * hits EOF before the expression can be evaluated.
+       */
+      stdin?: string[];
       expr: string;
       /** Expected `repr()` of the expression's value. */
       expect: string;

@@ -79,11 +79,11 @@ print("Absolute :", abs(-17))`,
           kind: "callout",
           tone: "key",
           title: "Why use functions at all?",
-          md: `- **Avoid repetition** — write the code once instead of five times
-- **Divide the work** — each module of your structure chart becomes a function
-- **Easier to test** — you can check one function on its own
-- **Easier to read** — \`calculate_grade(marks)\` explains itself
-- **Reusable** — store it and use it in another program`,
+          md: `- **Avoid repetition**: write the code once instead of five times
+- **Divide the work**: each module of your structure chart becomes a function
+- **Easier to test**: you can check one function on its own
+- **Easier to read**: \`calculate_grade(marks)\` explains itself
+- **Reusable**: store it and use it in another program`,
         },
         {
           kind: "check",
@@ -139,12 +139,12 @@ my_function()      # calling it twice runs it twice`,
         {
           kind: "callout",
           tone: "key",
-          title: "The difference — a favourite exam question",
-          md: `- A **parameter** is the name in the function **definition** — the placeholder.
+          title: "The difference: a favourite exam question",
+          md: `- A **parameter** is the name in the function **definition**: the placeholder.
 - An **argument** is the actual value passed in when the function is **called**.
 
-\`def greet(name):\` — \`name\` is the parameter.
-\`greet("Nimal")\` — \`"Nimal"\` is the argument.`,
+\`def greet(name):\`: \`name\` is the parameter.
+\`greet("Nimal")\`: \`"Nimal"\` is the argument.`,
         },
         {
           kind: "code",
@@ -161,7 +161,7 @@ greet("Sanduni")`,
           kind: "code",
           lang: "python",
           runnable: true,
-          caption: "Several parameters — separate them with commas, and order matters",
+          caption: "Several parameters: separate them with commas, and order matters",
           code: `def student_details(name, age, grade):
     print(name, "is", age, "years old and is in grade", grade)
 
@@ -216,7 +216,7 @@ greet("Nimal", "Good morning")    # overrides it     → Good morning, Nimal`,
     {
       id: "9.9.3",
       title: "Return values",
-      summary: "Sending a result back to whoever called the function — and why print is not the same thing.",
+      summary: "Sending a result back to whoever called the function, and why print is not the same thing.",
       minutes: 14,
       outcomes: [
         "Identifies the need of return values and writes functions to obtain the appropriate return value",
@@ -224,7 +224,7 @@ greet("Nimal", "Good morning")    # overrides it     → Good morning, Nimal`,
       blocks: [
         {
           kind: "text",
-          md: `A function that only prints is a dead end — the value is on the screen but the program cannot use it.
+          md: `A function that only prints is a dead end: the value is on the screen but the program cannot use it.
 
 The \`return\` statement sends a value **back to the caller**, where it can be stored, printed, or passed to another function.`,
         },
@@ -246,7 +246,7 @@ print("Used again   :", result * 10)
 
 # What does the printing version actually give back?
 x = add_print(3, 4)
-print("add_print returned:", x)   # None — nothing came back`,
+print("add_print returned:", x)   # None: nothing came back`,
         },
         {
           kind: "callout",
@@ -261,7 +261,7 @@ A function that calculates something should almost always \`return\` its answer,
           kind: "callout",
           tone: "mistake",
           title: "return ends the function immediately",
-          md: `Any lines after a \`return\` that runs will never execute. This is often a bug — and occasionally exactly what you want, to leave a function early.`,
+          md: `Any lines after a \`return\` that runs will never execute. This is often a bug, and occasionally exactly what you want, to leave a function early.`,
         },
         {
           kind: "code",
@@ -342,7 +342,7 @@ print("Area of 6 cm square    :", area_of_square(6))`,
 
 my_function()
 
-# This line fails — local_var does not exist out here.
+# This line fails: local_var does not exist out here.
 # Remove the # to see the NameError.
 # print("Outside:", local_var)`,
         },
@@ -370,7 +370,7 @@ print("Still available outside:", school)`,
           code: `count = 0        # global
 
 def wrong_increase():
-    count = 10       # creates a NEW local variable — the global is untouched
+    count = 10       # creates a NEW local variable: the global is untouched
 
 def right_increase():
     global count     # "I mean the global one"
@@ -413,8 +413,8 @@ print(total)`,
           kind: "text",
           md: `When you pass an argument, what actually travels into the function depends on the type of data.
 
-- **Immutable** values (int, float, string, tuple) behave like **pass by value** — the function gets a copy, and changes inside do not affect the original.
-- **Mutable** values (list, dictionary) behave like **pass by reference** — the function gets access to the same object, so changes inside **do** affect the original.`,
+- **Immutable** values (int, float, string, tuple) behave like **pass by value**: the function gets a copy, and changes inside do not affect the original.
+- **Mutable** values (list, dictionary) behave like **pass by reference**: the function gets access to the same object, so changes inside **do** affect the original.`,
         },
         {
           kind: "code",
@@ -526,10 +526,11 @@ print("Perimeter:", round(circle_perimeter(r), 2))`,
           expect: "Area: 153.94\nPerimeter: 43.98",
           match: "loose",
         },
-        { kind: "expr", name: "circle_area returns a value", expr: "round(circle_area(1), 5)", expect: "3.14159" },
+        { kind: "expr", name: "circle_area returns a value", stdin: ["1"], expr: "round(circle_area(1), 5)", expect: "3.14159" },
         {
           kind: "expr",
           name: "circle_perimeter returns a value",
+          stdin: ["1"],
           expr: "round(circle_perimeter(1), 5)",
           expect: "6.28318",
         },
@@ -598,8 +599,8 @@ print(grade(42, 45))`,
 
 Write two functions:
 
-- \`add_item(price)\` — adds the price to the **global** \`total\` (it returns nothing)
-- \`get_total()\` — returns the current value of \`total\`
+- \`add_item(price)\`: adds the price to the **global** \`total\` (it returns nothing)
+- \`get_total()\`: returns the current value of \`total\`
 
 Then call \`add_item(100)\`, \`add_item(250)\`, \`add_item(50)\` and print \`get_total()\`.
 
@@ -643,6 +644,20 @@ add_item(50)
 print(get_total())`,
       tests: [
         { kind: "io", name: "Total is 400", expect: "400", match: "loose" },
+        {
+          kind: "expr",
+          name: "get_total() returns the running total",
+          expr: "get_total()",
+          expect: "400",
+        },
+        {
+          kind: "expr",
+          name: "add_item() really changes the global",
+          setup: "add_item(600)",
+          expr: "get_total()",
+          expect: "1000",
+          hidden: true,
+        },
         { kind: "source", name: "Uses the global keyword", mustUse: ["global"] },
         { kind: "source", name: "get_total returns rather than prints", mustUse: ["return total"] },
       ],
@@ -715,7 +730,7 @@ print(get_total())`,
       level: "9.9",
       q: "A function receives a list and appends an item to it. What happens to the caller's list?",
       options: [
-        "Nothing — the function works on a copy",
+        "Nothing: the function works on a copy",
         "It is also changed, because lists are mutable and are passed by reference",
         "The program raises an error",
         "The list becomes empty",

@@ -16,7 +16,7 @@ export const m02: Module = {
   lessons: [
     {
       id: "9.2.1",
-      title: "Modularization — breaking the problem apart",
+      title: "Modularization: breaking the problem apart",
       summary:
         "Why splitting a system into subsystems is the single most useful design skill, and how far to split.",
       minutes: 12,
@@ -124,7 +124,7 @@ This is a normal part of design, not a sign of failure. The syllabus explicitly 
       id: "9.2.2",
       title: "Structure charts",
       summary:
-        "The standard diagram for showing how a system breaks down into modules — and how to draw one that earns full marks.",
+        "The standard diagram for showing how a system breaks down into modules, and how to draw one that earns full marks.",
       minutes: 16,
       outcomes: ["Draws structure charts to illustrate a solution for a system"],
       blocks: [
@@ -190,7 +190,7 @@ Neat handwriting earns nothing. A logically correct tree earns everything.`,
           kind: "callout",
           tone: "mistake",
           title: "Common mistake",
-          md: `Mixing levels of detail. If one branch says "Manage students" and the branch next to it says "Press the save button", the chart is wrong — those are not at the same level. Sibling boxes should feel like they belong in the same sentence.`,
+          md: `Mixing levels of detail. If one branch says "Manage students" and the branch next to it says "Press the save button", the chart is wrong: those are not at the same level. Sibling boxes should feel like they belong in the same sentence.`,
         },
         {
           kind: "heading",
@@ -214,7 +214,7 @@ def print_report(students):
     ...
 
 def produce_reports(students):
-    """This module is made of the three below it — exactly like the chart."""
+    """This module is made of the three below it: exactly like the chart."""
     for s in students:
         s["grade"] = calculate_grade(s["marks"])
     rank_students(students)
@@ -238,11 +238,90 @@ def produce_reports(students):
           },
         },
         { kind: "exercise", exerciseId: "ex-9.2-1" },
+        { kind: "exercise", exerciseId: "ex-9.2-2" },
       ],
     },
   ],
 
   exercises: [
+    {
+      id: "ex-9.2-2",
+      title: "Build the structure chart in code",
+      level: "9.2",
+      difficulty: 2,
+      xp: 45,
+      tags: ["decomposition", "functions", "top-down design"],
+      brief: `A school canteen system was decomposed into three sub-modules. Your job is to turn that structure chart into working code, keeping each box a **separate function**.
+
+\`\`\`
+              Canteen bill
+        ____________|____________
+       |            |            |
+  subtotal()   discount()     total()
+\`\`\`
+
+Write these three functions exactly:
+
+- \`subtotal(price, qty)\` returns \`price * qty\`
+- \`discount(amount)\` returns **10%** of the amount when it is **1000 or more**, otherwise \`0\`
+- \`total(price, qty)\` uses the other two functions and returns what the customer pays
+
+Then read a price and a quantity and print \`Total: 1800.0\`.
+
+The point is the **shape** of the solution: \`total()\` must call the other two rather than repeat their arithmetic. That is what a structure chart is telling you to do.`,
+      starter: `def subtotal(price, qty):
+    pass
+
+
+def discount(amount):
+    pass
+
+
+def total(price, qty):
+    pass
+
+
+price = float(input("Price: "))
+qty = int(input("Quantity: "))
+# Print the total here
+`,
+      hints: [
+        "Each function must `return` its answer, not print it.",
+        "`discount` decides with an `if`: `if amount >= 1000: return amount * 0.1` else `return 0`.",
+        "`total` should call `subtotal(price, qty)` first, then pass that answer to `discount`.",
+        "The customer pays the subtotal minus the discount.",
+      ],
+      solution: `def subtotal(price, qty):
+    return price * qty
+
+
+def discount(amount):
+    if amount >= 1000:
+        return amount * 0.1
+    return 0
+
+
+def total(price, qty):
+    amount = subtotal(price, qty)
+    return amount - discount(amount)
+
+
+price = float(input("Price: "))
+qty = int(input("Quantity: "))
+print("Total:", total(price, qty))`,
+      tests: [
+        { kind: "io", name: "500 x 4 earns the discount", stdin: ["500", "4"], expect: "Total: 1800.0", match: "loose" },
+        { kind: "io", name: "Below the threshold", stdin: ["100", "3"], expect: "Total: 300.0", match: "loose" },
+        { kind: "expr", name: "subtotal() multiplies", stdin: ["1", "1"], expr: "subtotal(250, 4)", expect: "1000" },
+        { kind: "expr", name: "discount() at the boundary", stdin: ["1", "1"], expr: "discount(1000)", expect: "100.0" },
+        { kind: "expr", name: "discount() below the boundary", stdin: ["1", "1"], expr: "discount(999)", expect: "0", hidden: true },
+        {
+          kind: "source",
+          name: "total() reuses the other modules",
+          mustUse: ["subtotal(", "discount("],
+        },
+      ],
+    },
     {
       id: "ex-9.2-1",
       title: "Modules as functions",
@@ -254,9 +333,9 @@ def produce_reports(students):
 
 Write three functions that mirror that structure chart:
 
-- \`calculate_total(prices)\` — takes a list of prices and **returns** their total.
-- \`print_bill(total)\` — prints exactly \`Total: 250\` (using the value passed in).
-- \`main()\` — calls \`calculate_total\` with the list \`[100, 50, 100]\` and passes the result to \`print_bill\`.
+- \`calculate_total(prices)\`: takes a list of prices and **returns** their total.
+- \`print_bill(total)\`: prints exactly \`Total: 250\` (using the value passed in).
+- \`main()\`: calls \`calculate_total\` with the list \`[100, 50, 100]\` and passes the result to \`print_bill\`.
 
 Then call \`main()\`.`,
       starter: `def calculate_total(prices):
@@ -277,7 +356,7 @@ def main():
 main()`,
       hints: [
         "To add up a list you can use a loop with a running total, or the built-in `sum(prices)`.",
-        "`calculate_total` must use `return`, not `print` — the value has to travel back to `main`.",
+        "`calculate_total` must use `return`, not `print`: the value has to travel back to `main`.",
         "In `print_bill`, use `print(\"Total:\", total)`.",
         "In `main`, store the returned value first: `total = calculate_total([100, 50, 100])`.",
       ],
@@ -299,7 +378,7 @@ def main():
 
 main()`,
       tests: [
-        { kind: "io", name: "Prints the correct bill", expect: "Total: 250", match: "contains" },
+        { kind: "io", name: "Prints the correct bill", expect: "Total: 250", match: "loose" },
         {
           kind: "expr",
           name: "calculate_total returns a value",
@@ -365,7 +444,7 @@ main()`,
       ],
       answer: 1,
       explain:
-        "Structure charts show composition — what a system is made of. Execution order is shown by flow charts.",
+        "Structure charts show composition: what a system is made of. Execution order is shown by flow charts.",
       difficulty: 1,
     },
     {

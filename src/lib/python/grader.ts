@@ -7,7 +7,7 @@ import { explainError, type FriendlyError } from "./errors";
  *
  * Each test runs the student's program in a fresh namespace, so one test can't
  * leak state into the next. Feedback names what was expected and what actually
- * happened — a bare "Wrong" teaches nothing.
+ * happened: a bare "Wrong" teaches nothing.
  * ==========================================================================*/
 
 export interface TestResult {
@@ -133,7 +133,7 @@ export async function gradeExercise(
         continue;
       }
 
-      // `printed` excludes the echoed input lines — those are part of the
+      // `printed` excludes the echoed input lines: those are part of the
       // terminal transcript, not something the student's program produced.
       const printed = res.printed;
       const passed = compareOutput(printed, test.expect, test.match);
@@ -151,6 +151,7 @@ export async function gradeExercise(
     const source = test.setup ? `${code}\n${test.setup}` : code;
     const res = await rt.run(source, {
       files: exercise.files,
+      stdin: test.stdin,
       resetFs: true,
       evalExpr: test.expr,
       timeoutMs: 10_000,
@@ -173,7 +174,7 @@ export async function gradeExercise(
         name: test.name,
         passed: false,
         hidden: Boolean(test.hidden),
-        message: `\`${test.expr}\` could not be evaluated — is the function defined with that exact name?`,
+        message: `\`${test.expr}\` could not be evaluated: is the function defined with that exact name?`,
         actual: res.evalResult?.error ?? "",
       });
       continue;
@@ -199,7 +200,7 @@ export async function gradeExercise(
   };
 }
 
-/** Runs the student's stdin against the program only — used by the Run button. */
+/** Runs the student's stdin against the program only: used by the Run button. */
 export function splitStdin(raw: string): string[] {
   if (!raw.trim()) return [];
   return raw.replace(/\r\n/g, "\n").split("\n");

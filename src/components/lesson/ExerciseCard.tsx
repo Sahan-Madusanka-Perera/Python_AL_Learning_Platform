@@ -32,7 +32,7 @@ import { cn } from "@/lib/utils";
  * A coding lab: problem, editor, run, and an auto-graded check.
  *
  * Hints are revealed one at a time and the solution stays locked until at
- * least one real attempt has been submitted — the struggle before the answer
+ * least one real attempt has been submitted: the struggle before the answer
  * is where the learning is.
  * ==========================================================================*/
 
@@ -101,7 +101,7 @@ export function ExerciseCard({
       });
       toast({
         title: "Solved!",
-        body: `+${exercise.xp} XP — ${exercise.title}`,
+        body: `+${exercise.xp} XP: ${exercise.title}`,
         tone: "success",
         icon: <Trophy className="size-4 text-accent-500" />,
       });
@@ -225,7 +225,7 @@ export function ExerciseCard({
             <div className="px-3 pb-3">
               <details className="group">
                 <summary className="cursor-pointer list-none text-[11.5px] font-medium text-subtle transition-colors hover:text-muted">
-                  Inputs for `input()` — one per line
+                  Inputs for `input()`: one per line
                 </summary>
                 <textarea
                   value={stdinText}

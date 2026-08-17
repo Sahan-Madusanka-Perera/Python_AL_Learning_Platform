@@ -4,7 +4,7 @@ export const m08: Module = {
   id: "9.8",
   slug: "control-structures",
   title: "Control Structures",
-  tagline: "Sequence, selection and repetition — three ideas that can express any program ever written.",
+  tagline: "Sequence, selection and repetition: three ideas that can express any program ever written.",
   icon: "Split",
   periods: 12,
   outcomes: [
@@ -17,7 +17,7 @@ export const m08: Module = {
     "Control Structures",
     "Sequence",
     "Selection",
-    "Repetition — iteration and looping",
+    "Repetition: iteration and looping",
   ],
 
   lessons: [
@@ -51,7 +51,7 @@ export const m08: Module = {
         },
         {
           kind: "text",
-          md: `Most languages use curly brackets \`{ }\` to show which statements belong to an \`if\` or a loop. **Python uses indentation** — the spaces at the start of the line.
+          md: `Most languages use curly brackets \`{ }\` to show which statements belong to an \`if\` or a loop. **Python uses indentation**: the spaces at the start of the line.
 
 This means spacing is not decoration. It changes what the program does.`,
         },
@@ -59,7 +59,7 @@ This means spacing is not decoration. It changes what the program does.`,
           kind: "code",
           lang: "python",
           runnable: true,
-          caption: "The SAME lines, indented differently — completely different meaning",
+          caption: "The SAME lines, indented differently: completely different meaning",
           code: `print("--- Version A: print is INSIDE the if ---")
 marks = 30
 if marks >= 50:
@@ -78,7 +78,7 @@ print("Well done")          # not indented → always runs`,
           title: "Indentation rules",
           md: `- Use **4 spaces** per level. Be consistent.
 - Every line in the same block must start at **exactly** the same column.
-- **Never mix tabs and spaces** — Python raises a \`TabError\`.
+- **Never mix tabs and spaces**: Python raises a \`TabError\`.
 - The line that opens a block ends with \`:\` and the next line must be indented.`,
         },
         {
@@ -103,7 +103,7 @@ print("Well done")          # not indented → always runs`,
 
     {
       id: "9.8.2",
-      title: "Selection — if, if-else, if-elif-else",
+      title: "Selection: if, if-else, if-elif-else",
       summary: "Making decisions, from a single condition up to a full grading system.",
       minutes: 18,
       outcomes: ["Uses control structures appropriately in programming"],
@@ -114,7 +114,7 @@ print("Well done")          # not indented → always runs`,
           title: "if statement",
           parts: [
             { text: "if", label: "keyword", tone: "keyword" },
-            { text: " age >= 18", label: "condition — must be True or False", tone: "value" },
+            { text: " age >= 18", label: "condition: must be True or False", tone: "value" },
             { text: ":", label: "colon is compulsory", tone: "punct" },
           ],
         },
@@ -130,7 +130,7 @@ if age >= 18:
 
 print("Program finished")`,
         },
-        { kind: "heading", text: "if-else — two paths" },
+        { kind: "heading", text: "if-else: two paths" },
         {
           kind: "code",
           lang: "python",
@@ -143,10 +143,10 @@ if age >= 18:
 else:
     print("You are not eligible to vote")`,
         },
-        { kind: "heading", text: "if-elif-else — many paths" },
+        { kind: "heading", text: "if-elif-else: many paths" },
         {
           kind: "text",
-          md: `When there are more than two possibilities, use \`elif\` (short for *else if*). Python checks each condition **in order** and runs the **first** one that is true — then skips all the rest.`,
+          md: `When there are more than two possibilities, use \`elif\` (short for *else if*). Python checks each condition **in order** and runs the **first** one that is true, then skips all the rest.`,
         },
         {
           kind: "code",
@@ -230,7 +230,7 @@ else:
 
     {
       id: "9.8.3",
-      title: "Repetition — while and for",
+      title: "Repetition: while and for",
       summary: "The difference between looping a known number of times and looping until something happens.",
       minutes: 20,
       outcomes: ["Uses control structures appropriately in programming"],
@@ -239,8 +239,8 @@ else:
           kind: "text",
           md: `Repetition means executing a group of statements more than once. The syllabus distinguishes two situations:
 
-- **Iteration** — the number of repetitions is **known in advance** (a *pre-determined* count). Use a **for** loop.
-- **Looping** — the number of repetitions depends on a condition and is **not known in advance** (*post-determined*). Use a **while** loop.`,
+- **Iteration**: the number of repetitions is **known in advance** (a *pre-determined* count). Use a **for** loop.
+- **Looping**: the number of repetitions depends on a condition and is **not known in advance** (*post-determined*). Use a **while** loop.`,
         },
         { kind: "widget", id: "loop-visualiser" },
         { kind: "heading", text: "The for loop" },
@@ -258,11 +258,11 @@ else:
         {
           kind: "callout",
           tone: "key",
-          title: "How range() works — learn all three forms",
-          md: `- \`range(5)\` → 0, 1, 2, 3, 4 — starts at 0, **stops before** 5
-- \`range(1, 6)\` → 1, 2, 3, 4, 5 — starts at 1, **stops before** 6
-- \`range(1, 10, 2)\` → 1, 3, 5, 7, 9 — steps by 2
-- \`range(10, 0, -1)\` → 10, 9, 8 … 1 — counts backwards
+          title: "How range() works: learn all three forms",
+          md: `- \`range(5)\` → 0, 1, 2, 3, 4: starts at 0, **stops before** 5
+- \`range(1, 6)\` → 1, 2, 3, 4, 5: starts at 1, **stops before** 6
+- \`range(1, 10, 2)\` → 1, 3, 5, 7, 9: steps by 2
+- \`range(10, 0, -1)\` → 10, 9, 8 … 1: counts backwards
 
 **The stop value is never included.** To count 1 to 100 you need \`range(1, 101)\`.`,
         },
@@ -287,6 +287,28 @@ print("Sum of 1 to 100 =", total)`,
 for letter in "ICT":
     print(letter)`,
         },
+        {
+          kind: "flowchart",
+          title: "What a for loop looks like as a flow chart",
+          nodes: [
+            { id: "s", shape: "terminal", text: "Start", next: "init" },
+            { id: "init", shape: "process", text: "i = 1", next: "d" },
+            {
+              id: "d",
+              shape: "decision",
+              text: "i <= 5 ?",
+              next: "body",
+              no: "e",
+              edgeLabel: "YES",
+              noLabel: "NO",
+            },
+            { id: "body", shape: "io", text: "Display i", next: "inc" },
+            { id: "inc", shape: "process", text: "i = i + 1", next: "d" },
+            { id: "e", shape: "terminal", text: "End" },
+          ],
+          caption:
+            "range() hides all three parts inside one line: i = 1 is the start, i <= 5 is the test, i = i + 1 is the step. Python writes them for you, but the exam may ask you to draw them.",
+        },
         { kind: "heading", text: "The while loop" },
         {
           kind: "text",
@@ -303,6 +325,28 @@ while i <= 5:
     i = i + 1        # ← without this line the loop never ends`,
         },
         {
+          kind: "flowchart",
+          title: "The same while loop, drawn out",
+          nodes: [
+            { id: "s", shape: "terminal", text: "Start", next: "init" },
+            { id: "init", shape: "process", text: "i = 1", next: "d" },
+            {
+              id: "d",
+              shape: "decision",
+              text: "i <= 5 ?",
+              next: "body",
+              no: "e",
+              edgeLabel: "YES",
+              noLabel: "NO",
+            },
+            { id: "body", shape: "io", text: "Display i", next: "inc" },
+            { id: "inc", shape: "process", text: "i = i + 1", next: "d" },
+            { id: "e", shape: "terminal", text: "End" },
+          ],
+          caption:
+            "Identical to the for loop above, because a for loop IS a while loop with the counting written for you. The diamond sits above the body, so the test happens first.",
+        },
+        {
           kind: "callout",
           tone: "mistake",
           title: "The infinite loop",
@@ -311,13 +355,13 @@ while i <= 5:
 2. A **condition** that can become false
 3. Something **inside** the loop that changes the variable
 
-Leave out step 3 and the program runs forever. Try it below — then press **Stop**.`,
+Leave out step 3 and the program runs forever. Try it below, then press **Stop**.`,
         },
         {
           kind: "code",
           lang: "python",
           runnable: true,
-          caption: "This never ends. Press Stop to interrupt it — that is the Ctrl-C an IDE gives you.",
+          caption: "This never ends. Press Stop to interrupt it: that is the Ctrl-C an IDE gives you.",
           code: `i = 1
 while i <= 5:
     print("i is still", i)
@@ -336,6 +380,88 @@ while total < 50:
 
 print("Total is", total)
 print("Added the numbers 1 to", number - 1)`,
+        },
+        { kind: "heading", text: "Repeat-Until: when the body must run first" },
+        {
+          kind: "text",
+          md: `Both loops so far test the condition **before** the body, so the body can run zero times. Some problems need the opposite: you cannot ask *"was the password correct?"* until you have asked for a password once.
+
+Pseudocode calls this **Repeat … Until**, and the flow chart puts the diamond **below** the body.`,
+        },
+        {
+          kind: "flowchart",
+          title: "Post-test loop: ask until the answer is right",
+          nodes: [
+            { id: "s", shape: "terminal", text: "Start", next: "read" },
+            { id: "read", shape: "io", text: "Read guess", next: "d" },
+            {
+              id: "d",
+              shape: "decision",
+              text: "guess = 7 ?",
+              next: "out",
+              no: "read",
+              edgeLabel: "YES",
+              noLabel: "NO",
+            },
+            { id: "out", shape: "io", text: 'Display "Correct"', next: "e" },
+            { id: "e", shape: "terminal", text: "End" },
+          ],
+          caption:
+            "Read guess always happens at least once. The NO branch is the return line: it goes back up to the input, not to the diamond.",
+        },
+        {
+          kind: "code",
+          lang: "pseudo",
+          caption: "In pseudocode the condition is the exit condition, not the continue condition",
+          code: `Begin
+    Repeat
+        Read guess
+    Until guess = 7
+    Display "Correct"
+End`,
+        },
+        {
+          kind: "text",
+          md: `**Python has no \`repeat\` keyword.** You build a post-test loop with \`while True\` and a \`break\`: the body runs, then the test decides whether to leave.`,
+        },
+        {
+          kind: "code",
+          lang: "python",
+          runnable: true,
+          stdin: ["3", "9", "7"],
+          caption: "Repeat … Until guess = 7, written the Python way",
+          code: `while True:
+    guess = int(input("Guess the number: "))
+    if guess == 7:
+        break                 # ← Until guess = 7
+    print("Not that one, try again")
+
+print("Correct!")`,
+        },
+        {
+          kind: "callout",
+          tone: "exam",
+          title: "Watch the direction of the condition",
+          md: `\`Repeat … Until guess = 7\` loops while the condition is **false** and stops when it becomes **true**. \`While\` is the other way round.
+
+So when you translate, the condition **flips**: \`Until guess = 7\` becomes \`if guess == 7: break\`, or equivalently \`while guess != 7:\`. Writing \`while guess == 7\` is the classic slip.`,
+        },
+        {
+          kind: "check",
+          question: {
+            id: "q-9.8-inline-4",
+            level: "9.8",
+            q: "A Repeat … Until loop is used instead of a While loop when…",
+            options: [
+              "the loop must run a fixed number of times",
+              "the body must be carried out at least once",
+              "the condition can never become true",
+              "you are walking through a list",
+            ],
+            answer: 1,
+            explain:
+              "The test sits after the body, so the body always runs at least once. A While loop tests first and so may run its body zero times.",
+          },
         },
         {
           kind: "compare",
@@ -383,7 +509,7 @@ print("Added the numbers 1 to", number - 1)`,
       minutes: 16,
       outcomes: ["Applies nested control structures in programs"],
       blocks: [
-        { kind: "heading", text: "break — leave the loop immediately" },
+        { kind: "heading", text: "break: leave the loop immediately" },
         {
           kind: "code",
           lang: "python",
@@ -397,7 +523,7 @@ while i <= 10:
 
 print("Loop ended at i =", i)`,
         },
-        { kind: "heading", text: "continue — skip to the next pass" },
+        { kind: "heading", text: "continue: skip to the next pass" },
         {
           kind: "code",
           lang: "python",
@@ -413,7 +539,7 @@ print("Loop ended at i =", i)`,
           rows: [
             ["Effect", "Exits the loop entirely", "Skips the rest of the current pass"],
             ["Loop continues?", "No", "Yes, with the next value"],
-            ["Typical use", "Item found — stop searching", "Ignore invalid data and carry on"],
+            ["Typical use", "Item found: stop searching", "Ignore invalid data and carry on"],
           ],
         },
         { kind: "heading", text: "Nested loops" },
@@ -427,7 +553,7 @@ If the outer loop runs 3 times and the inner runs 4 times, the inner body execut
           kind: "code",
           lang: "python",
           runnable: true,
-          caption: "The multiplication pattern — outer row, inner column",
+          caption: "The multiplication pattern: outer row, inner column",
           code: `for row in range(1, 4):
     for col in range(1, 5):
         print(row, "x", col, "=", row * col)
@@ -493,7 +619,7 @@ print("Inner body ran", total, "times")`,
             options: ["3", "4", "12", "7"],
             answer: 0,
             explain:
-              "The inner loop prints 4 stars on one line without a newline. `print()` at the end of the outer loop body moves to the next line — and the outer loop runs 3 times, so there are 3 lines of 4 stars.",
+              "The inner loop prints 4 stars on one line without a newline. `print()` at the end of the outer loop body moves to the next line, and the outer loop runs 3 times, so there are 3 lines of 4 stars.",
           },
         },
         { kind: "exercise", exerciseId: "ex-9.8-3" },
@@ -523,7 +649,7 @@ Read the purchase amount and print the discount **percentage** only, in the form
 # Your code here
 `,
       hints: [
-        "Use `if` / `elif` / `elif` / `else` — four branches in total.",
+        "Use `if` / `elif` / `elif` / `else`: four branches in total.",
         "Order matters. Test the LARGEST amount first, or every big purchase will match the 10% rule.",
         "The question says 'more than', so use `>` and not `>=`.",
         "Print with `print(\"Discount: \", discount, \"%\", sep=\"\")` or build the string yourself.",
@@ -541,16 +667,16 @@ else:
 
 print("Discount: ", discount, "%", sep="")`,
       tests: [
-        { kind: "io", name: "500,000 gets 30%", stdin: ["500000"], expect: "Discount: 30%", match: "contains" },
-        { kind: "io", name: "350,000 gets 20%", stdin: ["350000"], expect: "Discount: 20%", match: "contains" },
-        { kind: "io", name: "150,000 gets 10%", stdin: ["150000"], expect: "Discount: 10%", match: "contains" },
-        { kind: "io", name: "50,000 gets nothing", stdin: ["50000"], expect: "Discount: 0%", match: "contains" },
+        { kind: "io", name: "500,000 gets 30%", stdin: ["500000"], expect: "Discount: 30%", match: "loose" },
+        { kind: "io", name: "350,000 gets 20%", stdin: ["350000"], expect: "Discount: 20%", match: "loose" },
+        { kind: "io", name: "150,000 gets 10%", stdin: ["150000"], expect: "Discount: 10%", match: "loose" },
+        { kind: "io", name: "50,000 gets nothing", stdin: ["50000"], expect: "Discount: 0%", match: "loose" },
         {
           kind: "io",
           name: "Exactly 100,000 gets nothing ('more than')",
           stdin: ["100000"],
           expect: "Discount: 0%",
-          match: "contains",
+          match: "loose",
           hidden: true,
         },
       ],
@@ -564,7 +690,7 @@ print("Discount: ", discount, "%", sep="")`,
       tags: ["loops", "modulus"],
       brief: `Compute the sum of all **even** numbers from 1 to 100 inclusive, and print it in the form \`Sum: 2550\`.
 
-Use a loop — not a formula.`,
+Use a loop, not a formula.`,
       starter: `total = 0
 
 # Your code here
@@ -572,14 +698,14 @@ Use a loop — not a formula.`,
       hints: [
         "`range(1, 101)` gives every number from 1 to 100 inclusive.",
         "A number is even when `n % 2 == 0`.",
-        "Alternatively `range(2, 101, 2)` steps through only the even numbers — no `if` needed.",
+        "Alternatively `range(2, 101, 2)` steps through only the even numbers: no `if` needed.",
       ],
       solution: `total = 0
 for n in range(2, 101, 2):
     total = total + n
 print("Sum:", total)`,
       tests: [
-        { kind: "io", name: "Correct sum", expect: "Sum: 2550", match: "contains" },
+        { kind: "io", name: "Correct sum", expect: "Sum: 2550", match: "loose" },
         { kind: "source", name: "Uses a loop", mustUse: ["for"] },
       ],
     },
@@ -594,7 +720,9 @@ print("Sum:", total)`,
 
 Inputs \`3\` then \`7\` must print \`Sum: 25\` (3+4+5+6+7).
 
-The program must also work when the **first number is larger** than the second: inputs \`7\` then \`3\` must also print \`Sum: 25\`.`,
+The program must also work when the **first number is larger** than the second: inputs \`7\` then \`3\` must also print \`Sum: 25\`.
+
+Add the numbers up with a **loop**, not with \`sum()\`.`,
       starter: `a = int(input("First number: "))
 b = int(input("Second number: "))
 
@@ -603,7 +731,7 @@ b = int(input("Second number: "))
       hints: [
         "To include both ends, loop with `range(start, end + 1)`.",
         "If `a` is bigger than `b`, `range(a, b + 1)` produces nothing at all.",
-        "Work out the smaller and larger first — `min(a, b)` and `max(a, b)` do this in one step.",
+        "Work out the smaller and larger first: `min(a, b)` and `max(a, b)` do this in one step.",
         "Or use an `if` to swap them before looping.",
       ],
       solution: `a = int(input("First number: "))
@@ -618,10 +746,16 @@ for n in range(low, high + 1):
 
 print("Sum:", total)`,
       tests: [
-        { kind: "io", name: "3 to 7", stdin: ["3", "7"], expect: "Sum: 25", match: "contains" },
-        { kind: "io", name: "Reversed: 7 to 3", stdin: ["7", "3"], expect: "Sum: 25", match: "contains" },
-        { kind: "io", name: "1 to 100", stdin: ["1", "100"], expect: "Sum: 5050", match: "contains", hidden: true },
-        { kind: "io", name: "Same number twice", stdin: ["5", "5"], expect: "Sum: 5", match: "contains", hidden: true },
+        {
+          kind: "source",
+          name: "Adds them up with a loop",
+          mustUse: ["for "],
+          mustNotUse: ["sum("],
+        },
+        { kind: "io", name: "3 to 7", stdin: ["3", "7"], expect: "Sum: 25", match: "loose" },
+        { kind: "io", name: "Reversed: 7 to 3", stdin: ["7", "3"], expect: "Sum: 25", match: "loose" },
+        { kind: "io", name: "1 to 100", stdin: ["1", "100"], expect: "Sum: 5050", match: "loose", hidden: true },
+        { kind: "io", name: "Same number twice", stdin: ["5", "5"], expect: "Sum: 5", match: "loose", hidden: true },
       ],
     },
     {
@@ -641,7 +775,7 @@ For \`n = 4\`:
 ****
 \`\`\`
 
-Use a **nested loop** — an inner loop that prints the stars for one row.`,
+Use a **nested loop**: an inner loop that prints the stars for one row.`,
       starter: `n = int(input("Enter n: "))
 
 # Your code here
@@ -695,13 +829,13 @@ for i in range(1, n + 1):
       q: "Can the body of a `for` loop ever fail to execute at all?",
       options: [
         "No, a for loop always runs at least once",
-        "Yes, if the sequence is empty — for example range(0)",
+        "Yes, if the sequence is empty: for example range(0)",
         "Only if there is a break in it",
         "Only in a while loop",
       ],
       answer: 1,
       explain:
-        "If the sequence has no items — `range(0)`, or an empty list — the body never runs. This is a standard exam question.",
+        "If the sequence has no items: `range(0)`, or an empty list: the body never runs. This is a standard exam question.",
       difficulty: 2,
     },
     {
@@ -738,7 +872,7 @@ for i in range(1, n + 1):
       options: ["A", "B", "C", "F"],
       answer: 2,
       explain:
-        "80 satisfies the FIRST condition (>= 40), so grade becomes 'C' and the remaining branches are skipped. The conditions are in the wrong order — they must go from highest to lowest.",
+        "80 satisfies the FIRST condition (>= 40), so grade becomes 'C' and the remaining branches are skipped. The conditions are in the wrong order: they must go from highest to lowest.",
       difficulty: 3,
     },
     {
@@ -762,13 +896,13 @@ for i in range(1, n + 1):
       q: "Why does Python use indentation instead of curly brackets?",
       options: [
         "To make files smaller",
-        "Indentation defines the scope of a statement — which lines belong to the block",
+        "Indentation defines the scope of a statement: which lines belong to the block",
         "It is only a style preference and has no effect",
         "To make the program run faster",
       ],
       answer: 1,
       explain:
-        "In Python, indentation is part of the syntax. It determines which statements belong to an if, loop or function — the job curly brackets do in other languages.",
+        "In Python, indentation is part of the syntax. It determines which statements belong to an if, loop or function: the job curly brackets do in other languages.",
       difficulty: 1,
     },
     {

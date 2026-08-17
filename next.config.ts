@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 /**
  * Cross-origin isolation is required for SharedArrayBuffer, which is what makes
  * two things possible in this app:
- *   1. a real, blocking `input()` — the program pauses and waits for the student
+ *   1. a real, blocking `input()`: the program pauses and waits for the student
  *   2. Ctrl-C style interrupts, so an accidental `while True:` can be stopped
  *
  * Every asset (Python runtime, fonts, icons) is served same-origin so that
@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
         headers: crossOriginIsolation,
       },
       {
-        // The Python runtime never changes for a given build — cache it hard.
+        // The Python runtime never changes for a given build: cache it hard.
         source: "/pyodide/:path*",
         headers: [
           ...crossOriginIsolation,

@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 /* ============================================================================
  * A multiple-choice question.
  *
- * The explanation appears whether the answer was right or wrong — being right
+ * The explanation appears whether the answer was right or wrong: being right
  * for the wrong reason is the most expensive habit a student can build.
  * ==========================================================================*/
 

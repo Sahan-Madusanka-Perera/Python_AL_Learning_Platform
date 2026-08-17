@@ -4,7 +4,7 @@ import type { Module } from "../types";
  * Beyond the mandatory syllabus.
  *
  * The Competency 9 teacher notes cover a few topics that sit just outside the
- * examinable content — recursion, list comprehension, exception handling and
+ * examinable content: recursion, list comprehension, exception handling and
  * number-base conversion. They appear in past papers as "extra credit" style
  * questions and they make the core topics easier, so they are included here as
  * clearly-labelled bonus material.
@@ -13,7 +13,7 @@ export const m14: Module = {
   id: "9+",
   slug: "beyond",
   title: "Beyond the Syllabus",
-  tagline: "Recursion, comprehensions, error handling and number bases — the bonus round.",
+  tagline: "Recursion, comprehensions, error handling and number bases: the bonus round.",
   icon: "Sparkles",
   periods: 0,
   outcomes: [
@@ -33,7 +33,7 @@ export const m14: Module = {
     {
       id: "9+.1",
       title: "Recursion",
-      summary: "A function that calls itself — and the base case that stops it.",
+      summary: "A function that calls itself, and the base case that stops it.",
       minutes: 12,
       outcomes: ["Writes simple recursive functions with a correct base case"],
       blocks: [
@@ -41,8 +41,8 @@ export const m14: Module = {
           kind: "text",
           md: `A **recursive function** is one that calls itself. Every recursive function needs two parts:
 
-1. A **base case** — a condition where it returns an answer *without* calling itself. This is what stops the chain.
-2. A **recursive case** — where it calls itself with a value that moves *towards* the base case.
+1. A **base case**: a condition where it returns an answer *without* calling itself. This is what stops the chain.
+2. A **recursive case**: where it calls itself with a value that moves *towards* the base case.
 
 Miss either one and you get a \`RecursionError\`.`,
         },
@@ -52,9 +52,9 @@ Miss either one and you get a \`RecursionError\`.`,
           runnable: true,
           caption: "Factorial: 5! = 5 × 4 × 3 × 2 × 1",
           code: `def factorial(n):
-    if n <= 1:              # base case — stop here
+    if n <= 1:              # base case: stop here
         return 1
-    return n * factorial(n - 1)   # recursive case — n gets smaller
+    return n * factorial(n - 1)   # recursive case: n gets smaller
 
 
 for i in range(1, 7):
@@ -94,6 +94,7 @@ print(factorial(4))`,
 
 print(factorial_loop(5))`,
         },
+        { kind: "exercise", exerciseId: "ex-9+.1" },
       ],
     },
 
@@ -158,7 +159,7 @@ print("Capitalised  :", [n.title() for n in names])`,
       blocks: [
         {
           kind: "text",
-          md: `A **runtime error** normally stops the program dead. \`try\` / \`except\` lets you catch it and carry on gracefully — essential when the user might type something unexpected.`,
+          md: `A **runtime error** normally stops the program dead. \`try\` / \`except\` lets you catch it and carry on gracefully: essential when the user might type something unexpected.`,
         },
         {
           kind: "code",
@@ -194,11 +195,11 @@ print(safe_divide(10, "x"))`,
           lang: "python",
           runnable: true,
           stdin: ["7", "abc", "12"],
-          caption: "The validation loop — keep asking until the input is valid",
+          caption: "The validation loop: keep asking until the input is valid",
           code: `while True:
     try:
         n = int(input("Enter a whole number: "))
-        break                       # valid — leave the loop
+        break                       # valid: leave the loop
     except ValueError:
         print("  Not a number, try again.")
 
@@ -208,10 +209,10 @@ print("You entered", n)`,
           kind: "table",
           headers: ["Block", "When it runs"],
           rows: [
-            ["try", "Always — this is the code being watched"],
+            ["try", "Always: this is the code being watched"],
             ["except", "Only if a matching error occurred"],
             ["else", "Only if NO error occurred"],
-            ["finally", "Always, error or not — used for closing files"],
+            ["finally", "Always, error or not: used for closing files"],
           ],
         },
       ],
@@ -236,14 +237,14 @@ print("Binary     :", bin(n))        # 0b111100
 print("Octal      :", oct(n))        # 0o74
 print("Hexadecimal:", hex(n))        # 0x3c
 
-# Without the prefix, padded to 8 digits — useful for bitwise questions
+# Without the prefix, padded to 8 digits: useful for bitwise questions
 print("Binary (8) :", format(n, '08b'))`,
         },
         {
           kind: "code",
           lang: "python",
           runnable: true,
-          caption: "Other bases back to decimal — int() takes a base",
+          caption: "Other bases back to decimal: int() takes a base",
           code: `print(int("111100", 2))    # binary  → 60
 print(int("74", 8))        # octal   → 60
 print(int("3c", 16))       # hex     → 60
@@ -298,7 +299,7 @@ print(rsum(10))`,
         "The base case is the smallest input: when n is 0 there is nothing to add, so return 0.",
         "For any other n, the answer is n plus the sum of everything below it.",
         "That gives `return n + rsum(n - 1)`.",
-        "Check the base case is reachable — each call must make n smaller.",
+        "Check the base case is reachable: each call must make n smaller.",
       ],
       solution: `def rsum(n):
     if n <= 0:
@@ -308,7 +309,7 @@ print(rsum(10))`,
 
 print(rsum(10))`,
       tests: [
-        { kind: "io", name: "rsum(10) is 55", expect: "55", match: "contains" },
+        { kind: "io", name: "rsum(10) is 55", expect: "55", match: "loose" },
         { kind: "expr", name: "rsum(5) is 15", expr: "rsum(5)", expect: "15" },
         { kind: "expr", name: "rsum(0) is 0", expr: "rsum(0)", expect: "0" },
         { kind: "expr", name: "rsum(1) is 1", expr: "rsum(1)", expect: "1", hidden: true },

@@ -70,7 +70,7 @@ export function PWA() {
             className="fixed inset-x-0 top-0 z-[80] flex items-center justify-center gap-2 bg-accent-500 py-1.5 text-[12px] font-semibold text-[#3a2a08]"
           >
             <WifiOff className="size-3.5" />
-            You are offline — lessons you have opened before still work
+            You are offline: lessons you have opened before still work
           </motion.div>
         )}
       </AnimatePresence>
@@ -89,7 +89,7 @@ export function PWA() {
             <div className="min-w-0 flex-1">
               <p className="text-[13px] font-semibold">Install for offline study</p>
               <p className="text-[11.5px] leading-snug text-muted">
-                Keeps Python on your phone — works with no data
+                Keeps Python on your phone: works with no data
               </p>
             </div>
             <button

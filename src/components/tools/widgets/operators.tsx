@@ -34,15 +34,15 @@ const BIT_OPS: { op: BitOp; name: string; rule: string }[] = [
   { op: "&", name: "AND", rule: "1 only when BOTH bits are 1" },
   { op: "|", name: "OR", rule: "1 when EITHER bit is 1" },
   { op: "^", name: "XOR", rule: "1 when the bits are DIFFERENT" },
-  { op: "<<", name: "Left shift", rule: "bits move left — multiplies by 2 each place" },
-  { op: ">>", name: "Right shift", rule: "bits move right — divides by 2 each place" },
+  { op: "<<", name: "Left shift", rule: "bits move left: multiplies by 2 each place" },
+  { op: ">>", name: "Right shift", rule: "bits move right: divides by 2 each place" },
 ];
 
 const bits = (n: number, width = 8) =>
   (n < 0 ? (n >>> 0).toString(2).slice(-width) : n.toString(2).padStart(width, "0")).split("");
 
 /** One labelled row of bits. Defined at module scope so the bit cells keep
- *  their identity — and their layout animation — between renders. */
+ *  their identity, and their layout animation: between renders. */
 function BitRow({
   label,
   value,
@@ -175,7 +175,7 @@ export function BitwiseLab() {
       </div>
 
       <p className="mt-3 rounded-lg bg-brand-soft px-3 py-2 text-[12.5px] text-brand-soft-fg">
-        <strong className="font-semibold">{meta.name}</strong> — {meta.rule}
+        <strong className="font-semibold">{meta.name}</strong>: {meta.rule}
       </p>
       <p className="mt-2 font-[family-name:var(--font-mono)] text-[12px] text-subtle">
         Python: <span className="text-ink">print({a} {op} {isShift ? shiftBy : b})</span> → {result}
@@ -213,7 +213,7 @@ function tokenise(expr: string): string[] {
   return expr.match(/\*\*|\/\/|<=|>=|==|!=|and|or|not|True|False|[()+\-*/%<>]|\d+\.?\d*/g) ?? [];
 }
 
-/** Explain evaluation order without actually evaluating — the reasoning is the point. */
+/** Explain evaluation order without actually evaluating: the reasoning is the point. */
 function explainOrder(expr: string) {
   const tokens = tokenise(expr);
   const steps: { op: string; why: string }[] = [];
@@ -237,8 +237,8 @@ function explainOrder(expr: string) {
       why:
         count > 1
           ? l.rightAssoc
-            ? `${l.name} — several of these, and ** groups RIGHT to left`
-            : `${l.name} — several of these, evaluated left to right`
+            ? `${l.name}: several of these, and ** groups RIGHT to left`
+            : `${l.name}: several of these, evaluated left to right`
           : l.name,
     });
   });
@@ -338,7 +338,7 @@ const SAMPLES: { literal: string; type: string; category: string; note: string }
   { literal: 'int("25")', type: "int", category: "Casting", note: "Text converted to a whole number." },
   { literal: 'float("3.5")', type: "float", category: "Casting", note: "Text converted to a decimal." },
   { literal: "str(99)", type: "str", category: "Casting", note: "A number converted to text." },
-  { literal: "int(7.9)", type: "int", category: "Casting", note: "Truncates to 7 — it does NOT round." },
+  { literal: "int(7.9)", type: "int", category: "Casting", note: "Truncates to 7: it does NOT round." },
   { literal: 'input()', type: "str", category: "Casting", note: "Always a string, even if the user typed a number." },
 ];
 

@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
  * Errors, translated.
  *
  * A raw traceback tells a beginner nothing they can act on. This shows what
- * went wrong in plain language, plus an ordered list of things to check —
+ * went wrong in plain language, plus an ordered list of things to check,
  * with the original traceback still one tap away.
  */
 export function ErrorPanel({ error, className }: { error: FriendlyError; className?: string }) {

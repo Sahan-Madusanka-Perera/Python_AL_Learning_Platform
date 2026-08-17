@@ -28,7 +28,7 @@ import { cn, sample } from "@/lib/utils";
  * Exam room.
  *
  * MCQ papers are auto-marked. Structured questions are self-marked against the
- * rubric, and the model answer stays hidden until an attempt is written —
+ * rubric, and the model answer stays hidden until an attempt is written:
  * reading a model answer without attempting it teaches almost nothing.
  * ==========================================================================*/
 
@@ -524,7 +524,7 @@ function StructuredPractice() {
 
                     <div className="mt-3 rounded-lg border border-line bg-sunken p-3">
                       <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-subtle">
-                        Mark scheme — tick what your answer contains
+                        Mark scheme: tick what your answer contains
                       </p>
                       <ul className="space-y-1.5">
                         {sq.rubric.map((r, i) => (

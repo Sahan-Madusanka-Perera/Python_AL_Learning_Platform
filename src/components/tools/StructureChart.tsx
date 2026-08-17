@@ -96,8 +96,8 @@ const STARTER = (): EditNode =>
  * Structure chart builder.
  *
  * Drawing one by hand is the examinable skill, so this exists to let a student
- * try a decomposition, look at it, and rearrange it — the stepwise refinement
- * loop — without redrawing the whole chart on paper each time.
+ * try a decomposition, look at it, and rearrange it: the stepwise refinement
+ * loop, without redrawing the whole chart on paper each time.
  */
 export function StructureChartBuilder() {
   const [root, setRoot] = useState<EditNode>(STARTER);

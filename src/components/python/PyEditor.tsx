@@ -10,8 +10,8 @@ import { cn } from "@/lib/utils";
 /* ============================================================================
  * Code editor.
  *
- * CodeMirror rather than Monaco: it is a fraction of the size, and — the part
- * that actually matters here — it behaves properly with a mobile soft keyboard.
+ * CodeMirror rather than Monaco: it is a fraction of the size, and: the part
+ * that actually matters here: it behaves properly with a mobile soft keyboard.
  * A student on a phone is the primary user of this app.
  * ==========================================================================*/
 

@@ -4,7 +4,7 @@ export const m10: Module = {
   id: "9.10",
   slug: "data-structures",
   title: "Data Structures",
-  tagline: "Strings, lists, tuples and dictionaries — choosing the right container for the job.",
+  tagline: "Strings, lists, tuples and dictionaries: choosing the right container for the job.",
   icon: "Boxes",
   periods: 8,
   outcomes: [
@@ -34,7 +34,7 @@ A **data structure** is a way of organising several values so a program can work
             ["String", '" "', "Yes", "No", "Yes", "Text"],
             ["List", "[ ]", "Yes", "Yes", "Yes", "A collection that changes"],
             ["Tuple", "( )", "Yes", "No", "Yes", "Fixed data that must not change"],
-            ["Dictionary", "{ }", "Yes*", "Yes", "Keys unique", "Pairs — a label and its value"],
+            ["Dictionary", "{ }", "Yes*", "Yes", "Keys unique", "Pairs: a label and its value"],
           ],
           caption:
             "*Dictionaries preserve insertion order in modern Python. The syllabus describes them as unordered because you access them by key, not by position.",
@@ -51,7 +51,7 @@ A **data structure** is a way of organising several values so a program can work
         {
           kind: "callout",
           tone: "exam",
-          title: "Indexing starts at 0 — in all of them",
+          title: "Indexing starts at 0: in all of them",
           md: `The first item is at position **0**, so a collection of 5 items uses positions 0, 1, 2, 3, 4. The last item is at \`len(x) - 1\`, or more simply at \`x[-1]\`.
 
 Asking for \`x[5]\` in a 5-item list raises **IndexError**.`,
@@ -68,7 +68,7 @@ Asking for \`x[5]\` in a 5-item list raises **IndexError**.`,
       blocks: [
         {
           kind: "text",
-          md: `String literals are surrounded by **single** or **double** quotation marks — \`'hello'\` is the same as \`"hello"\`. A string is a *sequence* of characters, so it can be indexed and looped through.
+          md: `String literals are surrounded by **single** or **double** quotation marks: \`'hello'\` is the same as \`"hello"\`. A string is a *sequence* of characters, so it can be indexed and looped through.
 
 Strings are **immutable**: you cannot change one character in place. Operations return a **new** string.`,
         },
@@ -105,18 +105,18 @@ print("Repeat  :", word * 2)
 print("Join    :", word + " rocks")
 print("'THO' in:", "THO" in word)
 
-# Strings are immutable — this line would fail:
+# Strings are immutable: this line would fail:
 # word[0] = "J"    # TypeError`,
         },
         {
           kind: "callout",
           tone: "tip",
           title: "Slicing",
-          md: `\`text[start:stop]\` takes characters from \`start\` up to **but not including** \`stop\` — the same rule as \`range()\`.
+          md: `\`text[start:stop]\` takes characters from \`start\` up to **but not including** \`stop\`: the same rule as \`range()\`.
 
-- \`text[:5]\` — from the beginning to position 4
-- \`text[5:]\` — from position 5 to the end
-- \`text[::-1]\` — the whole string reversed`,
+- \`text[:5]\`: from the beginning to position 4
+- \`text[5:]\`: from position 5 to the end
+- \`text[::-1]\`: the whole string reversed`,
         },
         {
           kind: "check",
@@ -127,7 +127,7 @@ print("'THO' in:", "THO" in word)
             options: ["MPU", "OMP", "MPUT", "PUT"],
             answer: 0,
             explain:
-              "Positions: C=0, O=1, M=2, P=3, U=4, T=5. It takes 2, 3 and 4 — M, P, U — and stops before 5.",
+              "Positions: C=0, O=1, M=2, P=3, U=4, T=5. It takes 2, 3 and 4: M, P, U, and stops before 5.",
           },
         },
       ],
@@ -233,9 +233,9 @@ print("Count of 65:", marks.count(65))`,
           kind: "callout",
           tone: "mistake",
           title: "remove() vs del vs pop()",
-          md: `- \`mylist.remove("dog")\` — removes by **value**
-- \`del mylist[0]\` — removes by **position**
-- \`mylist.pop()\` — removes the **last** item and gives it back to you
+          md: `- \`mylist.remove("dog")\`: removes by **value**
+- \`del mylist[0]\`: removes by **position**
+- \`mylist.pop()\`: removes the **last** item and gives it back to you
 
 Mixing these up is a common exam error.`,
         },
@@ -246,7 +246,7 @@ Mixing these up is a common exam error.`,
     {
       id: "9.10.4",
       title: "Tuples",
-      summary: "Like lists, but locked — and that is the whole point.",
+      summary: "Like lists, but locked, and that is the whole point.",
       minutes: 10,
       outcomes: ["Uses relevant data structures in programming"],
       blocks: [
@@ -280,8 +280,8 @@ print("Index of Maths:", subjects.index("Maths"))`,
           tone: "key",
           title: "Tuples have only two methods",
           md: `Because a tuple cannot change, it only supports:
-- \`count()\` — how many times a value occurs
-- \`index()\` — the position where a value was found
+- \`count()\`: how many times a value occurs
+- \`index()\`: the position where a value was found
 
 You cannot remove an item from a tuple. You **can** delete the whole tuple with \`del\`.`,
         },
@@ -289,7 +289,7 @@ You cannot remove an item from a tuple. You **can** delete the whole tuple with 
           kind: "code",
           lang: "python",
           runnable: true,
-          caption: "A one-item tuple needs a trailing comma — a classic trap",
+          caption: "A one-item tuple needs a trailing comma: a classic trap",
           code: `not_a_tuple = ("ICT")      # just a string in brackets
 real_tuple  = ("ICT",)     # the comma makes it a tuple
 
@@ -407,15 +407,165 @@ print("after clear   :", d)`,
           title: "get() saves you from crashes",
           md: `\`d["missing"]\` raises **KeyError** and stops the program.
 \`d.get("missing")\` quietly returns \`None\`.
-\`d.get("missing", 0)\` returns \`0\` — a default you choose.`,
+\`d.get("missing", 0)\` returns \`0\`: a default you choose.`,
         },
         { kind: "exercise", exerciseId: "ex-9.10-2" },
         { kind: "exercise", exerciseId: "ex-9.10-3" },
+        { kind: "exercise", exerciseId: "ex-9.10-4" },
+        { kind: "exercise", exerciseId: "ex-9.10-5" },
       ],
     },
   ],
 
   exercises: [
+    {
+      id: "ex-9.10-4",
+      title: "Cricket scorecard",
+      level: "9.10",
+      difficulty: 2,
+      xp: 45,
+      tags: ["dictionaries", "lists", "loops"],
+      brief: `A dictionary of batters and their scores is in the starter. Produce a scorecard summary.
+
+Print exactly four lines:
+
+\`\`\`
+Total: 287
+Highest: Sangakkara 121
+Ducks: 1
+Fifties: 2
+\`\`\`
+
+- **Total** is every score added together.
+- **Highest** is the batter with the most runs, then their score.
+- **Ducks** counts batters who scored exactly **0**.
+- **Fifties** counts scores of **50 or more** (a century counts as a fifty too).
+
+Do not hard-code any of the answers. Change a number in the dictionary and your program should still be right.
+
+Work all four out inside **one loop**, without \`sum()\`, \`max()\` or \`sorted()\`. Tracking a running best is the pattern the exam expects.`,
+      starter: `scores = {
+    "Karunaratne": 43,
+    "Mendis": 0,
+    "Sangakkara": 121,
+    "Mathews": 67,
+    "Chandimal": 31,
+    "Perera": 25,
+}
+
+# Your code here
+`,
+      hints: [
+        "`for name in scores:` gives you each key. `scores[name]` is that batter's runs.",
+        "Or loop over pairs directly with `for name, runs in scores.items():`.",
+        "Track the best as you go: start `best = \"\"` and `most = -1`, and replace them when `runs > most`.",
+        "Ducks and fifties are just two counters incremented inside the same loop.",
+      ],
+      solution: `scores = {
+    "Karunaratne": 43,
+    "Mendis": 0,
+    "Sangakkara": 121,
+    "Mathews": 67,
+    "Chandimal": 31,
+    "Perera": 25,
+}
+
+total = 0
+best = ""
+most = -1
+ducks = 0
+fifties = 0
+
+for name, runs in scores.items():
+    total = total + runs
+    if runs > most:
+        most = runs
+        best = name
+    if runs == 0:
+        ducks = ducks + 1
+    if runs >= 50:
+        fifties = fifties + 1
+
+print("Total:", total)
+print("Highest:", best, most)
+print("Ducks:", ducks)
+print("Fifties:", fifties)`,
+      tests: [
+        {
+          kind: "source",
+          name: "Totals and compares with a loop",
+          mustNotUse: ["sum(", "max(", "sorted("],
+        },
+        {
+          kind: "io",
+          name: "The full scorecard",
+          expect: "Total: 287\nHighest: Sangakkara 121\nDucks: 1\nFifties: 2",
+          match: "loose",
+        },
+        { kind: "source", name: "Reads the dictionary rather than hard-coding", mustUse: ["scores"] },
+        { kind: "source", name: "Uses a loop", mustUse: ["for "] },
+      ],
+    },
+    {
+      id: "ex-9.10-5",
+      title: "The class register",
+      level: "9.10",
+      difficulty: 1,
+      xp: 25,
+      tags: ["lists", "indexing", "append"],
+      brief: `A list of names is already in the starter. A new student joins the class.
+
+Read one name, add it to the **end** of the list, then print exactly three lines:
+
+\`\`\`
+Count: 5
+First: Ravi
+Last: Sanduni
+\`\`\`
+
+- **Count** is how many names are now in the list.
+- **First** is the name at the front.
+- **Last** is the name at the back.
+
+Everything here is one built-in list operation. Find the right one rather than writing a loop.`,
+      starter: `names = ["Ravi", "Mala", "Geetha", "Nimal"]
+new_name = input("New student: ")
+
+# Your code here
+`,
+      hints: [
+        "`names.append(new_name)` adds to the end of the list.",
+        "`len(names)` gives how many items there are.",
+        "The first item is `names[0]`.",
+        "The last item is `names[-1]`, which is easier than `names[len(names) - 1]`.",
+      ],
+      solution: `names = ["Ravi", "Mala", "Geetha", "Nimal"]
+new_name = input("New student: ")
+
+names.append(new_name)
+
+print("Count:", len(names))
+print("First:", names[0])
+print("Last:", names[-1])`,
+      tests: [
+        {
+          kind: "io",
+          name: "Sanduni joins",
+          stdin: ["Sanduni"],
+          expect: "Count: 5\nFirst: Ravi\nLast: Sanduni",
+          match: "loose",
+        },
+        {
+          kind: "io",
+          name: "A different new student",
+          stdin: ["Kumara"],
+          expect: "Count: 5\nFirst: Ravi\nLast: Kumara",
+          match: "loose",
+          hidden: true,
+        },
+        { kind: "source", name: "Adds to the end of the list", mustUse: ["append("] },
+      ],
+    },
     {
       id: "ex-9.10-1",
       title: "Marks statistics",
@@ -490,7 +640,7 @@ name = input("Name: ")
 # Your code here
 `,
       hints: [
-        "`book[name]` raises KeyError when the name is missing — that is a crash.",
+        "`book[name]` raises KeyError when the name is missing: that is a crash.",
         "Either check first with `if name in book:` or use `book.get(name)`.",
         "`book.get(name)` returns `None` when the key is absent, which you can test with `if result is None:`.",
         "Print with `print(name + \": \" + book[name])` or `print(f\"{name}: {book[name]}\")`.",
@@ -504,9 +654,9 @@ if name in book:
 else:
     print("Not found")`,
       tests: [
-        { kind: "io", name: "Existing name", stdin: ["Ravi"], expect: "Ravi: 0715874510", match: "contains" },
-        { kind: "io", name: "Another existing name", stdin: ["Kumara"], expect: "Kumara: 0710055210", match: "contains" },
-        { kind: "io", name: "Missing name does not crash", stdin: ["Nimal"], expect: "Not found", match: "contains" },
+        { kind: "io", name: "Existing name", stdin: ["Ravi"], expect: "Ravi: 0715874510", match: "loose" },
+        { kind: "io", name: "Another existing name", stdin: ["Kumara"], expect: "Kumara: 0710055210", match: "loose" },
+        { kind: "io", name: "Missing name does not crash", stdin: ["Nimal"], expect: "Not found", match: "loose" },
       ],
     },
     {
@@ -532,7 +682,7 @@ print(count_letters("ICT is ICT"))`,
         "Start with an empty dictionary: `counts = {}`.",
         "Loop through the text one character at a time, and `continue` (or skip) when the character is a space.",
         "Convert with `ch = ch.lower()` before counting.",
-        "Use `counts[ch] = counts.get(ch, 0) + 1` — get returns 0 the first time a letter appears.",
+        "Use `counts[ch] = counts.get(ch, 0) + 1`: get returns 0 the first time a letter appears.",
       ],
       solution: `def count_letters(text):
     counts = {}

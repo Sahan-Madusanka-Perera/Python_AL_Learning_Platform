@@ -84,7 +84,7 @@ export function dedent(text: string) {
   return lines.map((l) => l.slice(min)).join("\n");
 }
 
-/** Deterministic small hash — used for stable colours/seeds from ids. */
+/** Deterministic small hash: used for stable colours/seeds from ids. */
 export function hashCode(s: string) {
   let h = 0;
   for (let i = 0; i < s.length; i++) {

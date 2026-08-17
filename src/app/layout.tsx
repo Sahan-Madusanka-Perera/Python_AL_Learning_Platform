@@ -26,11 +26,11 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Competency 9 — A/L Python",
+    default: "Competency 9: A/L Python",
     template: "%s · Competency 9",
   },
   description:
-    "Learn the complete G.C.E. A/L ICT Competency 9 syllabus — algorithms, flow charts, Python, data structures, files, databases, searching and sorting. Runs real Python in your browser, on any phone.",
+    "Learn the complete G.C.E. A/L ICT Competency 9 syllabus: algorithms, flow charts, Python, data structures, files, databases, searching and sorting. Runs real Python in your browser, on any phone.",
   applicationName: "Competency 9",
   manifest: "/manifest.webmanifest",
   appleWebApp: {

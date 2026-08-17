@@ -4,7 +4,7 @@ export const m12: Module = {
   id: "9.12",
   slug: "databases",
   title: "Databases from Python",
-  tagline: "Connect, query, and change data — SQL embedded inside a program.",
+  tagline: "Connect, query, and change data: SQL embedded inside a program.",
   icon: "Database",
   periods: 4,
   outcomes: [
@@ -26,7 +26,7 @@ export const m12: Module = {
           kind: "text",
           md: `Files are fine for small amounts of data. Once you have thousands of records that must be searched, sorted and updated safely, you need a **database**.
 
-Python talks to a database through a **driver**. For MySQL — the database in your syllabus — that driver is **MySQL Connector**, installed with:
+Python talks to a database through a **driver**. For MySQL: the database in your syllabus: that driver is **MySQL Connector**, installed with:
 
 \`\`\`
 pip install mysql-connector-python
@@ -38,7 +38,7 @@ pip install mysql-connector-python
           kind: "callout",
           tone: "note",
           title: "About the code you run here",
-          md: `MySQL is a **server** — it cannot run inside a web browser. So the runnable examples in this module use **SQLite**, which is built into Python itself.
+          md: `MySQL is a **server**: it cannot run inside a web browser. So the runnable examples in this module use **SQLite**, which is built into Python itself.
 
 This matters less than it sounds: the five steps, the cursor, \`execute()\`, \`fetchall()\`, \`commit()\` and the SQL statements themselves are **the same**. Each example shows the MySQL version you must write in the exam alongside the runnable version.`,
         },
@@ -57,7 +57,7 @@ This matters less than it sounds: the five steps, the cursor, \`execute()\`, \`f
             },
             {
               title: "Execute SQL",
-              md: "`cursor.execute(\"SELECT ...\")` — the SQL is written as a Python string.",
+              md: "`cursor.execute(\"SELECT ...\")`: the SQL is written as a Python string.",
             },
             {
               title: "Commit and close",
@@ -68,7 +68,7 @@ This matters less than it sounds: the five steps, the cursor, \`execute()\`, \`f
         {
           kind: "code",
           lang: "python",
-          caption: "MySQL — the version to write in an exam answer",
+          caption: "MySQL: the version to write in an exam answer",
           code: `import mysql.connector
 
 mydb = mysql.connector.connect(
@@ -103,7 +103,7 @@ mycursor = mydb.cursor()
 mycursor.execute("CREATE TABLE IF NOT EXISTS student (regNo TEXT, name TEXT)")
 mycursor.execute("INSERT INTO student VALUES ('r001', 'Ravi')")
 
-# 5. commit — without this the insert is thrown away
+# 5. commit, without this the insert is thrown away
 mydb.commit()
 
 mycursor.execute("SELECT * FROM student")
@@ -115,7 +115,7 @@ mydb.close()`,
           kind: "callout",
           tone: "warn",
           title: "Forgetting commit() is the classic bug",
-          md: `\`INSERT\`, \`UPDATE\` and \`DELETE\` change data. Those changes are held in a transaction until you call \`commit()\`. If the program ends without committing, **nothing is saved** — and there is no error message to tell you.
+          md: `\`INSERT\`, \`UPDATE\` and \`DELETE\` change data. Those changes are held in a transaction until you call \`commit()\`. If the program ends without committing, **nothing is saved**, and there is no error message to tell you.
 
 \`SELECT\` does not need a commit, because it changes nothing.`,
         },
@@ -226,7 +226,7 @@ mycursor.execute(sql, val)
 
 Building SQL by joining strings together is how databases get broken into. Always pass the values separately.`,
         },
-        { kind: "heading", text: "Inserting many rows — executemany()" },
+        { kind: "heading", text: "Inserting many rows: executemany()" },
         {
           kind: "code",
           lang: "python",
@@ -308,11 +308,11 @@ show("6. Sorted by date, newest first", "SELECT * FROM student ORDER BY dob DESC
           kind: "callout",
           tone: "key",
           title: "The SQL keywords to remember",
-          md: `- \`SELECT ... FROM table\` — retrieve
-- \`WHERE condition\` — filter which rows
-- \`LIKE '071%'\` — pattern match; \`%\` means "any characters"
-- \`ORDER BY column\` — sort ascending (the default)
-- \`ORDER BY column DESC\` — sort descending`,
+          md: `- \`SELECT ... FROM table\`: retrieve
+- \`WHERE condition\`: filter which rows
+- \`LIKE '071%'\`: pattern match; \`%\` means "any characters"
+- \`ORDER BY column\`: sort ascending (the default)
+- \`ORDER BY column DESC\`: sort descending`,
         },
         { kind: "heading", text: "UPDATE and DELETE" },
         {
@@ -331,12 +331,12 @@ cur.executemany("INSERT INTO student VALUES (?, ?, ?)", [
 ])
 db.commit()
 
-# UPDATE — change Ravi to Sami
+# UPDATE: change Ravi to Sami
 cur.execute("UPDATE student SET name = ? WHERE name = ?", ("Sami", "Ravi"))
 db.commit()
 print(cur.rowcount, "record(s) updated")
 
-# DELETE — remove anyone from Kandy
+# DELETE: remove anyone from Kandy
 cur.execute("DELETE FROM student WHERE address = ?", ("Kandy",))
 db.commit()
 print(cur.rowcount, "record(s) deleted")
@@ -366,12 +366,168 @@ Write the \`WHERE\` clause before you write the rest of the statement.`,
               "`fetchall()` returns all remaining rows as a list of tuples. `fetchone()` returns only the next single row.",
           },
         },
+        { kind: "exercise", exerciseId: "ex-9.12-3" },
         { kind: "exercise", exerciseId: "ex-9.12-1" },
+        { kind: "exercise", exerciseId: "ex-9.12-2" },
       ],
     },
   ],
 
   exercises: [
+    {
+      id: "ex-9.12-3",
+      title: "Your first SELECT",
+      level: "9.12",
+      difficulty: 1,
+      xp: 30,
+      tags: ["database", "sql", "select"],
+      brief: `The smallest complete database program: create a table, put rows in it, read them back.
+
+1. Create a table \`teacher\` with two columns, \`name\` and \`subject\`.
+2. Insert these three rows:
+
+\`\`\`
+("Nimal",   "ICT")
+("Kamala",  "Maths")
+("Sunil",   "Science")
+\`\`\`
+
+3. Select **every** row and print one line per teacher in the form \`Nimal ICT\`.
+
+Expected output:
+
+\`\`\`
+Nimal ICT
+Kamala Maths
+Sunil Science
+\`\`\`
+
+Rows come back in the order they were inserted, so no \`ORDER BY\` is needed here.`,
+      starter: `import sqlite3
+
+db = sqlite3.connect(":memory:")
+cur = db.cursor()
+
+# 1. Create the table
+
+# 2. Insert the three rows
+
+# 3. Select them all and print each one
+`,
+      hints: [
+        '`cur.execute("CREATE TABLE teacher (name TEXT, subject TEXT)")` makes the table.',
+        "Insert with placeholders: `cur.execute(\"INSERT INTO teacher VALUES (?, ?)\", (\"Nimal\", \"ICT\"))`.",
+        '`cur.execute("SELECT * FROM teacher")` then `cur.fetchall()` gives a list of tuples.',
+        "Each row is a tuple, so `print(row[0], row[1])` prints both columns.",
+      ],
+      solution: `import sqlite3
+
+db = sqlite3.connect(":memory:")
+cur = db.cursor()
+
+cur.execute("CREATE TABLE teacher (name TEXT, subject TEXT)")
+
+teachers = [("Nimal", "ICT"), ("Kamala", "Maths"), ("Sunil", "Science")]
+cur.executemany("INSERT INTO teacher VALUES (?, ?)", teachers)
+db.commit()
+
+cur.execute("SELECT * FROM teacher")
+for row in cur.fetchall():
+    print(row[0], row[1])`,
+      tests: [
+        {
+          kind: "io",
+          name: "All three teachers, in order",
+          expect: "Nimal ICT\nKamala Maths\nSunil Science",
+          match: "loose",
+        },
+        { kind: "source", name: "Creates the table in SQL", mustUse: ["CREATE TABLE"] },
+        { kind: "source", name: "Reads the rows back with SELECT", mustUse: ["SELECT"] },
+        { kind: "source", name: "Does not just print the answer", mustNotUse: ['print("Nimal ICT'] },
+      ],
+    },
+    {
+      id: "ex-9.12-2",
+      title: "Bus timetable: filtering and sorting in SQL",
+      level: "9.12",
+      difficulty: 2,
+      xp: 45,
+      tags: ["database", "sql", "select"],
+      brief: `Build an in-memory bus timetable and query it. The work belongs in the **SQL**, not in Python: no sorting or filtering with Python loops.
+
+1. Create a table \`bus\` with columns \`route\`, \`destination\`, \`departs\` and \`fare\`.
+2. Insert these five services with \`executemany()\`:
+
+\`\`\`
+("138", "Kottawa",     "06:15", 45)
+("177", "Kaduwela",    "06:40", 60)
+("120", "Horana",      "07:05", 95)
+("138", "Kottawa",     "07:30", 45)
+("187", "Katunayake",  "08:00", 180)
+\`\`\`
+
+3. Select the \`destination\` and \`departs\` of every service with a fare **under 100**, ordered by \`departs\` **earliest first**.
+4. Print one line per row in the form \`Kottawa 06:15\`.
+
+Expected output:
+
+\`\`\`
+Kottawa 06:15
+Kaduwela 06:40
+Horana 07:05
+Kottawa 07:30
+\`\`\``,
+      starter: `import sqlite3
+
+db = sqlite3.connect(":memory:")
+cur = db.cursor()
+
+# 1. Create the table
+
+# 2. Insert the five services
+
+# 3. Select fare < 100, ordered by departs
+
+# 4. Print each row
+`,
+      hints: [
+        "Times stored as `HH:MM` text sort correctly, so `ORDER BY departs` is enough.",
+        "`WHERE fare < 100` does the filtering. Do not filter with an `if` in Python.",
+        "`cur.executemany(sql, rows)` takes a list of tuples.",
+        "Each row you fetch is a tuple, so `print(row[0], row[1])` prints the two columns.",
+      ],
+      solution: `import sqlite3
+
+db = sqlite3.connect(":memory:")
+cur = db.cursor()
+
+cur.execute("CREATE TABLE bus (route TEXT, destination TEXT, departs TEXT, fare INTEGER)")
+
+buses = [
+    ("138", "Kottawa", "06:15", 45),
+    ("177", "Kaduwela", "06:40", 60),
+    ("120", "Horana", "07:05", 95),
+    ("138", "Kottawa", "07:30", 45),
+    ("187", "Katunayake", "08:00", 180),
+]
+cur.executemany("INSERT INTO bus VALUES (?, ?, ?, ?)", buses)
+db.commit()
+
+cur.execute("SELECT destination, departs FROM bus WHERE fare < 100 ORDER BY departs")
+for row in cur.fetchall():
+    print(row[0], row[1])`,
+      tests: [
+        {
+          kind: "io",
+          name: "Cheap services in time order",
+          expect: "Kottawa 06:15\nKaduwela 06:40\nHorana 07:05\nKottawa 07:30",
+          match: "loose",
+        },
+        { kind: "source", name: "Filters in SQL", mustUse: ["WHERE"] },
+        { kind: "source", name: "Sorts in SQL", mustUse: ["ORDER BY"] },
+        { kind: "source", name: "Inserts many rows at once", mustUse: ["executemany"] },
+      ],
+    },
     {
       id: "ex-9.12-1",
       title: "Build and query a student table",
@@ -463,7 +619,7 @@ for row in cur.fetchall():
       q: "Why must `commit()` be called after an INSERT?",
       options: [
         "To close the connection",
-        "To make the change permanent — without it the insert is discarded",
+        "To make the change permanent, without it the insert is discarded",
         "To create the cursor",
         "To convert the data into SQL",
       ],
@@ -511,7 +667,7 @@ for row in cur.fetchall():
       level: "9.12",
       q: "What does `DELETE FROM student` do if the WHERE clause is left out?",
       options: [
-        "Nothing — it is invalid SQL",
+        "Nothing: it is invalid SQL",
         "Deletes only the first record",
         "Deletes every record in the table",
         "Deletes the table itself",

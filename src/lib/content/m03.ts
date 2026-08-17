@@ -27,15 +27,15 @@ export const m03: Module = {
         {
           kind: "callout",
           tone: "key",
-          title: "Definition — learn this wording",
+          title: "Definition: learn this wording",
           md: `An **algorithm** is a **finite sequence** of **well-defined** instructions, typically used to solve a problem.
 
-- **Finite** — it has a fixed number of steps and it ends.
-- **Well-defined** — every step is clear and unambiguous, with only one possible meaning.`,
+- **Finite**: it has a fixed number of steps and it ends.
+- **Well-defined**: every step is clear and unambiguous, with only one possible meaning.`,
         },
         {
           kind: "text",
-          md: `"Add some sugar" is not an algorithm — *some* is ambiguous. "Add 2 teaspoons of sugar" is. A computer cannot make judgement calls, so every step must be exact.`,
+          md: `"Add some sugar" is not an algorithm: *some* is ambiguous. "Add 2 teaspoons of sugar" is. A computer cannot make judgement calls, so every step must be exact.`,
         },
         {
           kind: "heading",
@@ -69,7 +69,7 @@ export const m03: Module = {
         {
           kind: "compare",
           left: {
-            title: "Flow chart — graphical",
+            title: "Flow chart: graphical",
             items: [
               "Uses standard shapes joined by arrows",
               "Easy to see the flow of control at a glance",
@@ -78,7 +78,7 @@ export const m03: Module = {
             ],
           },
           right: {
-            title: "Pseudocode — textual",
+            title: "Pseudocode: textual",
             items: [
               "English-like statements, indented",
               "Close to real code, so it converts easily",
@@ -90,7 +90,7 @@ export const m03: Module = {
         {
           kind: "callout",
           tone: "note",
-          md: `Both describe the **same** algorithm. Which one you use is a matter of convenience — and of what the exam question asks for. Many questions ask for both.`,
+          md: `Both describe the **same** algorithm. Which one you use is a matter of convenience, and of what the exam question asks for. Many questions ask for both.`,
         },
         {
           kind: "check",
@@ -106,7 +106,7 @@ export const m03: Module = {
             ],
             answer: 1,
             explain:
-              "'A reasonable amount' is ambiguous — two people would do different things. Every step in an algorithm must have exactly one possible interpretation.",
+              "'A reasonable amount' is ambiguous: two people would do different things. Every step in an algorithm must have exactly one possible interpretation.",
           },
         },
       ],
@@ -131,7 +131,7 @@ export const m03: Module = {
           kind: "table",
           headers: ["Symbol", "Name", "Used for"],
           rows: [
-            ["Rounded rectangle / oval", "Terminal", "Start and End — every chart has exactly one Start"],
+            ["Rounded rectangle / oval", "Terminal", "Start and End: every chart has exactly one Start"],
             ["Parallelogram", "Input / Output", "Reading data in, or displaying results"],
             ["Rectangle", "Process", "A calculation or an assignment"],
             ["Diamond", "Decision", "A question with two exits, YES and NO"],
@@ -145,7 +145,7 @@ export const m03: Module = {
           title: "Rules that gain and lose marks",
           md: `- Exactly **one** Start and normally one End.
 - A **decision** must have exactly two labelled outgoing arrows: **YES** and **NO**.
-- Arrows always show direction — never leave a line without an arrowhead.
+- Arrows always show direction, never leave a line without an arrowhead.
 - Every symbol except End must have an outgoing arrow.
 - Input and output both use the **same** parallelogram shape.`,
         },
@@ -209,7 +209,168 @@ else:
           kind: "callout",
           tone: "tip",
           title: "Write the decision as a question",
-          md: `Inside a diamond, write \`age < 18 ?\` — not \`check the age\`. A decision box must have a yes/no answer, otherwise you cannot label the two exits.`,
+          md: `Inside a diamond, write \`age < 18 ?\`, not \`check the age\`. A decision box must have a yes/no answer, otherwise you cannot label the two exits.`,
+        },
+        { kind: "heading", text: "Showing repetition" },
+        {
+          kind: "text",
+          md: `Selection splits the flow in two. **Repetition sends it backwards.** There is no special "loop symbol": a loop is drawn with the symbols you already know, plus one flow line that returns to a step that has already happened.
+
+Every loop needs three things, and dropping any one of them is where marks are lost:
+
+- somewhere to **start** the counter or total
+- a **decision** that says whether to go round again
+- something inside the body that **changes** what the decision tests`,
+        },
+        {
+          kind: "flowchart",
+          title: "Pre-test loop: add the numbers 1 to 10",
+          nodes: [
+            { id: "s", shape: "terminal", text: "Start", next: "init" },
+            { id: "init", shape: "process", text: "total = 0, n = 1", next: "d" },
+            {
+              id: "d",
+              shape: "decision",
+              text: "n <= 10 ?",
+              next: "body",
+              no: "out",
+              edgeLabel: "YES",
+              noLabel: "NO",
+            },
+            { id: "body", shape: "process", text: "total = total + n", next: "inc" },
+            { id: "inc", shape: "process", text: "n = n + 1", next: "d" },
+            { id: "out", shape: "io", text: "Display total", next: "e" },
+            { id: "e", shape: "terminal", text: "End" },
+          ],
+          caption:
+            "The return line leaves the last step of the body and joins the flow line above the diamond. The condition is tested before the body runs, so if n started at 11 the body would never run at all.",
+        },
+        {
+          kind: "code",
+          lang: "pseudo",
+          caption: "The same loop as pseudocode",
+          code: `Begin
+    total = 0
+    n = 1
+    While n <= 10 do
+        total = total + n
+        n = n + 1
+    Endwhile
+    Display total
+End`,
+        },
+        {
+          kind: "text",
+          md: `Now the other kind. Sometimes the body **must** run at least once: you cannot ask "is the mark negative?" before you have read a mark. Put the decision at the **bottom** and the loop becomes a **post-test** loop.`,
+        },
+        {
+          kind: "flowchart",
+          title: "Post-test loop: keep reading marks until a negative one",
+          nodes: [
+            { id: "s", shape: "terminal", text: "Start", next: "init" },
+            { id: "init", shape: "process", text: "total = 0", next: "read" },
+            { id: "read", shape: "io", text: "Read mark", next: "add" },
+            { id: "add", shape: "process", text: "total = total + mark", next: "d" },
+            {
+              id: "d",
+              shape: "decision",
+              text: "mark < 0 ?",
+              next: "out",
+              no: "read",
+              edgeLabel: "YES",
+              noLabel: "NO",
+            },
+            { id: "out", shape: "io", text: "Display total", next: "e" },
+            { id: "e", shape: "terminal", text: "End" },
+          ],
+          caption:
+            "The diamond sits after the body, so the body always runs once. The NO branch is the one that loops back: trace it with your finger and check you end up at Read mark.",
+        },
+        {
+          kind: "code",
+          lang: "pseudo",
+          caption: "A post-test loop is written Repeat … Until",
+          code: `Begin
+    total = 0
+    Repeat
+        Read mark
+        total = total + mark
+    Until mark < 0
+    Display total
+End`,
+        },
+        {
+          kind: "compare",
+          title: "Which loop shape do I draw?",
+          left: {
+            title: "Pre-test: While … Endwhile",
+            items: [
+              "Diamond goes **above** the body",
+              "Body may run **zero** times",
+              "Loops while the condition is **true**",
+              "Use when the list might be empty",
+            ],
+          },
+          right: {
+            title: "Post-test: Repeat … Until",
+            items: [
+              "Diamond goes **below** the body",
+              "Body always runs **at least once**",
+              "Loops until the condition becomes **true**",
+              "Use for menus and for reading until a sentinel",
+            ],
+          },
+        },
+        {
+          kind: "text",
+          md: `A **counted** loop is just a pre-test loop where the counter is set up, tested and increased in a fixed pattern. Examiners still expect all three parts drawn out.`,
+        },
+        {
+          kind: "flowchart",
+          title: "Counted loop: display the numbers 1 to 5",
+          nodes: [
+            { id: "s", shape: "terminal", text: "Start", next: "init" },
+            { id: "init", shape: "process", text: "i = 1", next: "d" },
+            {
+              id: "d",
+              shape: "decision",
+              text: "i <= 5 ?",
+              next: "body",
+              no: "e",
+              edgeLabel: "YES",
+              noLabel: "NO",
+            },
+            { id: "body", shape: "io", text: "Display i", next: "inc" },
+            { id: "inc", shape: "process", text: "i = i + 1", next: "d" },
+            { id: "e", shape: "terminal", text: "End" },
+          ],
+          caption: "In pseudocode this collapses to For i = 1 to 5 … Endfor: the same three parts, written on one line.",
+        },
+        {
+          kind: "callout",
+          tone: "mistake",
+          title: "The missing arrow, and the missing counter",
+          md: `Two things cost marks on every past paper:
+
+- **No return line.** The body just runs downwards into End, so nothing repeats. A loop is only a loop because an arrow goes *back*.
+- **Nothing changes inside the body.** If \`n = n + 1\` is left out, \`n <= 10\` is true forever and the chart describes a program that never stops.`,
+        },
+        {
+          kind: "check",
+          question: {
+            id: "q-9.3-inline-4",
+            level: "9.3",
+            q: "In a flow chart, what makes a group of symbols a loop?",
+            options: [
+              "A special repeat symbol",
+              "A flow line that returns to an earlier symbol",
+              "Two diamonds in a row",
+              "Drawing the symbols side by side",
+            ],
+            answer: 1,
+            explain:
+              "There is no loop symbol. Repetition is shown by a flow line that goes back to a step that has already been carried out, so the same symbols are followed again.",
+          },
         },
         {
           kind: "heading",
@@ -217,7 +378,9 @@ else:
         },
         {
           kind: "text",
-          md: `Use the builder to construct a flow chart for this problem: **read a mark and display "Pass" if it is 50 or more, otherwise "Fail"**. Then check it against the pseudocode you would write.`,
+          md: `Use the builder to construct a flow chart for this problem: **read a mark and display "Pass" if it is 50 or more, otherwise "Fail"**. Then check it against the pseudocode you would write.
+
+When that works, try a loop: press **Loop example**, then change one arrow so the chart counts to 10 instead of 5. Pointing any step back at an earlier one draws the return line for you.`,
         },
         { kind: "widget", id: "flowchart-builder" },
         {
@@ -229,7 +392,7 @@ else:
             options: ["Rectangle", "Diamond", "Parallelogram", "Oval"],
             answer: 2,
             explain:
-              "The parallelogram is the input/output symbol. It is used both for reading data in and for displaying results — the same shape for both.",
+              "The parallelogram is the input/output symbol. It is used both for reading data in and for displaying results: the same shape for both.",
           },
         },
       ],
@@ -259,6 +422,7 @@ There is no single official standard, but exam answers are expected to follow th
             ["Selection", "If … then … Else … Endif", "if …: … else: …"],
             ["Multi-way", "If … then … Elseif … Else … Endif", "if …: elif …: else:"],
             ["Pre-test loop", "While … do … Endwhile", "while …:"],
+            ["Post-test loop", "Repeat … Until …", "while True: … if …: break"],
             ["Counted loop", "For i = 1 to 10 … Endfor", "for i in range(1, 11):"],
           ],
         },
@@ -267,7 +431,7 @@ There is no single official standard, but exam answers are expected to follow th
           tone: "key",
           title: "Three habits worth marks",
           md: `1. **Indent** everything inside an If or a loop.
-2. **Close** every block — \`Endif\`, \`Endwhile\`, \`Endfor\`.
+2. **Close** every block: \`Endif\`, \`Endwhile\`, \`Endfor\`.
 3. Use \`Read\` for input and \`Display\` for output consistently.`,
         },
         {
@@ -298,7 +462,7 @@ print(total)`,
           kind: "callout",
           tone: "mistake",
           title: "Off by one",
-          md: `\`For count = 1 to 100\` includes 100. In Python, \`range(1, 100)\` **stops at 99** — you need \`range(1, 101)\`. This single difference is the most common error when converting pseudocode to Python.`,
+          md: `\`For count = 1 to 100\` includes 100. In Python, \`range(1, 100)\` **stops at 99**: you need \`range(1, 101)\`. This single difference is the most common error when converting pseudocode to Python.`,
         },
         {
           kind: "heading",
@@ -341,7 +505,7 @@ print("Numbers added: 1 to", number - 1)`,
       id: "9.3.4",
       title: "Hand tracing (dry running)",
       summary:
-        "Verify an algorithm on paper before you trust it — the skill that turns guessing into checking.",
+        "Verify an algorithm on paper before you trust it: the skill that turns guessing into checking.",
       minutes: 16,
       outcomes: ["Uses hand traces to verify the solutions"],
       blocks: [
@@ -357,7 +521,7 @@ You do it **before** running the program, to find errors early. It is also an ex
           title: "How to build a trace table",
           md: `1. Draw one column for each **variable**, plus a column for **output**.
 2. Draw one row for each **step** that changes something.
-3. Choose a small input value — big enough to exercise the loop, small enough to finish.
+3. Choose a small input value: big enough to exercise the loop, small enough to finish.
 4. Fill in the table one line at a time. **Do not skip ahead** and do not use what you *think* the answer is.`,
         },
         {
@@ -379,7 +543,7 @@ End`,
           kind: "table",
           headers: ["Step", "i", "total", "Output"],
           rows: [
-            ["total = 0", "—", "0", ""],
+            ["total = 0", "-", "0", ""],
             ["i = 1", "1", "1", ""],
             ["i = 2", "2", "3", ""],
             ["i = 3", "3", "6", ""],
@@ -394,7 +558,7 @@ End`,
         },
         {
           kind: "text",
-          md: `The tool below runs real Python one line at a time and shows every variable as it changes. Use it to **check** your paper trace — never to replace it, because the exam is on paper.`,
+          md: `The tool below runs real Python one line at a time and shows every variable as it changes. Use it to **check** your paper trace, never to replace it, because the exam is on paper.`,
         },
         {
           kind: "trace",
@@ -449,11 +613,67 @@ print("big =", big)`,
           },
         },
         { kind: "exercise", exerciseId: "ex-9.3-2" },
+        { kind: "exercise", exerciseId: "ex-9.3-3" },
       ],
     },
   ],
 
   exercises: [
+    {
+      id: "ex-9.3-3",
+      title: "Reverse a number the algorithm way",
+      level: "9.3",
+      difficulty: 2,
+      xp: 45,
+      tags: ["loops", "algorithms", "modulus"],
+      brief: `Reversing \`1234\` into \`4321\` is trivial with strings. Doing it with **arithmetic** is a classic exam algorithm, and it is worth understanding because it is pure loop-and-accumulate.
+
+The idea, one digit at a time:
+
+\`\`\`
+reversed = 0
+Repeat
+    digit    = number MOD 10       take the last digit
+    reversed = reversed * 10 + digit
+    number   = number DIV 10       chop the last digit off
+Until number = 0
+\`\`\`
+
+Read a positive whole number and print \`Reversed: 4321\`.
+
+You may **not** use \`str()\`, \`[::-1]\` or \`reversed()\`. Use \`%\` and \`//\`.`,
+      starter: `number = int(input("Enter a number: "))
+
+# Your code here
+`,
+      hints: [
+        "`number % 10` gives the last digit. `number // 10` removes it.",
+        "Start with `result = 0` before the loop.",
+        "Each pass: `result = result * 10 + number % 10`, then `number = number // 10`.",
+        "Loop `while number > 0:`. When number reaches 0 every digit has been used.",
+      ],
+      solution: `number = int(input("Enter a number: "))
+
+result = 0
+while number > 0:
+    digit = number % 10
+    result = result * 10 + digit
+    number = number // 10
+
+print("Reversed:", result)`,
+      tests: [
+        { kind: "io", name: "1234 reverses", stdin: ["1234"], expect: "Reversed: 4321", match: "loose" },
+        { kind: "io", name: "Single digit", stdin: ["7"], expect: "Reversed: 7", match: "loose" },
+        { kind: "io", name: "Trailing zero disappears", stdin: ["1200"], expect: "Reversed: 21", match: "loose", hidden: true },
+        { kind: "io", name: "Palindrome stays the same", stdin: ["1221"], expect: "Reversed: 1221", match: "loose", hidden: true },
+        {
+          kind: "source",
+          name: "Uses arithmetic, not string tricks",
+          mustUse: ["%"],
+          mustNotUse: ["str(", "[::-1]", "reversed("],
+        },
+      ],
+    },
     {
       id: "ex-9.3-1",
       title: "Convert pseudocode to Python",
@@ -496,7 +716,7 @@ print("Sum of even numbers:", total)`,
           kind: "io",
           name: "Prints the correct sum",
           expect: "Sum of even numbers: 2550",
-          match: "contains",
+          match: "loose",
         },
         {
           kind: "source",
@@ -514,20 +734,28 @@ print("Sum of even numbers:", total)`,
       tags: ["loops", "algorithms"],
       brief: `The **n-th triangular number** is the sum of all whole numbers from 1 to n. So the first five are 1, 3, 6, 10, 15.
 
-Write a program that prints the **first ten** triangular numbers, one per line, with no extra text.`,
+Write a program that prints the **first ten** triangular numbers, one per line, with no extra text.
+
+Build each total up with a **loop**. The closed-form formula and \`sum()\` are both off limits: the loop is the point.`,
       starter: `# Print the first ten triangular numbers
 `,
       hints: [
         "Keep a running total outside the loop, starting at 0.",
         "Loop `n` from 1 to 10 with `range(1, 11)`.",
         "Each time round, add `n` to the running total, then print the total.",
-        "Print inside the loop, not after it — you need ten lines.",
+        "Print inside the loop, not after it: you need ten lines.",
       ],
       solution: `total = 0
 for n in range(1, 11):
     total = total + n
     print(total)`,
       tests: [
+        {
+          kind: "source",
+          name: "Builds the total with a loop, not a formula",
+          mustUse: ["for "],
+          mustNotUse: ["sum(", "*(n + 1)", "* (n + 1)"],
+        },
         {
           kind: "io",
           name: "Prints all ten values in order",
@@ -628,7 +856,7 @@ for n in range(1, 11):
       options: ["7 3", "3 7", "7 7", "3 3"],
       answer: 2,
       explain:
-        "`x = y` makes x become 7, overwriting the 3. Then `y = x` makes y become 7 as well — the original 3 is lost. Swapping two values needs a third (dummy) variable, which is why bubble sort needs one.",
+        "`x = y` makes x become 7, overwriting the 3. Then `y = x` makes y become 7 as well: the original 3 is lost. Swapping two values needs a third (dummy) variable, which is why bubble sort needs one.",
       difficulty: 3,
     },
     {

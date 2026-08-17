@@ -107,7 +107,7 @@ let saveTimer: ReturnType<typeof setTimeout> | null = null;
  *
  * The store also holds action functions, and IndexedDB uses structured clone,
  * which throws DataCloneError on a function. Listing the keys explicitly is
- * what makes saving work at all — and it keeps the exported JSON stable.
+ * what makes saving work at all, and it keeps the exported JSON stable.
  */
 function pickData(state: ProgressState): Omit<ProgressState, "hydrated"> {
   return {
@@ -177,7 +177,7 @@ export const useProgress = create<Store>((set, get) => ({
     });
   },
 
-  /** Call on any meaningful activity — keeps the streak alive. */
+  /** Call on any meaningful activity: keeps the streak alive. */
   touchDay: () => {
     set((s) => {
       const today = todayKey();

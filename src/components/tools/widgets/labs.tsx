@@ -82,7 +82,7 @@ print("Finished")`,
   {
     id: "ifelse",
     label: "if-else",
-    note: "Exactly one of the two branches runs — never both, never neither.",
+    note: "Exactly one of the two branches runs, never both, never neither.",
     code: `marks = 42
 if marks >= 50:
     result = "Pass"
@@ -108,7 +108,7 @@ print(grade)`,
   {
     id: "nested",
     label: "Nested",
-    note: "An if inside another if — the inner one is only reached if the outer condition passed.",
+    note: "An if inside another if: the inner one is only reached if the outer condition passed.",
     code: `age = 19
 registered = True
 if age >= 18:
@@ -372,7 +372,7 @@ export function DataStructureLab() {
   const ex = DS_EXAMPLES.find((e) => e.id === active)!;
 
   return (
-    <Shell title="Data structure lab" subtitle="Edit any line and run it — nothing here can break">
+    <Shell title="Data structure lab" subtitle="Edit any line and run it: nothing here can break">
       <PresetTabs items={DS_EXAMPLES} active={active} onChange={setActive} />
       <CodeRunner key={active} code={ex.code} className="my-0" />
     </Shell>
@@ -421,7 +421,7 @@ export function FileLab() {
   return (
     <Shell
       title="File system"
-      subtitle="Files your programs create really are stored — check them here"
+      subtitle="Files your programs create really are stored: check them here"
     >
       <CodeRunner code={FILE_STARTER} className="my-0 mb-3" />
 
@@ -543,7 +543,7 @@ for row in cur.fetchall():
         <Database className="mt-0.5 size-3.5 shrink-0" />
         <span>
           <code className="font-[family-name:var(--font-mono)]">{q.sql}</code>
-          {isWrite && " — note the commit(), without which nothing is saved."}
+          {isWrite && ": note the commit(), without which nothing is saved."}
         </span>
       </p>
       <CodeRunner key={active} code={code} className="my-0" />
@@ -563,9 +563,9 @@ const SHAPES: { value: FlowShape; label: string }[] = [
 ];
 
 const SYMBOL_DEMO: FlowNode[] = [
-  { id: "a", shape: "terminal", text: "Terminal — Start / End", next: "b" },
+  { id: "a", shape: "terminal", text: "Terminal: Start / End", next: "b" },
   { id: "b", shape: "io", text: "Input / Output", next: "c" },
-  { id: "c", shape: "process", text: "Process — a calculation", next: "d" },
+  { id: "c", shape: "process", text: "Process: a calculation", next: "d" },
   { id: "d", shape: "decision", text: "Decision?", next: "e", no: "f", edgeLabel: "YES", noLabel: "NO" },
   { id: "e", shape: "subroutine", text: "Subroutine", next: "g" },
   { id: "f", shape: "connector", text: "•", next: "g" },
@@ -580,6 +580,67 @@ const BUILDER_START: FlowNode[] = [
   { id: "n5", shape: "io", text: 'Display "Fail"', next: "n6" },
   { id: "n6", shape: "terminal", text: "End" },
 ];
+
+/** A counted loop, so the loop-back arrow is one click away from the start. */
+const BUILDER_LOOP: FlowNode[] = [
+  { id: "n1", shape: "terminal", text: "Start", next: "n2" },
+  { id: "n2", shape: "process", text: "count = 1", next: "n3" },
+  { id: "n3", shape: "decision", text: "count <= 5 ?", next: "n4", no: "n6", edgeLabel: "YES", noLabel: "NO" },
+  { id: "n4", shape: "io", text: "Display count", next: "n5" },
+  { id: "n5", shape: "process", text: "count = count + 1", next: "n3" },
+  { id: "n6", shape: "terminal", text: "End" },
+];
+
+/** Short label for a node in the branch dropdowns. */
+const optionLabel = (n: FlowNode) => {
+  const t = n.text.length > 26 ? `${n.text.slice(0, 25)}…` : n.text;
+  return n.shape === "decision" ? `${t}` : t;
+};
+
+function BranchPicker({
+  label,
+  tone,
+  value,
+  options,
+  selfId,
+  onChange,
+}: {
+  label: string;
+  tone?: "yes" | "no";
+  value?: string;
+  options: FlowNode[];
+  selfId: string;
+  onChange: (v: string | undefined) => void;
+}) {
+  return (
+    <label className="flex items-center gap-1.5">
+      <span
+        className={cn(
+          "shrink-0 text-[10.5px] font-bold uppercase tracking-wide",
+          tone === "yes" && "text-success-600 dark:text-success-400",
+          tone === "no" && "text-danger-600 dark:text-danger-400",
+          !tone && "text-subtle",
+        )}
+      >
+        {label}
+      </span>
+      <select
+        value={value ?? ""}
+        onChange={(e) => onChange(e.target.value || undefined)}
+        className="min-w-0 flex-1 rounded-md border border-line bg-surface px-1.5 py-1 text-[11.5px] outline-none focus:border-[var(--brand)]"
+      >
+        <option value="">(stop)</option>
+        {options
+          .filter((o) => o.id !== selfId)
+          .map((o) => (
+            <option key={o.id} value={o.id}>
+              {optionLabel(o)}
+            </option>
+          ))}
+      </select>
+    </label>
+  );
+}
 
 export function FlowchartBuilder({ mode }: { mode?: string }) {
   const [nodes, setNodes] = useState<FlowNode[]>(BUILDER_START);
@@ -619,10 +680,33 @@ export function FlowchartBuilder({ mode }: { mode?: string }) {
     setText("");
   };
 
+  const patch = (id: string, change: Partial<FlowNode>) =>
+    setNodes((cur) => cur.map((n) => (n.id === id ? { ...n, ...change } : n)));
+
+  const removeNode = (id: string) =>
+    setNodes((cur) =>
+      cur
+        .filter((n) => n.id !== id)
+        // Anything that pointed at the deleted step now points where it did.
+        .map((n) => ({
+          ...n,
+          next: n.next === id ? cur.find((c) => c.id === id)?.next : n.next,
+          no: n.no === id ? cur.find((c) => c.id === id)?.no : n.no,
+        })),
+    );
+
+  const setShapeOf = (id: string, s: FlowShape) =>
+    patch(
+      id,
+      s === "decision"
+        ? { shape: s, edgeLabel: "YES", noLabel: "NO" }
+        : { shape: s, no: undefined },
+    );
+
   return (
     <Shell
       title="Flow chart builder"
-      subtitle="Add a step and it is inserted before End — then check the shapes"
+      subtitle="Add steps, then aim each arrow: point one backwards to build a loop"
     >
       <form
         onSubmit={(e) => {
@@ -645,7 +729,7 @@ export function FlowchartBuilder({ mode }: { mode?: string }) {
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder={shape === "decision" ? "e.g. age < 18 ?" : "e.g. total = total + n"}
+          placeholder={shape === "decision" ? "e.g. count <= 5 ?" : "e.g. total = total + n"}
           className="min-w-40 flex-1 rounded-lg border border-line bg-surface px-3 py-1.5 text-[13px] outline-none focus:border-[var(--brand)]"
         />
         <button
@@ -661,15 +745,86 @@ export function FlowchartBuilder({ mode }: { mode?: string }) {
           onClick={() => setNodes(BUILDER_START)}
           className="inline-flex h-8 items-center rounded-lg px-2.5 text-[12.5px] text-muted transition-colors hover:bg-hover hover:text-ink"
         >
-          Reset
+          Branch example
+        </button>
+        <button
+          type="button"
+          onClick={() => setNodes(BUILDER_LOOP)}
+          className="inline-flex h-8 items-center rounded-lg px-2.5 text-[12.5px] text-muted transition-colors hover:bg-hover hover:text-ink"
+        >
+          Loop example
         </button>
       </form>
 
       <FlowchartView nodes={nodes} className="my-0" />
 
-      <p className="mt-2 text-[11.5px] text-subtle">
-        A decision you add gets both YES and NO pointing at the next step — edit the branches on
-        paper to make them go different ways.
+      <p className="mb-2 mt-4 text-[11.5px] font-semibold uppercase tracking-wide text-subtle">
+        Where each arrow goes
+      </p>
+      <ul className="space-y-1.5">
+        {nodes.map((n) => (
+          <li
+            key={n.id}
+            className="grid items-center gap-2 rounded-lg border border-line bg-sunken px-2.5 py-2 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)_auto]"
+          >
+            <div className="flex min-w-0 items-center gap-1.5">
+              <select
+                value={n.shape}
+                onChange={(e) => setShapeOf(n.id, e.target.value as FlowShape)}
+                aria-label="Symbol"
+                className="shrink-0 rounded-md border border-line bg-surface px-1 py-1 text-[11.5px]"
+              >
+                {SHAPES.map((s) => (
+                  <option key={s.value} value={s.value}>
+                    {s.label.split(" ")[0]}
+                  </option>
+                ))}
+              </select>
+              <input
+                value={n.text}
+                onChange={(e) => patch(n.id, { text: e.target.value })}
+                aria-label="Step text"
+                className="min-w-0 flex-1 rounded-md border border-line bg-surface px-2 py-1 text-[12px] outline-none focus:border-[var(--brand)]"
+              />
+            </div>
+
+            <div className="grid gap-1.5 sm:grid-cols-2">
+              <BranchPicker
+                label={n.shape === "decision" ? "Yes" : "Then"}
+                tone={n.shape === "decision" ? "yes" : undefined}
+                value={n.next}
+                options={nodes}
+                selfId={n.id}
+                onChange={(v) => patch(n.id, { next: v })}
+              />
+              {n.shape === "decision" && (
+                <BranchPicker
+                  label="No"
+                  tone="no"
+                  value={n.no}
+                  options={nodes}
+                  selfId={n.id}
+                  onChange={(v) => patch(n.id, { no: v })}
+                />
+              )}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => removeNode(n.id)}
+              aria-label={`Delete ${n.text}`}
+              className="justify-self-end rounded-md p-1 text-subtle transition-colors hover:bg-hover hover:text-danger-600"
+            >
+              <Trash2 className="size-3.5" />
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <p className="mt-2.5 text-[11.5px] leading-relaxed text-subtle">
+        A <strong className="font-semibold text-ink">loop</strong> is just an arrow pointing at a
+        step that already came before it: set the last step of the body back to the decision and
+        the chart draws the return line for you.
       </p>
     </Shell>
   );

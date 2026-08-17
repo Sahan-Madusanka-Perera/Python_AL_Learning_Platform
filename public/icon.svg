@@ -1,5 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Competency 9">
-  <rect width="512" height="512" rx="112" fill="#4f46e5"/>
-  <text x="256" y="352" font-family="Sora, Inter, system-ui, sans-serif" font-size="288"
-        font-weight="700" fill="#ffffff" text-anchor="middle">9</text>
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#4338ca"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="115" fill="url(#tile)"/>
+  <!-- prompt -->
+  <path d="M154 196 L212 256 L154 316" fill="none" stroke="#fbbf24" stroke-width="34"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- nine -->
+  <circle cx="319" cy="218" r="39" fill="none" stroke="#ffffff" stroke-width="34"/>
+  <rect x="341" y="218" width="34" height="132" rx="17" fill="#ffffff"/>
 </svg>

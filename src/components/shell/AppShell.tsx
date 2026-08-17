@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
@@ -272,15 +272,41 @@ function MobileTabBar({ pathname }: { pathname: string }) {
 
 /* ── bits ────────────────────────────────────────────────────────────────── */
 
+/**
+ * The platform mark: a Python prompt followed by the numeral 9.
+ *
+ * The chevron is doing real work: a nine on its own is the same shape as a
+ * lowercase q, and reads as one the moment it loses the prompt beside it.
+ */
 function Mark({ size = 30 }: { size?: number }) {
+  const gradientId = useId();
   return (
-    <span
-      className="grid shrink-0 place-items-center rounded-[9px] bg-[var(--brand)] font-[family-name:var(--font-display)] font-bold text-[var(--brand-fg)]"
-      style={{ width: size, height: size, fontSize: size * 0.42 }}
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 512 512"
+      className="shrink-0"
       aria-hidden
+      focusable="false"
     >
-      9
-    </span>
+      <defs>
+        <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#6366f1" />
+          <stop offset="1" stopColor="#4338ca" />
+        </linearGradient>
+      </defs>
+      <rect width="512" height="512" rx="115" fill={`url(#${gradientId})`} />
+      <path
+        d="M154 196 L212 256 L154 316"
+        fill="none"
+        stroke="#fbbf24"
+        strokeWidth="34"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="319" cy="218" r="39" fill="none" stroke="#ffffff" strokeWidth="34" />
+      <rect x="341" y="218" width="34" height="132" rx="17" fill="#ffffff" />
+    </svg>
   );
 }
 

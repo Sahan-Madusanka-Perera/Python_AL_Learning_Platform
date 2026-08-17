@@ -39,7 +39,7 @@ export const m05: Module = {
           kind: "text",
           md: `A processor understands **one** thing: binary machine instructions. Nothing else.
 
-Humans cannot realistically write in binary — the sequences are enormous and a single wrong digit breaks everything. So we write in a high-level language and use an intermediate program to convert it.`,
+Humans cannot realistically write in binary: the sequences are enormous and a single wrong digit breaks everything. So we write in a high-level language and use an intermediate program to convert it.`,
         },
         {
           kind: "compare",
@@ -126,7 +126,7 @@ Humans cannot realistically write in binary — the sequences are enormous and a
           kind: "text",
           md: `A **compiler** translates the **whole** source program into object code **at once**, before execution. The result is a permanent binary file.
 
-Every time the program runs afterwards, the object code executes directly — so **execution is fast**. If you change the source, you must **compile again** to produce new object code.
+Every time the program runs afterwards, the object code executes directly, so **execution is fast**. If you change the source, you must **compile again** to produce new object code.
 
 Languages that use this approach: **C, Pascal**.`,
         },
@@ -174,13 +174,13 @@ Write both halves of the contrast. Answers that describe only one side lose mark
 
 In the hybrid approach the source is first **compiled** into an intermediate form (often called *byte code*), which is then **interpreted** by a virtual machine at run time.
 
-This gives portability — the byte code runs on any machine that has the virtual machine — while still being faster than interpreting raw source every time. **Java** is the standard example, and Python does this internally too (that is what \`.pyc\` files are).`,
+This gives portability: the byte code runs on any machine that has the virtual machine: while still being faster than interpreting raw source every time. **Java** is the standard example, and Python does this internally too (that is what \`.pyc\` files are).`,
         },
         {
           kind: "callout",
           tone: "note",
           title: "The analogy in your notes",
-          md: `A hybrid electric car uses a battery in town and an engine outside town — each where it works best. Hybrid translation is the same idea applied to compiling and interpreting.`,
+          md: `A hybrid electric car uses a battery in town and an engine outside town: each where it works best. Hybrid translation is the same idea applied to compiling and interpreting.`,
         },
         {
           kind: "heading",
@@ -188,7 +188,7 @@ This gives portability — the byte code runs on any machine that has the virtua
         },
         {
           kind: "text",
-          md: `The Python you run in this app is genuinely interpreted, line by line. Run the code below — notice that the first two lines produce output **before** the error on line 3 is discovered. A compiler would have refused to produce any output at all, because it checks the whole program first.`,
+          md: `The Python you run in this app is genuinely interpreted, line by line. Run the code below: notice that the first two lines produce output **before** the error on line 3 is discovered. A compiler would have refused to produce any output at all, because it checks the whole program first.`,
         },
         {
           kind: "code",
@@ -216,6 +216,8 @@ print("Line 4 never runs")`,
               "A compiled program is translated once and then the binary runs directly. An interpreted program is re-translated line by line on every run, and that translation work costs time.",
           },
         },
+        { kind: "exercise", exerciseId: "ex-9.5-3" },
+        { kind: "exercise", exerciseId: "ex-9.5-1" },
       ],
     },
 
@@ -228,7 +230,7 @@ print("Line 4 never runs")`,
       blocks: [
         {
           kind: "text",
-          md: `Your program is never alone. When you write \`print(...)\`, you did not write the printing code — it lives in a standard library.
+          md: `Your program is never alone. When you write \`print(...)\`, you did not write the printing code: it lives in a standard library.
 
 A **linker** is the program that connects your compiled code with the standard library functions it uses, producing one complete executable program.`,
         },
@@ -258,8 +260,8 @@ A **linker** is the program that connects your compiled code with the standard l
           kind: "callout",
           tone: "key",
           title: "One line each",
-          md: `**Linker** — connects user code with standard library functions to make one executable program.
-**Loader** — loads the executable program into main memory so that it can run.`,
+          md: `**Linker**: connects user code with standard library functions to make one executable program.
+**Loader**: loads the executable program into main memory so that it can run.`,
         },
         {
           kind: "callout",
@@ -267,11 +269,249 @@ A **linker** is the program that connects your compiled code with the standard l
           title: "Do not confuse them",
           md: `The linker works **before** the program runs and joins pieces of code together. The loader works **as** the program starts and moves it into memory. Candidates regularly swap these two definitions.`,
         },
+        { kind: "exercise", exerciseId: "ex-9.5-2" },
       ],
     },
   ],
 
-  exercises: [],
+  exercises: [
+    {
+      id: "ex-9.5-3",
+      title: "Count what the translator sees",
+      level: "9.5",
+      difficulty: 1,
+      xp: 30,
+      tags: ["translation", "comments", "loops"],
+      brief: `Before a translator does anything else it works out which lines actually carry instructions. Comments and blank lines are thrown away.
+
+Read lines until the line \`END\` is entered, and count three kinds:
+
+- a **comment** is any line whose first non-space character is \`#\`
+- a **blank** line has nothing on it but spaces
+- everything else is **code**
+
+Then print exactly three lines:
+
+\`\`\`
+Code: 2
+Comments: 2
+Blank: 1
+\`\`\`
+
+Do not count the \`END\` line itself.`,
+      starter: `code = 0
+comments = 0
+blank = 0
+
+# Your code here
+`,
+      hints: [
+        "Use `while True:` and `break` when the line is `END`.",
+        "`line.strip()` removes the spaces at both ends.",
+        'A blank line is one where `line.strip() == ""`.',
+        'A comment starts with `#`, so test `line.strip().startswith("#")`.',
+      ],
+      solution: `code = 0
+comments = 0
+blank = 0
+
+while True:
+    line = input()
+    if line == "END":
+        break
+    stripped = line.strip()
+    if stripped == "":
+        blank = blank + 1
+    elif stripped.startswith("#"):
+        comments = comments + 1
+    else:
+        code = code + 1
+
+print("Code:", code)
+print("Comments:", comments)
+print("Blank:", blank)`,
+      tests: [
+        {
+          kind: "io",
+          name: "A mixture of all three",
+          stdin: ["# set the total", "total = 0", "", "# add one", "total = total + 1", "END"],
+          expect: "Code: 2\nComments: 2\nBlank: 1",
+          match: "loose",
+        },
+        {
+          kind: "io",
+          name: "Nothing but code",
+          stdin: ["a = 1", "b = 2", "END"],
+          expect: "Code: 2\nComments: 0\nBlank: 0",
+          match: "loose",
+        },
+        {
+          kind: "io",
+          name: "An indented comment still counts as a comment",
+          stdin: ["    # indented note", "END"],
+          expect: "Code: 0\nComments: 1\nBlank: 0",
+          match: "loose",
+          hidden: true,
+        },
+        {
+          kind: "io",
+          name: "Straight to END",
+          stdin: ["END"],
+          expect: "Code: 0\nComments: 0\nBlank: 0",
+          match: "loose",
+          hidden: true,
+        },
+        { kind: "source", name: "Reads until END with a loop", mustUse: ["while"] },
+      ],
+    },
+    {
+      id: "ex-9.5-1",
+      title: "Be the assembler",
+      level: "9.5",
+      difficulty: 2,
+      xp: 40,
+      tags: ["translation", "dictionaries", "loops"],
+      brief: `An **assembler** translates each line of assembly language into one machine instruction. You are going to be the assembler.
+
+Read lines of assembly until the line \`END\` is entered. Translate each instruction using this op-code table, which is already in the starter:
+
+- \`LOAD\` becomes \`0001\`
+- \`STORE\` becomes \`0010\`
+- \`ADD\` becomes \`0011\`
+- \`SUB\` becomes \`0100\`
+
+Each input line is an instruction followed by a number, such as \`LOAD 7\`. Print the op-code, a space, then the number: \`0001 7\`.
+
+If the instruction is not in the table, print \`ERROR: <name>\` instead. That is exactly what a real assembler does when it meets a word it does not know.
+
+Do not translate the \`END\` line itself.`,
+      starter: `codes = {"LOAD": "0001", "STORE": "0010", "ADD": "0011", "SUB": "0100"}
+
+# Your code here
+`,
+      hints: [
+        "Use `while True:` and `break` when the line is `END`. This is a Repeat-Until loop.",
+        "`line.split()` turns `LOAD 7` into the list `['LOAD', '7']`.",
+        "`parts[0]` is the instruction and `parts[1]` is the number.",
+        "Check membership with `if parts[0] in codes:` before looking the op-code up.",
+      ],
+      solution: `codes = {"LOAD": "0001", "STORE": "0010", "ADD": "0011", "SUB": "0100"}
+
+while True:
+    line = input()
+    if line == "END":
+        break
+    parts = line.split()
+    if parts[0] in codes:
+        print(codes[parts[0]], parts[1])
+    else:
+        print("ERROR:", parts[0])`,
+      tests: [
+        {
+          kind: "io",
+          name: "Translates three instructions",
+          stdin: ["LOAD 7", "ADD 2", "STORE 9", "END"],
+          expect: "0001 7\n0011 2\n0010 9",
+          match: "loose",
+        },
+        {
+          kind: "io",
+          name: "Reports an unknown instruction",
+          stdin: ["JUMP 4", "END"],
+          expect: "ERROR: JUMP",
+          match: "loose",
+        },
+        {
+          kind: "io",
+          name: "Stops at END without translating it",
+          stdin: ["SUB 1", "END"],
+          expect: "0100 1",
+          match: "loose",
+          hidden: true,
+        },
+        { kind: "source", name: "Uses a loop", mustUse: ["while"] },
+      ],
+    },
+    {
+      id: "ex-9.5-2",
+      title: "The syntax checker",
+      level: "9.5",
+      difficulty: 3,
+      xp: 50,
+      tags: ["translation", "errors", "loops"],
+      brief: `Before a compiler can translate anything it checks the **syntax**. One of the first things it checks is that every bracket is closed.
+
+Read one line of code and decide whether its round brackets are balanced.
+
+- \`print(sum(a, b))\` is balanced, so print \`OK\`
+- \`print(sum(a, b)\` is missing a closing bracket, so print \`ERROR\`
+- \`print(a))\` closes a bracket that was never opened, so print \`ERROR\`
+
+Walk through the line one character at a time. Add 1 for \`(\` and subtract 1 for \`)\`. If the count ever goes **below zero** the line is wrong immediately. At the end the count must be exactly zero.`,
+      starter: `line = input("Enter a line of code: ")
+
+# Your code here
+`,
+      hints: [
+        "`for ch in line:` gives you one character at a time.",
+        "Keep a variable `depth` that starts at 0.",
+        "The moment `depth` goes negative you can stop: a bracket closed that was never opened.",
+        "After the loop, the line is only balanced if `depth == 0`.",
+      ],
+      solution: `line = input("Enter a line of code: ")
+
+depth = 0
+ok = True
+for ch in line:
+    if ch == "(":
+        depth = depth + 1
+    elif ch == ")":
+        depth = depth - 1
+        if depth < 0:
+            ok = False
+
+if depth != 0:
+    ok = False
+
+if ok:
+    print("OK")
+else:
+    print("ERROR")`,
+      tests: [
+        {
+          kind: "io",
+          name: "Balanced brackets",
+          stdin: ["print(sum(a, b))"],
+          expect: "OK",
+          match: "loose",
+        },
+        {
+          kind: "io",
+          name: "Missing a closing bracket",
+          stdin: ["print(sum(a, b)"],
+          expect: "ERROR",
+          match: "loose",
+        },
+        {
+          kind: "io",
+          name: "Closes one that was never opened",
+          stdin: ["print(a))"],
+          expect: "ERROR",
+          match: "loose",
+          hidden: true,
+        },
+        {
+          kind: "io",
+          name: "No brackets at all is still fine",
+          stdin: ["total = 0"],
+          expect: "OK",
+          match: "loose",
+          hidden: true,
+        },
+        { kind: "source", name: "Checks character by character", mustUse: ["for"] },
+      ],
+    },
+  ],
 
   quiz: [
     {
@@ -309,7 +549,7 @@ A **linker** is the program that connects your compiled code with the standard l
       level: "9.5",
       q: "A program is changed and must be run again. What has to happen with a COMPILED language?",
       options: [
-        "Nothing — the old object code still works",
+        "Nothing: the old object code still works",
         "The source must be compiled again to produce new object code",
         "The interpreter re-reads the file automatically",
         "The linker must be removed",
@@ -369,10 +609,10 @@ A **linker** is the program that connects your compiled code with the standard l
       level: "9.5",
       q: "Which pair correctly matches the tool to its job?",
       options: [
-        "Loader — joins library code to your program",
-        "Linker — copies the executable into main memory",
-        "Loader — copies the executable into main memory",
-        "Compiler — copies the executable into main memory",
+        "Loader: joins library code to your program",
+        "Linker: copies the executable into main memory",
+        "Loader: copies the executable into main memory",
+        "Compiler: copies the executable into main memory",
       ],
       answer: 2,
       explain:

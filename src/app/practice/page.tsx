@@ -52,7 +52,7 @@ export default function PracticePage() {
           Practice labs
         </h1>
         <p className="mt-1.5 text-[14px] leading-relaxed text-muted">
-          Every problem is checked automatically against hidden test cases — including the boundary
+          Every problem is checked automatically against hidden test cases: including the boundary
           values an examiner would try.
         </p>
 

@@ -89,7 +89,7 @@ export function ModuleView({ slug }: { slug: string }) {
         </div>
       </header>
 
-      {/* syllabus coverage — students should be able to verify nothing is missing */}
+      {/* syllabus coverage: students should be able to verify nothing is missing */}
       <section className="mb-6 grid gap-3 sm:grid-cols-2">
         <div className="card p-4">
           <p className="mb-2 flex items-center gap-1.5 text-[11.5px] font-bold uppercase tracking-wide text-subtle">
@@ -200,7 +200,7 @@ export function ModuleView({ slug }: { slug: string }) {
           ))
         ) : (
           <p className="card p-6 text-center text-[13.5px] text-muted">
-            This competency level is theory only — its marks come from written answers, so revise it
+            This competency level is theory only: its marks come from written answers, so revise it
             with the quiz and the revision cards.
           </p>
         ))}

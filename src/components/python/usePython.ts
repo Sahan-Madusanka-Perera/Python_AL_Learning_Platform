@@ -37,7 +37,7 @@ export function usePython() {
     };
   }, []);
 
-  /** Boot Python eagerly — usually called when a runnable block scrolls in. */
+  /** Boot Python eagerly: usually called when a runnable block scrolls in. */
   const warmUp = useCallback(() => {
     void getRuntime().start();
   }, []);

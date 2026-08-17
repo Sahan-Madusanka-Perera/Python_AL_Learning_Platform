@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
  * Bubble sort and sequential search, animated.
  *
  * Both are built as a list of pre-computed frames rather than live mutation,
- * so a student can scrub backwards and forwards — the comparison that made a
+ * so a student can scrub backwards and forwards: the comparison that made a
  * swap happen is usually the one they want to look at twice.
  * ==========================================================================*/
 
@@ -92,7 +92,7 @@ function buildSortFrames(input: number[]): SortFrame[] {
     pass: 0,
     comparisons,
     swaps,
-    note: "Starting list — nothing is sorted yet.",
+    note: "Starting list: nothing is sorted yet.",
   });
 
   for (let p = 0; p < n - 1; p++) {
@@ -110,7 +110,7 @@ function buildSortFrames(input: number[]): SortFrame[] {
         swaps,
         note: willSwap
           ? `${L[i]} > ${L[i + 1]}, so they must be exchanged.`
-          : `${L[i]} is not greater than ${L[i + 1]} — leave them alone.`,
+          : `${L[i]} is not greater than ${L[i + 1]}: leave them alone.`,
       });
       if (willSwap) {
         [L[i], L[i + 1]] = [L[i + 1], L[i]];
@@ -147,7 +147,7 @@ function buildSortFrames(input: number[]): SortFrame[] {
         pass: p + 1,
         comparisons,
         swaps,
-        note: "A whole pass with no swaps — the list is already sorted, so we can stop early.",
+        note: "A whole pass with no swaps: the list is already sorted, so we can stop early.",
       });
       return frames;
     }
@@ -364,7 +364,7 @@ export function SearchVisualiser() {
   return (
     <WidgetShell
       title="Sequential search"
-      subtitle="Check every item in turn until you find it — or run out"
+      subtitle="Check every item in turn until you find it, or run out"
       controls={
         <>
           <CtrlButton onClick={() => setPlaying((p) => !p)} disabled={Boolean(done)} primary>
@@ -443,10 +443,10 @@ export function SearchVisualiser() {
         {done === "found"
           ? `Found ${target} at position ${pos} after ${comparisons} comparison${comparisons === 1 ? "" : "s"}.`
           : done === "missing"
-            ? `Checked all ${list.length} items — ${target} is not in the list. This is the worst case: n comparisons.`
+            ? `Checked all ${list.length} items: ${target} is not in the list. This is the worst case: n comparisons.`
             : pos < 0
               ? "Press Search. The algorithm starts at position 0 and checks each item in turn."
-              : `Position ${pos}: is ${list[pos]} equal to ${target}? ${list[pos] === target ? "Yes." : "No — move to the next item."}`}
+              : `Position ${pos}: is ${list[pos]} equal to ${target}? ${list[pos] === target ? "Yes." : "No: move to the next item."}`}
       </p>
     </WidgetShell>
   );

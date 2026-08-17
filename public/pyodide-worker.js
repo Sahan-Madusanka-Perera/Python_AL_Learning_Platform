@@ -1,5 +1,5 @@
 /* ============================================================================
- * Python runtime worker — runs real CPython (Pyodide/WASM) off the main thread.
+ * Python runtime worker: runs real CPython (Pyodide/WASM) off the main thread.
  *
  * Capabilities:
  *   • streaming stdout/stderr (unbatched, so `input("prompt: ")` shows up)
@@ -58,7 +58,7 @@ function pushOut(text, stream) {
       type: "output",
       id: currentId,
       stream: "stderr",
-      text: `\n\n[output stopped — more than ${MAX_OUTPUT.toLocaleString()} characters printed. Check for a loop that never ends.]\n`,
+      text: `\n\n[output stopped: more than ${MAX_OUTPUT.toLocaleString()} characters printed. Check for a loop that never ends.]\n`,
     });
     return;
   }
@@ -73,9 +73,9 @@ function pushOut(text, stream) {
  * Called by Python whenever it wants input.
  *
  * Pyodide is configured with `autoEOF: true`, which appends an EOF after every
- * value we return. That is what makes one call here equal exactly one `input()`
- * — without it, `input()` keeps calling back until EOF and swallows every
- * queued line at once. So we return a bare line with no trailing newline.
+ * value we return. That is what makes one call here equal exactly one `input()`.
+ * Without it, `input()` keeps calling back until EOF and swallows every queued
+ * line at once. So we return a bare line with no trailing newline.
  */
 function readStdinLine() {
   // Pre-supplied inputs (used by the auto-grader and "run with these inputs")
@@ -103,6 +103,29 @@ function readStdinLine() {
 }
 
 /* ── Python-side helpers, installed once at boot ─────────────────────────── */
+
+/**
+ * `input("Units used: ")` normally writes its prompt to stdout, which makes the
+ * prompt indistinguishable from what the program itself printed. The grader
+ * then has to compare against output containing the prompt, which forces every
+ * test into loose substring matching.
+ *
+ * So we write the prompt on its own `prompt` stream instead: the terminal still
+ * shows it, but `printed` (what gets graded) contains only real output. This is
+ * the same treatment echoed input already gets.
+ */
+const BOOTSTRAP_INPUT = String.raw`
+import builtins, _al_io
+
+_real_input = builtins.input
+
+def _al_input(prompt=""):
+    if prompt != "":
+        _al_io.prompt(str(prompt))
+    return _real_input()
+
+builtins.input = _al_input
+`;
 
 const BOOTSTRAP = String.raw`
 import sys, io, os, traceback, builtins, json, types, linecache
@@ -206,7 +229,7 @@ def _snap_scope(d):
     return out
 
 class _Tracer:
-    """Records one entry per executed line — this is the hand-trace table."""
+    """Records one entry per executed line: this is the hand-trace table."""
     def __init__(self, max_steps):
         self.steps = []
         self.max_steps = max_steps
@@ -309,6 +332,13 @@ async function boot() {
   });
   pyodide.setStdin({ stdin: readStdinLine, isatty: false, autoEOF: true });
 
+  // Lets the patched input() below mark its prompt as terminal chrome rather
+  // than as something the student's program printed. See BOOTSTRAP_INPUT.
+  pyodide.registerJsModule("_al_io", {
+    prompt: (text) => pushOut(String(text), "prompt"),
+  });
+  pyodide.runPython(BOOTSTRAP_INPUT);
+
   if (interruptBuffer) pyodide.setInterruptBuffer(interruptBuffer);
 
   try {
@@ -377,7 +407,7 @@ async function handleRun(msg) {
         try {
           pyodide.FS.unlink(`${WORK_DIR}/${name}`);
         } catch {
-          /* directory — leave it */
+          /* directory: leave it */
         }
       }
     } catch {
@@ -454,7 +484,7 @@ async function handleTrace(msg) {
 /* ── message pump ────────────────────────────────────────────────────────── */
 
 /**
- * Only one Python job may run at a time — a second `run` arriving mid-flight
+ * Only one Python job may run at a time: a second `run` arriving mid-flight
  * would otherwise clobber the stdin queue and output routing of the first.
  * Jobs are chained so they execute strictly in arrival order.
  */

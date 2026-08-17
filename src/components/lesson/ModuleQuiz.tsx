@@ -113,7 +113,7 @@ export function ModuleQuiz({ module: mod }: { module: Module }) {
               {percent >= 80
                 ? "That counts as mastered for this level. Read the explanations for anything you got wrong before moving on."
                 : percent >= 50
-                  ? "Nearly there. Go back over the explanations below, then take it again — the questions are reshuffled."
+                  ? "Nearly there. Go back over the explanations below, then take it again: the questions are reshuffled."
                   : "Worth re-reading the lessons for this level before trying again. The explanations below tell you exactly where the gaps are."}
             </p>
           </motion.div>
