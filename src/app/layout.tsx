@@ -5,6 +5,7 @@ import { AppShell } from "@/components/shell/AppShell";
 import { ToastHost } from "@/components/ui/primitives";
 import { ThemeScript } from "@/components/shell/ThemeScript";
 import { PWA } from "@/components/shell/PWA";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -71,6 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AppShell>{children}</AppShell>
         <ToastHost />
         <PWA />
+        <Analytics />
       </body>
     </html>
   );
